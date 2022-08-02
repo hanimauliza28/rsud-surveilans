@@ -4,7 +4,7 @@
     <div class="header-brand">
         <!--begin::Logo-->
         <a href="../../demo8/dist/index.html">
-            <img alt="Logo" src="{{ asset('assets/media/logos/logo-1-dark.svg') }}" class="h-25px h-lg-25px" />
+            <img alt="Logo" src="{{ asset('assets/media/logos/logo-surveilans-putih.png') }}" class="h-80px h-lg-40px" />
         </a>
         <!--end::Logo-->
         <!--begin::Aside minimize-->
@@ -63,6 +63,6 @@
         <!--end::Aside toggle-->
     </div>
     <!--end::Brand-->
-    @include('layouts-web.partials.toolbar')
+    @include('layouts.partials.toolbar')
 </div>
 <!--end::Header-->
