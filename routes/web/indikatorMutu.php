@@ -30,15 +30,15 @@ Route::middleware([])->group(function () {
         Route::delete('{id}/destroy', [IndikatorMutuNasionalController::class, 'destroy'])->name('indikator-mutu-nasional.destroy');
     });
 
-    //Route Indikator Mutu Nasional Manajemen
-    Route::group(['prefix' => 'indikator-mutu-nasional-manajemen'], function () {
-        Route::get('/', [IndikatorMutuNasionalManajemenController::class, 'index'])->name('indikator-mutu-nasional-manajemen.index');
-        Route::post('store', [IndikatorMutuNasionalManajemenController::class, 'store'])->name('indikator-mutu-nasional-manajemen.store');
-        Route::get('{id}/edit', [IndikatorMutuNasionalManajemenController::class, 'edit'])->name('indikator-mutu-nasional-manajemen.edit');
-        Route::put('{id}/update', [IndikatorMutuNasionalManajemenController::class, 'update'])->name('indikator-mutu-nasional-manajemen.update');
-        Route::get('{id}/view', [IndikatorMutuNasionalManajemenController::class, 'view'])->name('indikator-mutu-nasional-manajemen.view');
-        Route::delete('{id}/destroy', [IndikatorMutuNasionalManajemenController::class, 'destroy'])->name('indikator-mutu-nasional-manajemen.destroy');
-    });
+    // //Route Indikator Mutu Nasional Manajemen
+    // Route::group(['prefix' => 'indikator-mutu-nasional-manajemen'], function () {
+    //     Route::get('/', [IndikatorMutuNasionalManajemenController::class, 'index'])->name('indikator-mutu-nasional-manajemen.index');
+    //     Route::post('store', [IndikatorMutuNasionalManajemenController::class, 'store'])->name('indikator-mutu-nasional-manajemen.store');
+    //     Route::get('{id}/edit', [IndikatorMutuNasionalManajemenController::class, 'edit'])->name('indikator-mutu-nasional-manajemen.edit');
+    //     Route::put('{id}/update', [IndikatorMutuNasionalManajemenController::class, 'update'])->name('indikator-mutu-nasional-manajemen.update');
+    //     Route::get('{id}/view', [IndikatorMutuNasionalManajemenController::class, 'view'])->name('indikator-mutu-nasional-manajemen.view');
+    //     Route::delete('{id}/destroy', [IndikatorMutuNasionalManajemenController::class, 'destroy'])->name('indikator-mutu-nasional-manajemen.destroy');
+    // });
 
     // //Route Indikator Mutu Nasional Klinik
     // Route::group(['prefix' => 'indikator-mutu-nasional-klinik'], function () {
@@ -61,15 +61,15 @@ Route::middleware([])->group(function () {
     // });
 
 
-    // //Route Indikator Mutu Lokal
-    // Route::group(['prefix' => 'indikator-mutu-lokal'], function () {
-    //     Route::get('/', [IndikatorMutuLokalController::class, 'index'])->name('indikator-mutu-lokal.index');
-    //     Route::get('{id}/view', [IndikatorMutuLokalController::class, 'view'])->name('indikator-mutu-lokal.view');
-    //     Route::post('store', [IndikatorMutuLokalController::class, 'store'])->name('indikator-mutu-lokal.store');
-    //     Route::get('{id}/edit', [IndikatorMutuLokalController::class, 'edit'])->name('indikator-mutu-lokal.edit');
-    //     Route::put('{id}/update', [IndikatorMutuLokalController::class, 'update'])->name('indikator-mutu-lokal.update');
-    //     Route::delete('{id}/destroy', [IndikatorMutuLokalController::class, 'destroy'])->name('indikator-mutu-lokal.destroy');
-    // });
+    //Route Indikator Mutu Lokal
+    Route::group(['prefix' => 'indikator-mutu-lokal'], function () {
+        Route::get('/', [IndikatorMutuLokalController::class, 'index'])->name('indikator-mutu-lokal.index');
+        Route::get('{id}/view', [IndikatorMutuLokalController::class, 'view'])->name('indikator-mutu-lokal.view');
+        Route::post('store', [IndikatorMutuLokalController::class, 'store'])->name('indikator-mutu-lokal.store');
+        Route::get('{id}/edit', [IndikatorMutuLokalController::class, 'edit'])->name('indikator-mutu-lokal.edit');
+        Route::put('{id}/update', [IndikatorMutuLokalController::class, 'update'])->name('indikator-mutu-lokal.update');
+        Route::delete('{id}/destroy', [IndikatorMutuLokalController::class, 'destroy'])->name('indikator-mutu-lokal.destroy');
+    });
 
     // //Route Variabel
     // Route::group(['prefix' => 'variabel'], function () {
