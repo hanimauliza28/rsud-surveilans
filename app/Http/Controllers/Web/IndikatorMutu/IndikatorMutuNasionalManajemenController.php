@@ -12,6 +12,9 @@ use App\Models\IndikatorMutuNasional;
 use App\Models\RefKategoriIndikator;
 use App\Models\RefFrekuensi;
 use App\Models\RefTipeIndikator;
+use App\Models\Variabel;
+use App\Models\SurveyLokal;
+use App\Models\SurveyNasional;
 
 use App\Http\Requests\IndikatorMutu\IndikatorMutuNasionalRequest;
 
@@ -24,7 +27,7 @@ class IndikatorMutuNasionalManajemenController extends Controller
      */
     public function __construct()
     {
-    $this->helpers = new Helpers;
+        $this->helpers = new Helpers;
         $this->helperTime = new HelperTime;
         $this->indikatorMutuNasional = new IndikatorMutuNasional;
 
@@ -55,15 +58,23 @@ class IndikatorMutuNasionalManajemenController extends Controller
     {
         $filterKeyword = $request->filterKeyword;
         $filterBulan = $request->filterBulan;
-        $batasWaktu = $this->monthNow($filterBulan);
+        $dataMonth = $this->helperTime->monthNow($filterBulan);
 
-        $imut = $this->indikatorMutuNasional->searchPerKategori(1, $filterKeyword, $batasWaktu['batasWaktuMulai'], $batasWaktu['batasWaktuSelesai']);
+        $imut = $this->indikatorMutuNasional->searchPerKategori(1, $filterKeyword, $dataMonth['firstDay'], $dataMonth['lastDay']);
+
+        $data = [
+            'date' => $dataMonth['date'],
+            'dayInMonth' => $dataMonth['dayInMonth'],
+            'month' => $dataMonth['month'],
+            'year' => $dataMonth['year'],
+            'imut' => $imut,
+        ];
 
         $imut ?
-            $response=$this->helpers->retunJson(200, 'Indikator Mutu Ditemukan', $imut) :
+            $response=$this->helpers->retunJson(200, 'Indikator Mutu Ditemukan', $data) :
             $response=$this->helpers->retunJson(404, 'Indikator Mutu Tidak Ditemukan');
 
-        return $response;
+            return view('contents.indikatorMutu.nasional.manajemen.table', $data);
     }
 
     /**
@@ -102,8 +113,8 @@ class IndikatorMutuNasionalManajemenController extends Controller
         $saveData = IndikatorMutuNasional::create($data);
 
         $saveData ?
-            $response=$this->helpers->retunJson(200, 'data Indikator Mutu Berhasil ditambahkan') :
-            $response=$this->helpers->retunJson(400, 'data Indikator Mutu Gagal ditambahkan');
+            $response=$this->helpers->retunJson(200, 'Data Indiaktor Mutu Berhasil ditambahkan') :
+            $response=$this->helpers->retunJson(400, 'Data Indiaktor Mutu Gagal ditambahkan');
 
         return $response;
 
@@ -206,6 +217,47 @@ class IndikatorMutuNasionalManajemenController extends Controller
             $response=$this->helpers->retunJson(200, 'Indikator Mutu Ditemukan', $imut) :
             $response=$this->helpers->retunJson(404, 'Indikator Mutu Tidak Ditemukan');
 
+        return $response;
+    }
+
+    public function variabel($id, Request $request)
+    {
+        $tanggal = $request->tanggal;
+        $variabel['numerator'] = Variabel::where('indikator_mutu_id', $id)->where('jenis', 'nasional')->where('tipe_variabel', 'numerator')->first();
+        $variabel['denumerator'] = Variabel::where('indikator_mutu_id', $id)->where('jenis', 'nasional')->where('tipe_variabel', 'denumerator')->first();
+        $survey = SurveyNasional::where('indikator_mutu_id', $id)->where('tanggal_survey', $tanggal)->first();
+        $variabel['nilaiNumerator'] = $survey->numerator ?? '';
+        $variabel['nilaiDenumerator'] = $survey->denumerator ?? '';
+
+        $variabel ?
+            $response=$this->helpers->retunJson(200, 'Variabel Ditemukan', $variabel) :
+            $response=$this->helpers->retunJson(404, 'Variabel Tidak Ditemukan');
+        return $response;
+   }
+
+    public function storeNilai(Request $request)
+    {
+        $tanggal = $request->nilaiTahun.'-'.$request->nilaiBulan.'-'.$request->nilaiHari;
+
+        $saveData = SurveyNasional::updateOrCreate(
+            [
+                'indikator_mutu_id' => $request->nilaiImutId,
+                'tanggal_survey' => $tanggal
+            ],
+            [
+                'indikator_mutu_id' => $request->nilaiImutId,
+                'tanggal_survey' => $tanggal,
+                'numerator' => $request->numerator,
+                'denumerator' => $request->denumerator,
+                'user_id' => 1,
+                'sumber_data' => 'manual'
+            ]
+
+        );
+
+        $saveData ?
+            $response=$this->helpers->retunJson(200, 'Nilai Indikator Berhasil Disimpan', $saveData) :
+            $response=$this->helpers->retunJson(404, 'Nilai Indikator Tidak Berhasil Disimpan');
         return $response;
     }
 

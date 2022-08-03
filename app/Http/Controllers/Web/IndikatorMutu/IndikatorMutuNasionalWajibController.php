@@ -113,8 +113,8 @@ class IndikatorMutuNasionalWajibController extends Controller
         $saveData = IndikatorMutuNasional::create($data);
 
         $saveData ?
-            $response=$this->helpers->retunJson(200, 'data Indikator Mutu Berhasil ditambahkan') :
-            $response=$this->helpers->retunJson(400, 'data Indikator Mutu Gagal ditambahkan');
+            $response=$this->helpers->retunJson(200, 'Data Indikator Mutu Berhasil ditambahkan') :
+            $response=$this->helpers->retunJson(400, 'Data Indikator Mutu Gagal ditambahkan');
 
         return $response;
 

@@ -823,7 +823,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="../../demo8/dist/account/overview.html">
+                            <a class="menu-link" href="{{ route('indikator-mutu-nasional-manajemen.index') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -831,7 +831,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="../../demo8/dist/account/settings.html">
+                            <a class="menu-link" href="{{ route('indikator-mutu-nasional-klinik.index') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -839,7 +839,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="../../demo8/dist/account/security.html">
+                            <a class="menu-link" href="{{ route('indikator-mutu-nasional-wajib.index') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>

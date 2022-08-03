@@ -52,7 +52,6 @@ License: For each use you must have a valid license purchased only from above li
 		<!--end::Root-->
 
 		@include('layouts.partials.script')
-        @routes()
 		@stack('extraScript')
 	</body>
 	<!--end::Body-->

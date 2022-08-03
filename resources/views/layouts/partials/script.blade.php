@@ -29,6 +29,8 @@
 <script src="{{ asset('assets/js/custom/utilities/modals/create-project/complete.js') }}"></script>
 <script src="{{ asset('assets/js/custom/utilities/modals/create-project/main.js') }}"></script>
 <script src="{{ asset('assets/js/custom/utilities/modals/users-search.js') }}"></script>
+<script src="{{ asset('assets/plugins/custom/datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+
 @routes
 @livewireScripts
 <!--end::Page Custom Javascript-->
