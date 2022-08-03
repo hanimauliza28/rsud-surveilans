@@ -43,8 +43,6 @@ Route::middleware([])->group(function () {
         Route::post('store-nilai', [IndikatorMutuNasionalWajibController::class, 'storeNilai'])->name('indikator-mutu-nasional-wajib.storeNilai');
     });
 
-
-
     //Route Indikator Mutu Nasional Klinik
     Route::group(['prefix' => 'indikator-mutu-nasional-klinik'], function () {
         Route::get('/', [IndikatorMutuNasionalKlinikController::class, 'index'])->name('indikator-mutu-nasional-klinik.index');
@@ -58,7 +56,6 @@ Route::middleware([])->group(function () {
         Route::post('store-nilai', [IndikatorMutuNasionalKlinikController::class, 'storeNilai'])->name('indikator-mutu-nasional-klinik.storeNilai');
     });
 
-
     //Route Indikator Mutu Nasional Manajemen
     Route::group(['prefix' => 'indikator-mutu-nasional-manajemen'], function () {
         Route::get('/', [IndikatorMutuNasionalManajemenController::class, 'index'])->name('indikator-mutu-nasional-manajemen.index');
@@ -71,9 +68,6 @@ Route::middleware([])->group(function () {
         Route::post('{id}/variabel', [IndikatorMutuNasionalManajemenController::class, 'variabel'])->name('indikator-mutu-nasional-manajemen.variabel');
         Route::post('store-nilai', [IndikatorMutuNasionalManajemenController::class, 'storeNilai'])->name('indikator-mutu-nasional-manajemen.storeNilai');
     });
-
-
-
 
     //Route Indikator Mutu Lokal
     Route::group(['prefix' => 'indikator-mutu-lokal'], function () {

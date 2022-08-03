@@ -4,9 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Datatables\IndikatorMutu\IndikatorMutuNasionalDatatable;
 use App\Http\Controllers\Datatables\IndikatorMutu\IndikatorMutuLokalDatatable;
-// use App\Http\Controllers\Datatables\IndikatorMutu\IndikatorMutuNasionalKategoriDatatable;
-// use App\Http\Controllers\Datatables\IndikatorMutu\IndikatorMutuLokalKategoriDatatable;
-// use App\Http\Controllers\Datatables\IndikatorMutu\VariabelDatatable;
+use App\Http\Controllers\Datatables\IndikatorMutu\VariabelDatatable;
 
 
 /*
@@ -28,6 +26,6 @@ Route::middleware([])->group(function () {
     //Modul Indikator Mutu Lokal
     Route::post('indikator-mutu-lokal-datatable', IndikatorMutuLokalDatatable::class)->name('indikator-mutu-lokal.datatable');
 
-    // //Modul Master Survey
-    // Route::post('variabel-datatable', VariabelDatatable::class)->name('variabel.datatable');
+    //Modul Untuk Akses Variabel Semua Indikator Mutu Nasional dan Lokal
+    Route::post('variabel-datatable', VariabelDatatable::class)->name('variabel.datatable');
 });

@@ -39,10 +39,6 @@ class IndikatorMutuLokalController extends Controller
             'tipeVariabel' => $this->helpers->listVariabel()
         ];
 
-        // $data2 = IndikatorMutuLokal::with('frekuensi', 'kategori', 'tipe')->get();
-        // return $this->helpers->retunJson(200, 'Indikator Mutu Berhasil ditambahkan', $data2);
-        // exit();
-
         return view('contents.indikatorMutu.indikatorMutuLokal.index', $data);
 
     }

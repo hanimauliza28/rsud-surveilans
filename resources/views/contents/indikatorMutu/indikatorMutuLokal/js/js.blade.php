@@ -74,9 +74,7 @@
         const filterSearch = document.querySelector('[data-kt-docs-table-filter="search"]');
 
         filterSearch.addEventListener('keyup', function (e) {
-            delay(function(){
-                $('#data-table').DataTable().search(e.target.value).draw();
-            },500);
+            $('#data-table').DataTable().search(e.target.value).draw();
         });
     </script>
 
