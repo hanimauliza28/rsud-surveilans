@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\FormBuilder;
+namespace App\Http\Requests\Master;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
@@ -8,7 +8,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 
 use App\Helpers\Helpers;
 
-class ReferensiElementRequest extends FormRequest
+class WebServiceRequest extends FormRequest
 {
     /**
      * Constructor.
@@ -38,8 +38,10 @@ class ReferensiElementRequest extends FormRequest
     public function rules()
     {
         return [
-            'namaElement' => 'required',
-            'script' => 'required',
+            'nama' => 'required',
+            'namaUnik' => 'required',
+            'url' => 'required',
+            'jenisService' => 'required'
         ];
 
     }
@@ -52,8 +54,10 @@ class ReferensiElementRequest extends FormRequest
     public function messages()
     {
         return [
-            'namaElement.required' => 'Nama Element Tidak Boleh Kosong',
-            'script.required' => 'Script Tidak Boleh Kosong',
+            'nama.required' => 'Nama Web Service Tidak Boleh Kosong',
+            'namaUnik.required' => 'Nama Function Tidak Boleh Kosong',
+            'url.required' => 'Url Tidak Boleh Kosong',
+            'jenisService.required' => 'Jenis Web Service Tidak Boleh Kosong'
         ];
     }
 

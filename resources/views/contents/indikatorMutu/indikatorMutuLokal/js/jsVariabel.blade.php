@@ -42,7 +42,7 @@
 
     {{-- JS Datatable --}}
     <script>
-        const dataImutNasionalVariabel = (indikatorId) => {
+        const dataImutLokalVariabel = (indikatorId) => {
             $('#data-variabel-table').DataTable({
                 searchDelay : 500,
                 destroy: true,
@@ -70,11 +70,6 @@
             });
         }
 
-        const filterSearchVariabel = document.querySelector('[data-kt-docs-table-filter="search"]');
-
-        filterSearchVariabel.addEventListener('keyup', function (e) {
-            $('#data-variabel-table').DataTable().search(e.target.value).draw();
-        });
     </script>
 
     {{-- JS Save Update --}}
@@ -84,7 +79,7 @@
             $('.modal-title').text('Tambah Variabel');
             $('input[name="indikatorId"]').val(indikatorId);
             resetButtonVariabel('#btn-simpan-variabel', 'Simpan');
-            dataImutNasionalVariabel(indikatorId);
+            dataImutLokalVariabel(indikatorId);
 
         }
 
@@ -122,7 +117,7 @@
             //var judulIndikator = CKEditorJudulIndikator.getData();
             //var definisiOperasional = CKEditorDefinisiOperasional.getData();
             var data = $('#form-variabel').serialize();
-            var id = $('#indikatorId').val();
+            var id = $('#variabelId').val();
             var url;
             var textBtn;
             if (id === '') {

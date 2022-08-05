@@ -11,16 +11,6 @@ use Illuminate\Support\Facades\DB;
 class IndikatorMutuLokalDatatable extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->indikatorMutuLokal = new indikatorMutuLokal;
-    }
-
-    /**
      * Handle the incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -28,23 +18,42 @@ class IndikatorMutuLokalDatatable extends Controller
      */
     public function __invoke(Request $request)
     {
-        $imut       = IndikatorMutuLokal::with('frekuensi', 'kategori', 'tipe');
+        $filterKategoriIndikator = $request->filterKategoriIndikator;
+
+        $imut = IndikatorMutuLokal::with('frekuensi', 'kategori', 'tipe')
+            ->when($filterKategoriIndikator, function($query) use($filterKategoriIndikator){
+                $query->where('kategori_indikator_id', $filterKategoriIndikator);
+            });
         return DataTables::of($imut)
-        //hanya judul
-        ->editColumn('hanyaJudul', function($imut)use($request){
-            return $imut->judul;
-        })
-        ->editColumn('judul', function($imut)use($request){
-            return view('contents.indikatorMutu.indikatorMutuLokal.customColumn.actionVariabel',\compact('imut'));
-        })
-        ->addColumn('action', function ($imut) {
-            return view('contents.indikatorMutu.indikatorMutuLokal.customColumn.action',\compact('imut'));
-        })
-        ->addColumn('actionPilih', function ($imut) {
-            return view('contents.indikatorMutu.indikatorMutuLokal.customColumn.actionPilih',\compact('imut'));
-        })
-        ->rawColumns(['judul', 'definisi_operasional', 'action'])
-            ->rawColumns(['judul', 'definisi_operasional', 'action', 'hanyaJudul', 'actionPilih'])
+            //hanya judul
+            ->editColumn('hanyaJudul', function ($imut) use ($request) {
+                return $imut->judul;
+            })
+            ->editColumn('judul', function ($imut) use ($request) {
+                return view(
+                    'contents.indikatorMutu.indikatorMutuLokal.customColumn.actionVariabel',
+                    \compact('imut')
+                );
+            })
+            ->addColumn('action', function ($imut) {
+                return view(
+                    'contents.indikatorMutu.indikatorMutuLokal.customColumn.action',
+                    \compact('imut')
+                );
+            })
+            ->addColumn('actionPilih', function ($imut) {
+                return view(
+                    'contents.indikatorMutu.indikatorMutuLokal.customColumn.actionPilih',
+                    \compact('imut')
+                );
+            })
+            ->rawColumns([
+                'judul',
+                'definisi_operasional',
+                'action',
+                'hanyaJudul',
+                'actionPilih',
+            ])
             ->make(true);
     }
 }

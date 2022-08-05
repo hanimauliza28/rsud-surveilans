@@ -1,11 +1,12 @@
 @push('extraScript')
+
     {{-- Reset --}}
     <script>
         $('#indikator-mutu-lokal-modal').on('hidden.bs.modal', function() {
             $('input.form-control').val('');
             $('#jenis').val('lokal');
             $('textarea.form-control').val('');
-            $('select.form-select').val('').change();
+            $('select').val('').change();
             $('input[name="_method"]').prop('disabled', true);
             $('#id').val('');
             $('#selectIsAktif').val('').change();
@@ -36,9 +37,23 @@
         }
     </script>
 
+    {{-- Select2 --}}
+    <script>
+        $('#filterKategoriIndikator').each(function() {
+            $(this).select2({
+                placeholder: 'Filter Kategori Indikator'
+                , dropdownParent: $(this).parent()
+                , allowClear: true
+            , });
+        });
+
+    </script>
+
     {{-- JS Datatable --}}
     <script>
         const dataImutLokal = () => {
+            var filterKategoriIndikator = $('#filterKategoriIndikator').val();
+
             $('#data-table').DataTable({
                 searchDelay : 500,
                 destroy: true,
@@ -49,7 +64,8 @@
                     url     : route('indikator-mutu-lokal.datatable'),
                     type    : 'POST',
                     data    : {
-                        _token  : '{{ csrf_token() }}'
+                        _token  : '{{ csrf_token() }}',
+                        filterKategoriIndikator : filterKategoriIndikator
                     }
                 },
                 "fnCreatedRow": function (row, data, index) {
@@ -76,6 +92,10 @@
         filterSearch.addEventListener('keyup', function (e) {
             $('#data-table').DataTable().search(e.target.value).draw();
         });
+
+        const cariData = () => {
+            dataImutLokal();
+        }
     </script>
 
     {{-- JS Save Update --}}
@@ -234,7 +254,6 @@
                                     timer : 3000
                                 })
                             }
-
                             if (data.status === 500) {
                                 Swal.fire({
                                     title : 'Gagal!',
@@ -249,9 +268,7 @@
                 }
             });
         }
-    </script>
 
-    <script>
         const detail = (id) => {
             $('#detail-modal').modal('show');
             $('.modal-title').text('Detail Indikator Mutu');
@@ -291,7 +308,7 @@
         }
     </script>
 
-        {{-- SELECT2 --}}
+    {{-- SELECT2 --}}
     <script>
         $('#selectKategori').each(function () {
             $(this).select2({

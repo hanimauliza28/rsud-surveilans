@@ -1,5 +1,5 @@
 {!! $imut->judul !!}
-<button onclick="variabel({{ $imut->id, 0 }})" class="btn btn-sm btn-light-success">
+<button onclick="variabel({{ $imut->id, 0 }})" class="btn btn-sm btn-light-primary">
 
     <!--begin::Svg Icon | path: assets/media/icons/duotune/art/art010.svg-->
     <span class="svg-icon svg-icon-5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -11,7 +11,7 @@
 
     Variabel
 </button>
-<button onclick="detail({{ $imut->id }})" class="btn btn-sm btn-light-success">
+<button onclick="detail({{ $imut->id }})" class="btn btn-sm btn-light-primary">
 
     <!--begin::Svg Icon | path: assets/media/icons/duotune/coding/cod002.svg-->
     <span class="svg-icon svg-icon-5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">

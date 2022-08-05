@@ -1,5 +1,8 @@
 <!--begin::Javascript-->
-<script>var hostUrl = "{{ asset('assets/') }}";</script>
+<script>
+    var hostUrl = "{{ asset('assets/') }}";
+
+</script>
 <!--begin::Global Javascript Bundle(used by all pages)-->
 <script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
 <script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
@@ -30,7 +33,13 @@
 <script src="{{ asset('assets/js/custom/utilities/modals/create-project/main.js') }}"></script>
 <script src="{{ asset('assets/js/custom/utilities/modals/users-search.js') }}"></script>
 <script src="{{ asset('assets/plugins/custom/datepicker/js/bootstrap-datepicker.min.js') }}"></script>
-
+<script>
+    function nospaces(t){
+        if(t.value.match(/\s/g)){
+            t.value=t.value.replace(/\s/g,'');
+        }
+    }
+</script>
 @routes
 @livewireScripts
 <!--end::Page Custom Javascript-->

@@ -15,20 +15,20 @@
                 <!--end::Close-->
             </div>
             <div class="modal-body-layer modal-body py-4 px-10">
-                <form id="form-indikator-mutu-lokal" method="POST" enctype="multipart/form-data">
+                <form id="form-indikator-mutu-lokal" method="POST">
                     {{ csrf_field() }}
                     <input type="hidden" id="id" value="" name="id">
                     <input type="hidden" name="_method" value="PUT" disabled>
 
                     <div class="form-group">
                         <label class="col-form-label text-left required fs-5 fw-bold">Kategori</label>
-                            <select name="kategoriIndikator" id="selectKategori" data-control="select2" tab-index="89" data-placeholder="Pilih Kategori Indikator" class="form-select" data-allow-clear="true">
-                                <option value=""></option>
-                                @foreach ($kategoriIndikator as $kategoriIndikator)
-                                    <option value="{{ $kategoriIndikator->id }}">{{ $kategoriIndikator->nama_kategori }}</option>
-                                @endforeach
-                            </select>
-                            <div class="invalid-feedback" id="kategoriIndikator"></div>
+                        <select name="kategoriIndikator" id="selectKategori" class="form-select">
+                            <option value=""></option>
+                            @foreach ($kategoriIndikator as $kategoriIndikator)
+                                <option value="{{ $kategoriIndikator->id }}">{{ $kategoriIndikator->nama_kategori }}</option>
+                            @endforeach
+                        </select>
+                        <div class="invalid-feedback" id="kategoriIndikator"></div>
                     </div>
 
                     <div class="form-group">
@@ -62,7 +62,6 @@
                         <div class="invalid-feedback" id="sumberData"></div>
                     </div>
 
-
                     <div class="form-group">
                         <label class="col-form-label text-left required fs-5 fw-bold">Tipe Indikator</label>
                         <select name="tipeIndikator" id="selectTipe" class="form-select">
@@ -90,7 +89,6 @@
                         </select>
                         <div class="invalid-feedback" id="frekuensi"></div>
                     </div>
-
 
                     <div class="form-group">
                         <label class="col-form-label text-left required fs-5 fw-bold">Standar</label>

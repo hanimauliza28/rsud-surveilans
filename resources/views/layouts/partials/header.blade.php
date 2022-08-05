@@ -4,7 +4,7 @@
     <div class="header-brand">
         <!--begin::Logo-->
         <a href="../../demo8/dist/index.html">
-            <img alt="Logo" src="{{ asset('assets/media/logos/logo-surveilans-putih.png') }}" class="h-80px h-lg-40px" />
+            <img alt="Logo" src="{{ asset('assets/media/logos/logo-surveilans-putih.png') }}" class="h-40px h-lg-40px" />
         </a>
         <!--end::Logo-->
         <!--begin::Aside minimize-->

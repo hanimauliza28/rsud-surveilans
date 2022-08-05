@@ -131,4 +131,19 @@ class HelperSurveilans
 
         return $this->helpers->arrayToObject($data);
     }
+
+    public function survJenisWebService(){
+        $data = [
+            [
+                'value' => 'dataPasien',
+                'text' => 'Data Service Pasien'
+            ],
+            [
+                'value' => 'dataPelayanan',
+                'text' => 'Data Service Pelayanan'
+            ],
+        ];
+
+        return $this->helpers->arrayToObject($data);
+    }
 }

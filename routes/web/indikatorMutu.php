@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\IndikatorMutu\IndikatorMutuNasionalController;
 use App\Http\Controllers\Web\IndikatorMutu\IndikatorMutuLokalController;
+use App\Http\Controllers\Web\IndikatorMutu\IndikatorMutuLokalMonitoringController;
 use App\Http\Controllers\Web\IndikatorMutu\IndikatorMutuNasionalWajibController;
 use App\Http\Controllers\Web\IndikatorMutu\IndikatorMutuNasionalManajemenController;
 use App\Http\Controllers\Web\IndikatorMutu\IndikatorMutuNasionalKlinikController;
@@ -78,6 +79,21 @@ Route::middleware([])->group(function () {
         Route::put('{id}/update', [IndikatorMutuLokalController::class, 'update'])->name('indikator-mutu-lokal.update');
         Route::delete('{id}/destroy', [IndikatorMutuLokalController::class, 'destroy'])->name('indikator-mutu-lokal.destroy');
     });
+
+
+    //Route Indikator Mutu Lokal Monitoring
+    Route::group(['prefix' => 'indikator-mutu-lokal-monitoring'], function () {
+        Route::get('/', [IndikatorMutuLokalMonitoringController::class, 'index'])->name('indikator-mutu-lokal-monitoring.index');
+        Route::post('store', [IndikatorMutuLokalMonitoringController::class, 'store'])->name('indikator-mutu-lokal-monitoring.store');
+        Route::get('{id}/view', [IndikatorMutuLokalMonitoringController::class, 'view'])->name('indikator-mutu-lokal-monitoring.view');
+        Route::get('{id}/edit', [IndikatorMutuLokalMonitoringController::class, 'edit'])->name('indikator-mutu-lokal-monitoring.edit');
+        Route::put('{id}/update', [IndikatorMutuLokalMonitoringController::class, 'update'])->name('indikator-mutu-lokal-monitoring.update');
+        Route::delete('{id}/destroy', [IndikatorMutuLokalMonitoringController::class, 'destroy'])->name('indikator-mutu-lokal-monitoring.destroy');
+
+        Route::post('{id}/variabel', [IndikatorMutuLokalMonitoringController::class, 'variabel'])->name('indikator-mutu-lokal-monitoring.variabel');
+        Route::post('store-nilai', [IndikatorMutuLokalMonitoringController::class, 'storeNilai'])->name('indikator-mutu-lokal-monitoring.storeNilai');
+    });
+
 
     //Route Variabel
     Route::group(['prefix' => 'variabel'], function () {

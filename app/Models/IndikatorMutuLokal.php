@@ -26,4 +26,21 @@ class IndikatorMutuLokal extends Model
     {
         return $this->belongsTo(RefTipeIndikator::class, 'tipe_indikator_id', 'id');
     }
+
+    public function survey()
+    {
+        return $this->hasMany(SurveyNasional::class, 'indikator_mutu_id', 'id');
+    }
+
+    public function searchPerKategori($filterKeyword, $batasWaktuMulai, $batasWaktuSelesai)
+    {
+        $imut = IndikatorMutuLokal::when($filterKeyword, function($query) use($filterKeyword){
+                                        $query->where('judul', 'LIKE', '%'.$filterKeyword.'%');
+                                    })
+                                    ->with(['survey' => function($query) use($batasWaktuMulai, $batasWaktuSelesai){
+                                        return $query->whereDate('tanggal_survey', '>=', $batasWaktuMulai)->whereDate('tanggal_survey', '<=', $batasWaktuSelesai);
+                                    }])
+                                    ->get();
+        return $imut;
+    }
 }
