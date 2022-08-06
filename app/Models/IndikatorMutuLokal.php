@@ -29,7 +29,7 @@ class IndikatorMutuLokal extends Model
 
     public function survey()
     {
-        return $this->hasMany(SurveyNasional::class, 'indikator_mutu_id', 'id');
+        return $this->hasMany(SurveyLokal::class, 'indikator_mutu_id', 'id');
     }
 
     public function searchPerKategori($filterKeyword, $batasWaktuMulai, $batasWaktuSelesai)

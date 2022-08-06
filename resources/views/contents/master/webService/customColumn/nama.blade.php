@@ -1,0 +1,3 @@
+{{ $service->nama }}
+<br>
+

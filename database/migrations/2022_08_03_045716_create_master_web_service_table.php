@@ -18,6 +18,7 @@ class CreateMasterWebServiceTable extends Migration
             $table->string('nama');
             $table->string('nama_unik');
             $table->string('url');
+            $table->string('type');
             $table->enum('jenis_service', ['dataPasien', 'dataPelayanan']);
             $table->timestamps();
         });

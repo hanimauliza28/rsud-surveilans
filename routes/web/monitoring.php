@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Web\Monitoring\MonitoringController;
+use App\Http\Controllers\Web\Monitoring\MonitoringPasienController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,8 +16,8 @@ use App\Http\Controllers\Web\Monitoring\MonitoringController;
 
 Route::middleware([])->group(function () {
     //Route Data Service
-    Route::group(['prefix' => 'monitoring'], function () {
-        Route::get('/', [MonitoringController::class, 'index'])->name('monitoring.index');
+    Route::group(['prefix' => 'monitoring-pasien'], function () {
+        Route::get('/', [MonitoringPasienController::class, 'index'])->name('monitoring-pasien.index');
 
     });
 

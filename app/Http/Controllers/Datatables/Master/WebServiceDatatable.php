@@ -28,6 +28,9 @@ class WebServiceDatatable extends Controller
                         $query->where('jenis_service', $filterJenisService);
                     });
                 return DataTables::of($service)
+                ->editColumn('nama', function($service){
+                    return view('contents.master.webService.customColumn.nama',\compact('service'));
+                })
                 ->addColumn('jenisService', function($service){
                     return $service->nama_jenis_service;
                 })

@@ -16,6 +16,7 @@
                 </tr>
             </thead>
             <tbody class="text-gray-600 " style="width:100%; overflow:scroll">
+
                 @foreach($imut as $indikatorMutu)
 
                 <tr>

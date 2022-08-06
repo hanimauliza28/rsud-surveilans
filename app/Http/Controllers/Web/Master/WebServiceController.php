@@ -55,6 +55,7 @@ class WebServiceController extends Controller
             'nama' => $request->nama,
             'nama_unik' => $request->namaUnik,
             'url' => $request->url,
+            'type' => $request->type,
             'jenis_service' => $request->jenisService,
         ];
 
@@ -125,6 +126,7 @@ class WebServiceController extends Controller
             'nama' => $request->nama,
             'nama_unik' => $request->namaUnik,
             'url' => $request->url,
+            'type' => $request->type,
             'jenis_service' => $request->jenisService,
         ];
 

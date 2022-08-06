@@ -41,6 +41,7 @@ class WebServiceRequest extends FormRequest
             'nama' => 'required',
             'namaUnik' => 'required',
             'url' => 'required',
+            'type' => 'required',
             'jenisService' => 'required'
         ];
 
@@ -57,6 +58,7 @@ class WebServiceRequest extends FormRequest
             'nama.required' => 'Nama Web Service Tidak Boleh Kosong',
             'namaUnik.required' => 'Nama Function Tidak Boleh Kosong',
             'url.required' => 'Url Tidak Boleh Kosong',
+            'type.required' => 'Type Tidak Boleh Kosong',
             'jenisService.required' => 'Jenis Web Service Tidak Boleh Kosong'
         ];
     }

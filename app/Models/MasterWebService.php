@@ -9,7 +9,7 @@ class MasterWebService extends Model
 {
     use HasFactory;
     protected $table = 'master_web_service';
-    protected $fillable = ['nama', 'nama_unik', 'url', 'jenis_service'];
+    protected $fillable = ['nama', 'nama_unik', 'url', 'type', 'jenis_service'];
 
     public function getNamaJenisServiceAttribute()
     {

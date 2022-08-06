@@ -82,6 +82,7 @@ Master Web Service
                         <th>No</th>
                         <th>Nama Web Service</th>
                         <th>URL</th>
+                        <th>Type</th>
                         <th>Jenis Service</th>
                         <th>Action</th>
                     </tr>

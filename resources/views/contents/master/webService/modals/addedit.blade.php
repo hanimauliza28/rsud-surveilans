@@ -38,6 +38,17 @@
                         <div class="invalid-feedback" id="url"></div>
                     </div>
 
+
+                    <div class="form-group">
+                        <label class="col-form-label text-left required fs-5 fw-bold">Type Web Service</label>
+                        <select name="type" id="selectType" data-control="select2" tab-index="89" data-placeholder="Pilih Type Web Service" class="form-select" data-allow-clear="true">
+                            <option value=""></option>
+                            <option value="POST">POST</option>
+                            <option value="GET">GET</option>
+                        </select>
+                        <div class="invalid-feedback" id="type"></div>
+                    </div>
+
                     <div class="form-group">
                         <label class="col-form-label text-left required fs-5 fw-bold">Jenis Web Service</label>
                         <select name="jenisService" id="selectJenisWebService" data-control="select2" tab-index="89" data-placeholder="Pilih Jenis Web Service" class="form-select" data-allow-clear="true">

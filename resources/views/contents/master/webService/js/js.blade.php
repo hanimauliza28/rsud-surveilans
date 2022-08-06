@@ -83,6 +83,10 @@
                     , name: 'url'
                 }
                 , {
+                    data: 'type'
+                    , name: 'type'
+                }
+                , {
                     data: 'jenisService'
                     , name: 'jenisService'
                 }
@@ -140,6 +144,7 @@
                 $('input[name="namaUnik"]').val(data.response.nama_unik);
                 $('input[name="url"]').val(data.response.url);
                 $('select[name="jenisService"]').val(data.response.jenis_service).change();
+                $('select[name="type"]').val(data.response.type).change();
 
             }
         })
