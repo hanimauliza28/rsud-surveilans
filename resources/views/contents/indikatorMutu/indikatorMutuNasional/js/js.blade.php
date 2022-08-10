@@ -37,6 +37,18 @@
         }
     </script>
 
+    {{-- Select2 --}}
+    <script>
+        $('#filterKategoriIndikator').each(function() {
+            $(this).select2({
+                placeholder: 'Filter Kategori Indikator'
+                , dropdownParent: $(this).parent()
+                , allowClear: true
+            , });
+        });
+
+    </script>
+
     {{-- JS Datatable --}}
     <script>
         const dataImutNasional = () => {
@@ -117,6 +129,7 @@
                     $('input[name="standar"]').val(data.response.standar);
                     $('input[name="faktorPengali"]').val(data.response.faktor_pengali);
                     $('input[name="satuan"]').val(data.response.satuan);
+                    $('input[name="namaFunction"]').val(data.response.nama_function);
                     //CKEditorFunc('edit', data.response.judul, data.response.definisi_operasional);
                     CKEditorJudulIndikator.setData(data.response.judul);
                     CKEditorDefinisiOperasional.setData(data.response.definisi_operasional);

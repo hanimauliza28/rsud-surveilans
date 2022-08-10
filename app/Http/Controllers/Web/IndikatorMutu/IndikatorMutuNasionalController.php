@@ -40,10 +40,6 @@ class IndikatorMutuNasionalController extends Controller
             'tipeVariabel' => $this->helpers->listVariabel()
         ];
 
-        // $data2 = IndikatorMutuNasional::with('frekuensi', 'kategori', 'tipe')->get();
-        // return $this->helpers->retunJson(200, 'data Indikator Mutu Berhasil ditambahkan', $data2);
-        // exit();
-
         return view('contents.indikatorMutu.indikatorMutuNasional.index', $data);
 
     }
@@ -69,6 +65,7 @@ class IndikatorMutuNasionalController extends Controller
         $data = [
             'kategori_indikator_id' => $request->kategoriIndikator,
             'judul' => $request->judulIndikator,
+            'nama_function' => $request->namaFunction,
             'definisi_operasional' => $request->definisiOperasional,
             'kriteria_inklusi' => $request->kriteriaInklusi,
             'kriteria_eksklusi' => $request->kriteriaEksklusi,
@@ -138,6 +135,7 @@ class IndikatorMutuNasionalController extends Controller
         $data = [
             'kategori_indikator_id' => $request->kategoriIndikator,
             'judul' => $request->judulIndikator,
+            'nama_function' => $request->namaFunction,
             'definisi_operasional' => $request->definisiOperasional,
             'kriteria_inklusi' => $request->kriteriaInklusi,
             'kriteria_eksklusi' => $request->kriteriaEksklusi,

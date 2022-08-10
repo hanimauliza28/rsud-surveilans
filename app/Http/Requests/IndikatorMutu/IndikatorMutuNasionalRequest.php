@@ -40,6 +40,7 @@ class IndikatorMutuNasionalRequest extends FormRequest
         return [
             'kategoriIndikator' => 'required',
             'judulIndikator' => 'required',
+            // 'namaFunction' => 'required',
             'definisiOperasional' => 'required',
             'kriteriaInklusi' => 'required',
             'kriteriaEksklusi' => 'required',
@@ -64,6 +65,7 @@ class IndikatorMutuNasionalRequest extends FormRequest
         return [
             'kategoriIndikator.required' => 'Kategori Indikator Tidak Boleh Kosong',
             'judulIndikator.required' => 'Judul Indikator Tidak Boleh Kosong',
+            'namaFunction.required' => 'Nama Function Tidak Boleh Kosong',
             'definisiOperasional.required' => 'Definisi Operasional Tidak Boleh Kosong',
             'kriteriaInklusi.required' => 'Kriteria Inklusi Tidak Boleh Kosong',
             'kriteriaEksklusi.required' => 'Kriteria Eksklusi Tidak Boleh Kosong',
