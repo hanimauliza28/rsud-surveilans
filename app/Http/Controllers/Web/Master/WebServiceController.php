@@ -19,6 +19,7 @@ class WebServiceController extends Controller
         $this->helperSurveilans = new HelperSurveilans();
         $this->helpers = new Helpers();
     }
+
     /**
      * Display a listing of the resource.
      *

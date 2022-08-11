@@ -72,7 +72,7 @@ class IndikatorMutuLokalController extends Controller
         $data = [
             'kategori_indikator_id' => $request->kategoriIndikator,
             'judul' => $request->judulIndikator,
-            'nama_function' => $request->namaFunction,
+            'nama_route' => $request->namaRoute,
             'definisi_operasional' => $request->definisiOperasional,
             'kriteria_inklusi' => $request->kriteriaInklusi,
             'kriteria_eksklusi' => $request->kriteriaEksklusi,
@@ -142,7 +142,7 @@ class IndikatorMutuLokalController extends Controller
         $data = [
             'kategori_indikator_id' => $request->kategoriIndikator,
             'judul' => $request->judulIndikator,
-            'nama_function' => $request->namaFunction,
+            'nama_route' => $request->namaRoute,
             'definisi_operasional' => $request->definisiOperasional,
             'kriteria_inklusi' => $request->kriteriaInklusi,
             'kriteria_eksklusi' => $request->kriteriaEksklusi,

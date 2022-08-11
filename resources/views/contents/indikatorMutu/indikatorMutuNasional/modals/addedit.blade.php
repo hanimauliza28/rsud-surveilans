@@ -46,9 +46,9 @@
 
                     <div class="form-group">
                         <label class="col-form-label text-left required fs-5 fw-bold">Nama Function</label>
-                        <input type="text" class="form-control" name="namaFunction" placeholder="Nama Function" />
+                        <input type="text" class="form-control" name="namaRoute" placeholder="Nama Function" />
                         <small class="mt-2">Disarankan untuk tidak mengubah Nama Function</small>
-                        <div class="invalid-feedback" id="namaFunction"></div>
+                        <div class="invalid-feedback" id="namaRoute"></div>
                     </div>
                     <div class="form-group">
                         <label class="col-form-label text-left required fs-5 fw-bold">Kriteria Inklusi</label>

@@ -14,11 +14,11 @@ class AddNamaFunctioToImut extends Migration
     public function up()
     {
         Schema::table('indikator_mutu_nasional', function (Blueprint $table) {
-            $table->string('nama_function')->nullable()->after('judul');
+            $table->string('nama_route')->nullable()->after('judul');
         });
 
         Schema::table('indikator_mutu_lokal', function (Blueprint $table) {
-            $table->string('nama_function')->nullable()->after('judul');
+            $table->string('nama_route')->nullable()->after('judul');
         });
     }
 
@@ -30,11 +30,11 @@ class AddNamaFunctioToImut extends Migration
     public function down()
     {
         Schema::table('indikator_mutu_nasional', function (Blueprint $table) {
-            $table->dropColumn('nama_function');
+            $table->dropColumn('nama_route');
         });
 
         Schema::table('indikator_mutu_lokal', function (Blueprint $table) {
-            $table->dropColumn('nama_function');
+            $table->dropColumn('nama_route');
         });
     }
 }

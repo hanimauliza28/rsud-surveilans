@@ -1,7 +1,7 @@
 @push('extraScript')
 {{-- SELECT --}}
 <script>
-    $('#dataServicePasien').select2({
+    $('#filterServicePasien').select2({
         placeholder: 'Pilih Service Pasien'
         , width: 'resolve'
     });
@@ -40,6 +40,19 @@
     }, cb);
     cb(start, end);
 
+    const cariData = () => {
+        var filterTanggal = $('#filterTanggal').val();
+        var filterServicePasien = $('#filterServicePasien').val();
+        var filterKeyword = $('#filterKeyword').val();
+
+        Livewire.emitTo('monitoring.monitoring-pasien.filter-data-pasien', 'cariDataPasien', {filterServicePasien : filterServicePasien, filterKeyword : filterKeyword, filterTanggal : filterTanggal })
+    }
+
+    const survey = (noreg) => {
+        alert(noreg);
+    }
+
 </script>
-{{-- JS Datatable --}}
+
+
 @endpush
