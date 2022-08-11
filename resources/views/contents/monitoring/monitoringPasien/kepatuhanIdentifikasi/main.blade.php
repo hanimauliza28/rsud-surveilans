@@ -1,34 +1,46 @@
 @extends('contents.monitoring.monitoringPasien.index')
 
+@push('extraCss')
+    <style>
+        .nav-item {
+            margin-top : 10px;
+        }
+    </style>
+@endpush
+
 @section('content-main')
+<div class="card">
+    <!--begin::Card head-->
+    <div class="card-header card-header-stretch">
 
-
-<div class="card mt-3">
-    <!--begin::Header-->
-    <div class="card-header border-0 pt-5">
-        <div class="card-toolbar">
-            <ul class="nav">
-                <li class="nav-item">
-                    <a class="nav-link btn btn-sm btn-color-muted btn-active btn-active-secondary fw-bolder px-4 me-1 active" data-bs-toggle="tab" href="#kt_table_widget_5_tab_1"></a>
+        <!--begin::Toolbar-->
+        <div class="card-toolbar mt-2">
+            <!--begin::Tab nav-->
+            <ul class="nav nav-tabs nav-line-tabs nav-stretch fs-6 border-0 fw-bolder" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a id="pemberian_obat_tab" class="nav-link justify-content-center text-active-gray-800 active" data-bs-toggle="tab" role="tab" href="#pemberian_obat">Pemberian Obat</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-sm btn-color-muted btn-active btn-active-secondary fw-bolder px-4 me-1" data-bs-toggle="tab" href="#kt_table_widget_5_tab_2">Week</a>
+                <li class="nav-item" role="presentation">
+                    <a id="pengobatan_tab" class="nav-link justify-content-center text-active-gray-800" data-bs-toggle="tab" role="tab" href="#pengobatan">Pemberian Pengobatan Nutrisi</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-sm btn-color-muted btn-active btn-active-secondary fw-bolder px-4" data-bs-toggle="tab" href="#kt_table_widget_5_tab_3">Day</a>
+                <li class="nav-item" role="presentation">
+                    <a id="pemberian_darah_tab" class="nav-link justify-content-center text-active-gray-800" data-bs-toggle="tab" role="tab" href="#pemberian_darah">Pemberian Darah dan Produk Darah</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a id="pengambilan_spesimen_tab" class="nav-link justify-content-center text-active-gray-800 text-hover-gray-800" data-bs-toggle="tab" role="tab" href="#pengambilan_spesimen">Pengambilan Spesimen</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a id="tindakan_tab" class="nav-link justify-content-center text-active-gray-800 text-hover-gray-800" data-bs-toggle="tab" role="tab" href="#tindakan">Tindakan Diagnostik Lainnya</a>
                 </li>
             </ul>
+            <!--end::Tab nav-->
         </div>
-        <h3 class="card-title align-items-start flex-column">
-            <span class="card-label fw-bolder fs-3 mb-1">Latest Products</span>
-            <span class="text-muted mt-1 fw-bold fs-7">More than 400 new products</span>
-        </h3>
+        <!--end::Toolbar-->
     </div>
-    <!--end::Header-->
+    <!--end::Card head-->
+
     <div class="card-body">
 
     </div>
 </div>
-
-
 @endsection
