@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Datatables\Master\WebServiceDatatable;
+use App\Http\Controllers\Datatables\Master\KategoriVariabelSurveyDatatable;
+use App\Http\Controllers\Datatables\Master\VariabelSurveyDatatable;
 
 
 /*
@@ -19,5 +21,7 @@ use App\Http\Controllers\Datatables\Master\WebServiceDatatable;
 Route::middleware([])->group(function () {
     //Modul Data Pasien
     Route::post('web-service-datatable', WebServiceDatatable::class)->name('web-service.datatable');
+    Route::post('kategori-variabel-survey-datatable', KategoriVariabelSurveyDatatable::class)->name('kategori-variabel-survey.datatable');
+    Route::post('variabel-survey-datatable', VariabelSurveyDatatable::class)->name('variabel-survey.datatable');
 
 });

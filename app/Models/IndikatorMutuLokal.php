@@ -21,7 +21,6 @@ class IndikatorMutuLokal extends Model
         return $this->belongsTo(RefKategoriIndikator::class, 'kategori_indikator_id', 'id');
     }
 
-
     public function tipe()
     {
         return $this->belongsTo(RefTipeIndikator::class, 'tipe_indikator_id', 'id');

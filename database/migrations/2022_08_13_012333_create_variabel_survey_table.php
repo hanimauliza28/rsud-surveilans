@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMasterElementTable extends Migration
+class CreateVariabelSurveyTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateMasterElementTable extends Migration
      */
     public function up()
     {
-        Schema::create('master_element', function (Blueprint $table) {
+        Schema::create('variabel_survey', function (Blueprint $table) {
             $table->id();
+            $table->string('nama_variabel');
             $table->string('nama');
-            $table->string('nama_function');
-            $table->bigInteger('element_id');
+            $table->string('keterangan');
+            $table->bigInteger('kategori_variabel_survey_id')->nullable();
+            $table->bigInteger('parent_id')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ class CreateMasterElementTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('master_element');
+        Schema::dropIfExists('variabel_survey');
     }
 }
