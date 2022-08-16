@@ -12,6 +12,10 @@
         , width: 'resolve'
     });
 
+    $("#daftarImutNasioanal").on("select2:select", function (e) {
+        window.open(e.params.data.id, '_self');
+    });
+
 </script>
 
 {{-- Filter Tanggal --}}
@@ -45,7 +49,26 @@
         var filterServicePasien = $('#filterServicePasien').val();
         var filterKeyword = $('#filterKeyword').val();
 
-        Livewire.emitTo('monitoring.monitoring-pasien.filter-data-pasien', 'cariDataPasien', {filterServicePasien : filterServicePasien, filterKeyword : filterKeyword, filterTanggal : filterTanggal })
+        Livewire.emitTo('monitoring.monitoring-pasien.filter-data-pasien', 'cariDataPasien', {
+            filterServicePasien: filterServicePasien
+            , filterKeyword: filterKeyword
+            , filterTanggal: filterTanggal
+        })
+    }
+
+    const checkAllItem = (id) => {
+        $('.nama' + id).prop('checked', true)
+        $('.tglLahir' + id).prop('checked', true)
+        $('.nik' + id).prop('checked', true)
+        $('.norm' + id).prop('checked', true)
+    }
+
+    const checkAll = () => {
+        $('.checkIndikator').prop('checked', true)
+    }
+
+    const uncheckAll = () => {
+        $('.checkIndikator').prop('checked', false)
     }
 
     const survey = (noreg) => {

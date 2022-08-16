@@ -16,8 +16,7 @@ class KepatuhanIdentifikasiPasienController extends Controller
         $data = [
             'dataServicePasien' => MasterWebService::where('jenis_service', 'dataPasien')->get(),
             'dataImut' => IndikatorMutuNasional::select('id', 'judul', 'nama_route')->get(),
-
-            'variabelSurvey' => KategoriVariabelSurvey::where('nama_kategori', 'daftarProsesIdentifikasi')->with('variabelSurvey')->first()
+            'kategoriVariabelSurvey' => KategoriVariabelSurvey::where('nama_kategori', 'daftarProsesIdentifikasi')->with('variabelSurvey')->first()
         ];
 
         return view('contents.monitoring.monitoringPasien.kepatuhanIdentifikasi.main', $data);

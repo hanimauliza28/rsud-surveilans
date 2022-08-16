@@ -22,10 +22,12 @@
     </div>
     <div class="card-body">
         <!--begin::Input-->
-        <select class="form-select form-select-solid" data-control="select2" data-placeholder="Pilihan Indikator Mutu Nasional" name="pilihanImut" id="pilihanImut">
+        <select class="form-select form-select-solid" data-control="select2" data-placeholder="Pilihan Indikator Mutu Nasional" name="daftarImutNasioanal" id="daftarImutNasioanal">
             <option></option>
             @foreach ($dataImut as $imut)
-            <option value="{{ $imut->id }}">{!! strip_tags($imut->judul) !!}</option>
+            <option value="{{ route($imut->nama_route ? $imut->nama_route :  'monitoring-pasien.index') }}"
+            {{  request()->routeIs($imut->nama_route) ? 'selected' : '' }}
+            >{!! strip_tags($imut->judul) !!}</option>
             @endforeach
         </select>
         <!--end::Input-->
