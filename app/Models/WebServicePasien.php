@@ -10,8 +10,8 @@ class WebServicePasien extends Model
 {
     use HasFactory;
 
-    protected $table = 'Pasien';
-    protected $fillable = ['indikator_mutu_id', 'tanggal_survey', 'numerator', 'denumerator', 'user_id', 'sumber_data'];
+    protected $table = 'master_web_service';
+    protected $fillable = ['nama', 'nama_unik', 'url', 'type', 'jenis_Service'];
 
     public function __construct()
     {

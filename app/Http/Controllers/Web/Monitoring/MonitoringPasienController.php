@@ -18,4 +18,5 @@ class MonitoringPasienController extends Controller
 
         return view('contents.monitoring.monitoringPasien.noImut.main', $data);
     }
+
 }

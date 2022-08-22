@@ -5,7 +5,10 @@ namespace App\Http\Livewire\Monitoring\MonitoringPasien;
 use Livewire\Component;
 use App\Helpers\Helpers;
 use App\Helpers\HelperTime;
+use App\Models\SumberDataPasien;
 use App\Models\WebServicePasien;
+
+use Carbon\Carbon;
 
 class FilterDataPasien extends Component
 {
@@ -19,17 +22,21 @@ class FilterDataPasien extends Component
     {
         $helpers = new Helpers;
         $helperTime = new HelperTime;
-        $pasien = new WebServicePasien;
+        $pasien = new SumberDataPasien;
+        $webService = new WebServicePasien;
 
         $filterKeyword = $this->filterKeyword;
-        $filterTanggal = $this->filterTanggal;
-        $filterServicePasien = $this->filterServicePasien;
+        $filterTanggal = $this->filterTanggal <> '' ? $this->filterTanggal : date('Y-m-d');
+        $filterServicePasien = $this->filterServicePasien <> "" ? $this->filterServicePasien : 1;
+
+        //cari service
+        $dataWebService = $webService->where('id', $filterServicePasien)->first();
 
         $data = [
             'filterKeyword' => $filterKeyword,
             'filterTanggal' => $filterTanggal,
             'filterServicePasien' => $filterServicePasien,
-            'dataPasien' => $pasien->allPasien()
+            'dataPasien' => $pasien->sumberDataPasien($dataWebService->nama_unik, $dataWebService->url, $dataWebService->type, $filterTanggal, $filterKeyword, null)
         ];
 
         return view('livewire.monitoring.monitoring-pasien.filter-data-pasien', $data);

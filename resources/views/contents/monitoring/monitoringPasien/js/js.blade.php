@@ -20,7 +20,7 @@
 
 {{-- Filter Tanggal --}}
 <script>
-    var start = moment().subtract(29, "days");
+    /*var start = moment().subtract(29, "days");
     var end = moment();
 
     function cb(start, end) {
@@ -42,10 +42,21 @@
             , "Last Month": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")]
         }
     }, cb);
-    cb(start, end);
+    cb(start, end);*/
+
+    $("#filterTanggal").daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true,
+        minYear: 1901,
+        locale: {
+            format: 'DD/MM/YYYY'
+        },
+        maxYear: parseInt(moment().format("YYYY"),10)
+    }
+);
 
     const cariData = () => {
-        var filterTanggal = $('#filterTanggal').val();
+        var filterTanggal = moment($('#filterTanggal').val(), 'DD\MM\YYYY').format("YYYY-MM-DD");
         var filterServicePasien = $('#filterServicePasien').val();
         var filterKeyword = $('#filterKeyword').val();
 

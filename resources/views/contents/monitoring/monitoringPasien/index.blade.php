@@ -108,15 +108,15 @@ Monitoring Indikator Mutu Pelayanan Pada Pasien
 
             <div class="card-body pt-5" id="kt_chat_contacts_body">
                 @livewire('monitoring.monitoring-pasien.filter-data-pasien', ['filterKeyword' => '', 'filterTanggal' => date('Y-m-d'), 'filterServicePasien' => ''])
+
             </div>
         </div>
-
     </div>
-
 
     <div class="col-xl-8 col-md-8 col-sm-12">
         @include('contents.monitoring.monitoringPasien.headerMain')
-        @yield('content-main')
+        @livewire('monitoring.nasional.kepatuhan-identifikasi', [''])
+
     </div>
 </div>
 @endsection
