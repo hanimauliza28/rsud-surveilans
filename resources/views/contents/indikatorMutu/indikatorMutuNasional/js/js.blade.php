@@ -118,19 +118,19 @@
                     $('#id').val(id);
                     $('input[name="_method"]').prop('disabled', false);
                     $('select[name="kategoriIndikator"]').val(data.response.kategori_indikator_id).change();
-                    //$('textarea[name="judulIndikator"]').val(data.response.judul);
-                    //$('textarea[name="definisiOperasional"]').val(data.response.definisi_operasional);
+
                     $('textarea[name="kriteriaInklusi"]').val(data.response.kriteria_inklusi);
                     $('textarea[name="kriteriaEksklusi"]').val(data.response.kriteria_eksklusi);
                     $('input[name="sumberData"]').val(data.response.sumber_data);
+                    $('input[name="namaFunction"]').val(data.response.nama_function);
                     $('input[name="areaMonitoring"]').val(data.response.area_monitoring);
                     $('select[name="tipeIndikator"]').val(data.response.tipe_indikator_id).change();
                     $('select[name="frekuensi"]').val(data.response.frekuensi_id).change();
                     $('input[name="standar"]').val(data.response.standar);
                     $('input[name="faktorPengali"]').val(data.response.faktor_pengali);
                     $('input[name="satuan"]').val(data.response.satuan);
-                    $('input[name="namaRoute"]').val(data.response.nama_route);
-                    //CKEditorFunc('edit', data.response.judul, data.response.definisi_operasional);
+                    $('input[name="namaFunction"]').val(data.response.nama_function);
+
                     CKEditorJudulIndikator.setData(data.response.judul);
                     CKEditorDefinisiOperasional.setData(data.response.definisi_operasional);
 

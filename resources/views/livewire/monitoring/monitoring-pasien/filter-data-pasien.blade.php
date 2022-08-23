@@ -17,7 +17,7 @@
                 <!--end::Avatar-->
                 <!--begin::Details-->
                 <div class="ms-5">
-                    <div onclick="survey({{ $pasien->NOREGRS }})" class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">{{ $pasien->NMPASIEN }}</div>
+                    <div onclick="survey({{ $pasien->NOREGRS }})" id="{{ $pasien->NOREGRS }}" data-namapasien="{{ $pasien->NMPASIEN }}" data-norm="{{ $pasien->NORMPAS }}" data-poli="{{ $pasien->NAMABAGIAN }}" class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">{{ $pasien->NMPASIEN }}</div>
                     <div class="fw-bold text-muted">{{ $pasien->NOREGRS }}</div>
                 </div>
                 <!--end::Details-->

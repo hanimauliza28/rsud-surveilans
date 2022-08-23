@@ -115,10 +115,12 @@ Monitoring Indikator Mutu Pelayanan Pada Pasien
 
     <div class="col-xl-8 col-md-8 col-sm-12">
         @include('contents.monitoring.monitoringPasien.headerMain')
-        @livewire('monitoring.nasional.kepatuhan-identifikasi', [''])
+        @include('contents.monitoring.monitoringPasien.dataPasien')
+        @livewire('monitoring.nasional.modul', ['filterImut' => '', 'noReg' => ''])
 
     </div>
 </div>
 @endsection
 
 @include('contents.monitoring.monitoringPasien.js.js')
+@include('contents.monitoring.monitoringPasien.js.jsKepatuhanIndentifikasi')

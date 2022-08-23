@@ -15,7 +15,7 @@ class KepatuhanIdentifikasiPasienController extends Controller
     public function index(){
         $data = [
             'dataServicePasien' => MasterWebService::where('jenis_service', 'dataPasien')->get(),
-            'dataImut' => IndikatorMutuNasional::select('id', 'judul', 'nama_route')->get(),
+            'dataImut' => IndikatorMutuNasional::select('id', 'judul', 'nama_function')->get(),
             'kategoriVariabelSurvey' => KategoriVariabelSurvey::where('nama_kategori', 'daftarProsesIdentifikasi')->with('variabelSurvey')->first()
         ];
 
