@@ -12,12 +12,11 @@ class SumberDataPasien extends Model
     {
         $this->base_url = env('WS_INFORMASI');
         $this->helpers = new Helpers;
+        $this->apiInformasi = new ApiInformasi;
     }
 
-
-
     // Data SumberDataPasien
-    public function sumberDataPasien($function, $url, $mode, $tanggal, $keyword, $poli = null)
+    public function sumberDataPasien($function, $url, $mode, $tanggal, $keyword, $kdbagian = null)
     {
         // Url
         $url = $this->base_url.$url;
@@ -28,11 +27,11 @@ class SumberDataPasien extends Model
         if($function == 'pasienRawatJalan')
         {
             // Data
-            if($poli)
+            if($kdbagian)
             {
                 $data = [
                     'tanggal' => $tanggal,
-                    'poli' => $poli,
+                    'kdbagian' => $kdbagian,
                     'keyword' => $keyword
                 ];
             }else{
@@ -48,7 +47,32 @@ class SumberDataPasien extends Model
             return $data;
         }
 
-        $this->apiInformasi = new ApiInformasi;
+        $response = $this->apiInformasi->curlApiInformasi($url, $mode, $data);
+
+        if ($response->code == 500) {
+            return null;
+        }
+
+        if ($response->code != 200) {
+            return null;
+        }
+
+        return $response->response;
+    }
+
+    public function bagian($GRPUNIT)
+    {
+        // Url
+        $urls = 'bagian';
+        $base_url = env('WS_INFORMASI');
+        $url = $base_url.$urls;
+
+        // Mode
+        $mode = 'POST';
+        $data = [
+            'GRPUNIT' => $GRPUNIT
+        ];
+
         $response = $this->apiInformasi->curlApiInformasi($url, $mode, $data);
 
         if ($response->code == 500) {

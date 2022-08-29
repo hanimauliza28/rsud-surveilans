@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMasterWebServiceTable extends Migration
+class CreateObjectPasienTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateMasterWebServiceTable extends Migration
      */
     public function up()
     {
-        Schema::create('master_web_service', function (Blueprint $table) {
+        Schema::create('object_pasien', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('nama_unik');
-            $table->string('url');
-            $table->string('type');
-            $table->enum('jenis_service', ['dataPasien', 'dataPelayanan', 'tools']);
+            $table->string('no_reg');
+            $table->string('nama_pasien');
+            $table->string('norm');
+            $table->string('kdbagian');
+            $table->string('nama_bagian');
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreateMasterWebServiceTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('master_web_service');
+        Schema::dropIfExists('object_pasien');
     }
 }

@@ -60,6 +60,18 @@
                         <div class="invalid-feedback" id="jenisService"></div>
                     </div>
 
+
+                    <div class="form-group">
+                        <label class="col-form-label text-left fs-5 fw-bold">Jenis Filter</label>
+                        <select name="jenisFilter" id="selectJenisFilter" data-control="select2" tab-index="89" data-placeholder="Pilih Jenis Filter" class="form-select" data-allow-clear="true">
+                            <option value=""></option>
+                            @foreach ($jenisFilter as $filter)
+                            <option value="{{ $filter->value }}">{{ $filter->text }}</option>
+                            @endforeach
+                        </select>
+                        <div class="invalid-feedback" id="jenisService"></div>
+                    </div>
+
                 </form>
 
                 <!--begin::Overlay Layer-->

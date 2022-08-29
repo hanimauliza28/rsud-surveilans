@@ -49,6 +49,17 @@ Monitoring Indikator Mutu Pelayanan Pada Pasien
                 </div>
                 <!--end::Search-->
 
+                <div class="align-items-center position-relative form-group w-100 mt-3">
+                    <!--begin::Input-->
+                    <select name="filterBagian" id="filterBagian" class="form-select form-select-solid fw-bolder">
+                        <option val=""></option>
+                        @foreach ($dataBagian as $bagian)
+                        <option value="{{ $bagian->KDBAGIAN}}">{{ $bagian->NAMABAGIAN }}</option>
+                        @endforeach
+                    </select>
+                    <!--end::Input-->
+                </div>
+
                 <!--begin::Toolbar-->
                 <div class="d-flex mb-1 mt-3">
                     {{-- begin::Date range picker --}}
@@ -107,7 +118,7 @@ Monitoring Indikator Mutu Pelayanan Pada Pasien
             </div>
 
             <div class="card-body pt-5" id="kt_chat_contacts_body">
-                @livewire('monitoring.monitoring-pasien.filter-data-pasien', ['filterKeyword' => '', 'filterTanggal' => date('Y-m-d'), 'filterServicePasien' => ''])
+                @livewire('monitoring.monitoring-pasien.filter-data-pasien', ['filterKeyword' => '', 'filterTanggal' => date('Y-m-d'), 'filterServicePasien' => '', 'filterBagian' => ''])
 
             </div>
         </div>

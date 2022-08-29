@@ -45,6 +45,15 @@
         , });
     });
 
+
+    $('#filterJenisFilter').each(function() {
+        $(this).select2({
+            placeholder: 'Filter Jenis Filter'
+            , dropdownParent: $(this).parent()
+            , allowClear: true
+        , });
+    });
+
 </script>
 
 {{-- JS Datatable --}}
@@ -89,6 +98,10 @@
                 , {
                     data: 'jenisService'
                     , name: 'jenisService'
+                }
+                , {
+                    data: 'jenis_filter'
+                    , name: 'jenis_filter'
                 }
                 , {
                     data: 'action'
@@ -144,6 +157,7 @@
                 $('input[name="namaUnik"]').val(data.response.nama_unik);
                 $('input[name="url"]').val(data.response.url);
                 $('select[name="jenisService"]').val(data.response.jenis_service).change();
+                $('select[name="jenisFilter"]').val(data.response.jenis_filter).change();
                 $('select[name="type"]').val(data.response.type).change();
 
             }

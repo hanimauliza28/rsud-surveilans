@@ -30,6 +30,11 @@ class Modul extends Component
                 'dataImut' => IndikatorMutuNasional::select('id', 'judul', 'nama_function')->get(),
                 'kategoriVariabelSurvey' => KategoriVariabelSurvey::where('nama_kategori', 'daftarProsesIdentifikasi')->with('variabelSurvey')->first()
             ];
+        }elseif($page == 'emergency-respon-time')
+        {
+            $data = [
+
+            ];
         }
 
         return view('livewire.monitoring.nasional.'.$page ,$data);

@@ -29,6 +29,7 @@ class WebServiceController extends Controller
     {
         $data = [
             'jenisWebService' => $this->helperSurveilans->survJenisWebService(),
+            'jenisFilter' => $this->helperSurveilans->survJenisFilter()
         ];
 
         return view('contents.master.webService.index', $data);
@@ -58,6 +59,7 @@ class WebServiceController extends Controller
             'url' => $request->url,
             'type' => $request->type,
             'jenis_service' => $request->jenisService,
+            'jenis_filter' => $request->jenisFilter,
         ];
 
         $saveData = MasterWebService::create($data);
@@ -129,6 +131,7 @@ class WebServiceController extends Controller
             'url' => $request->url,
             'type' => $request->type,
             'jenis_service' => $request->jenisService,
+            'jenis_filter' => $request->jenisFilter,
         ];
 
         $saveData = MasterWebService::where('id', $request->id)->update($data);

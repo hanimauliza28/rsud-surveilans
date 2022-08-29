@@ -1,8 +1,14 @@
 @push('extraScript')
+
 {{-- SELECT --}}
 <script>
     $('#filterServicePasien').select2({
         placeholder: 'Pilih Service Pasien'
+        , width: 'resolve'
+    });
+
+    $('#filterBagian').select2({
+        placeholder: 'Pilih Bagian'
         , width: 'resolve'
     });
 
@@ -13,9 +19,32 @@
     });
 
     $("#daftarImutNasional").on("select2:select", function(e) {
+        var noReg = $('#dataPasienNoreg').val();
+
         Livewire.emitTo('monitoring.nasional.modul', 'cariImut', {
-            filterImut: e.params.data.id,
-            noReg : ''
+            filterImut: e.params.data.id
+            , noReg: noReg
+        });
+    });
+
+    $("#filterServicePasien").on("select2:select", function(e) {
+        var filterServicePasien = $('#filterServicePasien').val();
+
+        $.ajax({
+            url: '{{ route("monitoring-pasien.filter-bagian") }}'
+            , type: "POST"
+            , data: {
+                _token: '{{ csrf_token() }}',
+                id: filterServicePasien
+            }
+            , success: function(response) {
+                $('#filterBagian').html('<option val=""></option>');
+
+                $.each(response.response,function(key, value)
+                {
+                    $("#filterBagian").append('<option value=' + value.KDBAGIAN + '>' + value.NAMABAGIAN + '</option>');
+                });
+            }
         });
     });
 
@@ -23,7 +52,6 @@
 
 {{-- Filter Tanggal --}}
 <script>
-
     $("#filterTanggal").daterangepicker({
         singleDatePicker: true
         , showDropdowns: true
@@ -38,19 +66,21 @@
         var filterTanggal = moment($('#filterTanggal').val(), 'DD\MM\YYYY').format("YYYY-MM-DD");
         var filterServicePasien = $('#filterServicePasien').val();
         var filterKeyword = $('#filterKeyword').val();
+        var filterBagian = $('#filterBagian').val();
+
 
         Livewire.emitTo('monitoring.monitoring-pasien.filter-data-pasien', 'cariDataPasien', {
             filterServicePasien: filterServicePasien
             , filterKeyword: filterKeyword
             , filterTanggal: filterTanggal
+            , filterBagian: filterBagian
         })
     }
 
-    const survey = (noreg) =>
-    {
-        var namapasien = $('#'+noreg+'').data('namapasien');
-        var norm = $('#'+noreg+'').data('norm');
-        var poli = $('#'+noreg+'').data('poli');
+    const survey = (noreg) => {
+        var namapasien = $('#' + noreg + '').data('namapasien');
+        var norm = $('#' + noreg + '').data('norm');
+        var poli = $('#' + noreg + '').data('poli');
 
         $('#dataPasienNama').val(namapasien)
         $('#dataPasienNorm').val(norm)
@@ -58,6 +88,7 @@
         $('#dataPasienNoreg').val(noreg)
 
     }
+
 </script>
 
 

@@ -142,6 +142,26 @@ class HelperSurveilans
                 'value' => 'dataPelayanan',
                 'text' => 'Data Service Pelayanan'
             ],
+            [
+                'value' => 'tools',
+                'text' => 'Tools'
+            ],
+        ];
+
+        return $this->helpers->arrayToObject($data);
+    }
+
+    public function survJenisFilter()
+    {
+        $data = [
+            [
+                'value' => 'ranap',
+                'text' => 'Rawat Inap'
+            ],
+            [
+                'value' => 'rajal',
+                'text' => 'Rawat Jalan'
+            ]
         ];
 
         return $this->helpers->arrayToObject($data);

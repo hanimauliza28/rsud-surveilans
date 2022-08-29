@@ -19,5 +19,17 @@ class MasterWebService extends Model
         }else{
             return 'Data Service Pelayanan';
         }
+
+    }
+
+    public function getLabelJenisFilterAttribute()
+    {
+        if ($this->jenis_filter == 'ranap') {
+            return '<label class="badge badge-success">Rawat Inap</label>';
+        } elseif ($this->jenis_filter == 'rajal') {
+            return '<label class="badge badge-primary">Rawat Jalan</label>';
+        } else {
+            return '<label class="badge badge-danger">Belum Dipilih</label>';
+        }
     }
 }

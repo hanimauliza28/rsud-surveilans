@@ -85,6 +85,7 @@ Master Web Service
                         <th>URL</th>
                         <th>Type</th>
                         <th>Jenis Service</th>
+                        <th>Jenis Filter</th>
                         <th>Action</th>
                     </tr>
                 </thead>

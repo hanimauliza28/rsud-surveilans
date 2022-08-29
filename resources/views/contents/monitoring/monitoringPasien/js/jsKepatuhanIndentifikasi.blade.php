@@ -20,5 +20,9 @@
 
 </script>
 
+{{-- KHUSUS KEPATUHAN IDENTIFIKASI KODE KI --}}
 
+<script>
+
+</script>
 @endpush

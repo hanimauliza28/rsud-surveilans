@@ -34,6 +34,10 @@ class WebServiceDatatable extends Controller
                 ->addColumn('jenisService', function($service){
                     return $service->nama_jenis_service;
                 })
+
+                ->editColumn('jenis_filter', function($service){
+                    return view('contents.master.webService.customColumn.jenisFilter',\compact('service'));
+                })
                 ->addColumn('action', function ($service) {
                     return view('contents.master.webService.customColumn.action',\compact('service'));
                 })
