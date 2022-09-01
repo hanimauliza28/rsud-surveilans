@@ -34,6 +34,11 @@ class IndikatorMutuNasional extends Model
         return $this->hasMany(SurveyNasional::class, 'indikator_mutu_id', 'id');
     }
 
+    public function hasilSurvey()
+    {
+        return $this->belongsToMany(VariabelSurvey::class,'hasil_survey_imut_nasional', 'indikator_mutu_id', 'variabel_survey_id')->using(HasilSurveyImutNasional::class);
+    }
+
     public function searchPerKategori($kategoriId, $filterKeyword, $batasWaktuMulai, $batasWaktuSelesai)
     {
         $imut = IndikatorMutuNasional::where('kategori_indikator_id', $kategoriId)
@@ -41,14 +46,9 @@ class IndikatorMutuNasional extends Model
                                         $query->where('judul', 'LIKE', '%'.$filterKeyword.'%');
                                     })
                                     ->with(['survey' => function($query) use($batasWaktuMulai, $batasWaktuSelesai){
-                                        // return $query->whereBetween('tanggal_survey', [$batasWaktuMulai, $batasWaktuSelesai])->get();
                                         return $query->whereDate('tanggal_survey', '>=', $batasWaktuMulai)->whereDate('tanggal_survey', '<=', $batasWaktuSelesai);
-                                        // return $query->select()->get();
                                     }])
                                     ->get();
-
-
-
 
         // $imut = DB::table('indikator_mutu_nasional')
         //     ->join('survey_nasional', 'indikator_mutu_nasional.id', '=', 'survey_nasional.indikator_mutu_id')

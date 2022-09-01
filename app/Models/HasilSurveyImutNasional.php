@@ -9,6 +9,16 @@ class HasilSurveyImutNasional extends Model
 {
     use HasFactory;
     protected $table = 'hasil_survey_imut_nasional';
-    protected $fillable = [''];
+    protected $fillable = [
+        'id_object',
+        'jenis_object',
+        'tgl_survey',
+        'indikator_mutu_id',
+        'surveyor',
+    ];
 
+    public function detail()
+    {
+        return $this->hasMany(HasilSurveyImutNasionalDetail::class, 'hasil_survey_id', 'id');
+    }
 }

@@ -24,6 +24,8 @@ class SumberDataPasien extends Model
         // Mode
         $mode = $mode;
 
+        $data = '';
+
         if($function == 'pasienRawatJalan')
         {
             // Data
@@ -40,11 +42,6 @@ class SumberDataPasien extends Model
                     'keyword' => $keyword
                 ];
             }
-        }else{
-            $data = [
-                'error' => 'Tidak ada hasil untuk sumber data pasien yang anda pilih'
-            ];
-            return $data;
         }
 
         $response = $this->apiInformasi->curlApiInformasi($url, $mode, $data);

@@ -80,13 +80,14 @@
     const survey = (noreg) => {
         var namapasien = $('#' + noreg + '').data('namapasien');
         var norm = $('#' + noreg + '').data('norm');
-        var poli = $('#' + noreg + '').data('poli');
+        var bagian = $('#' + noreg + '').data('bagian');
+        var kdbagian = $('#' + noreg + '').data('kdbagian');
 
-        $('#dataPasienNama').val(namapasien)
-        $('#dataPasienNorm').val(norm)
-        $('#dataPasienPoli').val(poli)
-        $('#dataPasienNoreg').val(noreg)
-
+        $('#dataPasienNama').val(namapasien);
+        $('#dataPasienNorm').val(norm);
+        $('#dataPasienBagian').val(bagian);
+        $('#dataPasienKdbagian').val(kdbagian);
+        $('#dataPasienNoreg').val(noreg);
     }
 
 </script>

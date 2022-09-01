@@ -25,7 +25,7 @@ Route::middleware([])->group(function () {
     Route::post('filter-bagian', [MonitoringPasienController::class, 'filterBagian'])->name('monitoring-pasien.filter-bagian');
 
     Route::group(['prefix' => 'kepatuhan-identifikasi'], function () {
-        Route::get('/', [KepatuhanIdentifikasiPasienController::class, 'index'])->name('kepatuhan-identifikasi.index');
+        Route::post('/', [KepatuhanIdentifikasiPasienController::class, 'store'])->name('kepatuhan-identifikasi.store');
     });
 
 });

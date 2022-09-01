@@ -21,4 +21,5 @@ class VariabelSurvey extends Model
     {
         return $this->belongsTo(self::class, 'parent_id');
     }
+
 }

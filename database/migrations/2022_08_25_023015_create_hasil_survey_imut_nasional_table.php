@@ -15,14 +15,10 @@ class CreateHasilSurveyImutNasionalTable extends Migration
     {
         Schema::create('hasil_survey_imut_nasional', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_object');
-            $table->integer('jenis_object');
-            $table->datetime('tgl_survey');
+            $table->bigInteger('id_object');
+            $table->string('jenis_object');
+            $table->date('tgl_survey');
             $table->integer('indikator_mutu_id');
-            $table->integer('variabel_survey_id');
-            $table->string('sub_variabel');
-            $table->string('value');
-            $table->integer('point');
             $table->string('surveyor');
             $table->timestamps();
         });
