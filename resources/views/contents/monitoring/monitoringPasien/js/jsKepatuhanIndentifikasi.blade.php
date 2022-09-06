@@ -24,61 +24,89 @@
 
         return false;
     }
+
     const simpanKI = () => {
-            var data = $('#kepatuhan-identifikasi-form').serializeArray();
-            var dataPasien = $('#data-pasien-form').serializeArray();
+        var data = $('#kepatuhan-identifikasi-form').serializeArray();
+        var dataPasien = $('#data-pasien-form').serializeArray();
+        var hasilSurveyId = $('#hasilSurveyId').val();
 
-            $.ajax({
-                    url: route('kepatuhan-identifikasi.store'),
-                    type: 'POST',
-                    dataType: 'JSON',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        data: data,
-                        dataPasien: dataPasien
-                    },
-                    beforeSend: function(data) {
-                        $('.indicator-label').hide();
-                        $('.indicator-progress').show();
+        if (hasilSurveyId <= 0) {
+            var method = 'POST';
+            var url = route('kepatuhan-identifikasi.store');
+        } else {
+            var method = 'PUT';
+            var url = route('kepatuhan-identifikasi.update', hasilSurveyId);
+        }
 
-                    },
-                    success: function(data) {
-                        $('.indicator-label').show();
-                        $('.indicator-progress').hide();
+        var checkPasien = checkDataPasien();
 
-                        Swal.fire({
-                            icon: "success",
-                            title: "Berhasil",
-                            text: data.message,
-                            padding: '2em',
-                            timer: 3000
-                        });
+        if (checkPasien == 0) {
+            Swal.fire({
+                title: 'Gagal!',
+                text: 'Data Pasien Belum Diisi, Pilih Pasien yang akan di Survey',
+                icon: 'error',
+                padding: '2em',
+                timer: 3000
+            });
 
-                        console.log(data);
-                    },
-                    error: function(data) {
+            $('.indicator-label').show();
+            $('.indicator-progress').hide();
+            return false;
+        }
 
-                        $('.indicator-label').show();
-                        $('.indicator-progress').hide();
-                        if (data.status === 400) {
-                            Swal.fire({
-                                title: 'Gagal!',
-                                text: data.responseJSON.message,
-                                icon: 'error',
-                                padding: '2em',
-                                timer: 3000
-                            })
-                        }
-                        if (data.status === 500) {
-                            Swal.fire({
-                                title: 'Gagal!',
-                                text: 'Terjadi Kesalahan pada server, pastikan sudah di isi dengan benar',
-                                icon: 'error',
-                                padding: '2em',
-                                timer: 3000
-                            })
-                        }
-                    }
-            })
+        $.ajax({
+            url: url,
+            type: method,
+            dataType: 'JSON',
+            data: {
+                _token: '{{ csrf_token() }}',
+                data: data,
+                dataPasien: dataPasien
+            },
+
+            beforeSend: function(data) {
+                $('.indicator-label').hide();
+                $('.indicator-progress').show();
+            },
+
+            success: function(data) {
+                $('.indicator-label').show();
+                $('.indicator-progress').hide();
+
+                Swal.fire({
+                    icon: "success",
+                    title: "Berhasil",
+                    text: data.message,
+                    padding: '2em',
+                    timer: 3000
+                });
+
+                reloadForm();
+            },
+
+            error: function(data) {
+
+                $('.indicator-label').show();
+                $('.indicator-progress').hide();
+                if (data.status === 400) {
+                    Swal.fire({
+                        title: 'Gagal!',
+                        text: data.responseJSON.message,
+                        icon: 'error',
+                        padding: '2em',
+                        timer: 3000
+                    })
+                }
+                if (data.status === 500) {
+                    Swal.fire({
+                        title: 'Gagal!',
+                        text: 'Terjadi Kesalahan pada server, pastikan sudah di isi dengan benar',
+                        icon: 'error',
+                        padding: '2em',
+                        timer: 3000
+                    })
+                }
+            }
+        })
     }
 </script>

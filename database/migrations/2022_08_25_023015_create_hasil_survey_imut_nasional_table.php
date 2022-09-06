@@ -20,6 +20,9 @@ class CreateHasilSurveyImutNasionalTable extends Migration
             $table->date('tgl_survey');
             $table->integer('indikator_mutu_id');
             $table->string('surveyor');
+            $table->integer('numerator');
+            $table->integer('denumerator');
+            $table->decimal('score', 11, 2);
             $table->timestamps();
         });
     }

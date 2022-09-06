@@ -26,6 +26,7 @@ Route::middleware([])->group(function () {
 
     Route::group(['prefix' => 'kepatuhan-identifikasi'], function () {
         Route::post('/', [KepatuhanIdentifikasiPasienController::class, 'store'])->name('kepatuhan-identifikasi.store');
+        Route::put('{id}/update', [KepatuhanIdentifikasiPasienController::class, 'update'])->name('kepatuhan-identifikasi.update');
     });
 
 });

@@ -17,31 +17,68 @@ class Modul extends Component
 
     public function render()
     {
-        $page = $this->filterImut <> '' ? $this->filterImut :  'modul';
+        $page = $this->filterImut != '' ? $this->filterImut : 'modul';
         $data = [
             'filterImut' => $this->filterImut,
-            'noReg' => $this->noReg
+            'noReg' => $this->noReg,
         ];
+        $noReg = $data['noReg'];
 
         //Kepatuhan Identifikasi Pasien
-        if($page == 'kepatuhan-identifikasi')
-        {
-            $indikatorMutu = IndikatorMutuNasional::where('nama_function', $page)->first();
+        if ($page == 'kepatuhan-identifikasi') {
+            $indikatorMutu = IndikatorMutuNasional::where(
+                'nama_function',
+                $page
+            )->first();
+
+            $hasilSurvey = HasilSurveyImutNasional::whereHas(
+                'object',
+                function ($query) use ($noReg) {
+                    $query->where('no_reg', $noReg);
+                }
+            )
+                ->with([
+                    'detail' => function ($query) {
+                        return $query->select(
+                            'hasil_survey_id',
+                            'variabel_survey_id',
+                            'sub_variabel',
+                            'value',
+                            'point'
+                        );
+                    },
+                ])
+                ->first();
+
             $data = [
                 'indikatorMutu' => $indikatorMutu,
-                'dataServicePasien' => MasterWebService::where('jenis_service', 'dataPasien')->get(),
-                'dataImut' => IndikatorMutuNasional::select('id', 'judul', 'nama_function')->get(),
-                'kategoriVariabelSurvey' => KategoriVariabelSurvey::where('nama_kategori', 'daftarProsesIdentifikasi')->with('variabelSurvey')->first(),
-                'hasilSurvey' => HasilSurveyImutNasional::where('id_object', $this->noReg)->where('indikator_mutu_id', $indikatorMutu->id)->get()
+                'dataServicePasien' => MasterWebService::where(
+                    'jenis_service',
+                    'dataPasien'
+                )->get(),
+                'dataImut' => IndikatorMutuNasional::select(
+                    'id',
+                    'judul',
+                    'nama_function',
+                    'satuan'
+                )->get(),
+                'kategoriVariabelSurvey' => KategoriVariabelSurvey::where(
+                    'nama_kategori',
+                    'daftarProsesIdentifikasi'
+                )
+                    ->with('variabelSurvey')
+                    ->first(),
+                'hasilSurvey' => $hasilSurvey,
+                'detailHasilSurvey' => $hasilSurvey ? collect($hasilSurvey['detail']) : []
             ];
-        }elseif($page == 'emergency-respon-time')
-        {
-            $data = [
+            // dd($data);
 
-            ];
+
+        } elseif ($page == 'emergency-respon-time') {
+            $data = [];
         }
 
-        return view('livewire.monitoring.nasional.'.$page ,$data);
+        return view('livewire.monitoring.nasional.' . $page, $data);
     }
 
     public function cariImut($dataFilter)

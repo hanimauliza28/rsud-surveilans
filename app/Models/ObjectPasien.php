@@ -18,4 +18,14 @@ class ObjectPasien extends Model
         'nama_bagian'
     ];
 
+    // public function hasilSurvey()
+    // {
+    //     return $this->hasMany(HasilSurveyImutNasional::class, 'object_id', 'id');
+    // }
+
+    public function hasilSurvey()
+    {
+        return $this->morphOne(HasilSurveyImutNasional::class, 'object');
+    }
+
 }

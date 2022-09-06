@@ -17,4 +17,6 @@ use App\Http\Controllers\Web\Home\HomeController;
 Route::middleware([])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('index');
     Route::get('/dashboard', [HomeController::class, 'index'])->name('home.index');
+    Route::get('/query', [HomeController::class, 'query'])->name('home.query');
+
 });

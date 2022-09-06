@@ -14,11 +14,28 @@ class HasilSurveyImutNasional extends Model
         'jenis_object',
         'tgl_survey',
         'indikator_mutu_id',
+        'numerator',
+        'denumerator',
+        'score',
         'surveyor',
     ];
+
+    public function object()
+{
+    return $this->morphTo(__FUNCTION__, 'jenis_object', 'id_object');
+}
 
     public function detail()
     {
         return $this->hasMany(HasilSurveyImutNasionalDetail::class, 'hasil_survey_id', 'id');
     }
+
+    // public function  object()
+    // {
+    //     return $this->belongsTo(ObjectPasien::class, 'id_object', 'id');
+    //     if($this->jenis_object == 'pasien')
+    //     {
+    //         return $this->belongsTo(ObjectPasien::class, 'id_object', 'id');
+    //     }
+    // }
 }

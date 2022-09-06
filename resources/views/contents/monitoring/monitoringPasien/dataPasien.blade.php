@@ -17,7 +17,7 @@
                         </svg>
                     </span>
                     <input type="text" id="dataPasienNama" name="dataPasienNama" class="form-control form-control-solid w-100 ps-15"
-                        placeholder="Nama Pasien" />
+                        placeholder="Nama Pasien" readonly/>
                 </div>
                 <!--end::Search-->
 
@@ -36,7 +36,7 @@
                         </svg>
                     </span>
                     <input type="text" id="dataPasienNorm" name="dataPasienNorm" class="form-control form-control-solid w-100 ps-15"
-                        placeholder="No. Rekam Medis" />
+                        placeholder="No. Rekam Medis" readonly/>
                 </div>
                 <!--end::Search-->
             </div>
@@ -57,7 +57,7 @@
                         </svg>
                     </span>
                     <input type="text" id="dataPasienNoreg" name="dataPasienNoreg" class="form-control form-control-solid w-100 ps-15"
-                        placeholder="No. Registrasi" />
+                        placeholder="No. Registrasi" readonly/>
                 </div>
                 <!--end::Search-->
 
@@ -85,7 +85,7 @@
                         </svg>
                     </span>
                     <input type="text" id="dataPasienBagian" name="dataPasienBagian" class="form-control form-control-solid w-100 ps-15"
-                        placeholder="Poli/Ruang Periksa" />
+                        placeholder="Poli/Ruang Periksa" readonly/>
                     <input type="hidden" id="dataPasienKdbagian" name="dataPasienKdbagian" class="form-control form-control-solid w-100 ps-15"
                         placeholder="Kode Bagian" />
                 </div>
