@@ -209,6 +209,3 @@
 
 <!-- Your component's view here -->
 
-@push('scripts')
-    @include('contents.monitoring.monitoringPasien.js.jsKepatuhanIndentifikasi')
-@endpush

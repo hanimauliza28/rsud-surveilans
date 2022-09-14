@@ -1,7 +1,6 @@
 <div class="card mb-5">
     <form id="data-pasien-form">
         <div class="card-body row">
-            <input type="hidden" name="indikatorMutuNasion" value="indikatorMutuLokal">
             <div class="col-md-6 col-lg-6 col-sm-12">
                 <!--begin::Search-->
                 <div class="d-flex align-items-center position-relative my-1 w-100">

@@ -134,7 +134,7 @@
                 $('input[name="namaVariabel"]').val(data.response.nama_variabel);
                 $('input[name="nama"]').val(data.response.nama);
                 $('input[name="keterangan"]').val(data.response.keterangan);
-                $('select[name="kategoriVariabelSurveyiId"]').val(data.response.kategori_variabel_survey_id).change();
+                $('select[name="kategoriVariabelSurvey"]').val(data.response.kategori_variabel_survey_id).change();
                 $('select[name="parentId"]').val(data.response.parent_id).change();
 
             }

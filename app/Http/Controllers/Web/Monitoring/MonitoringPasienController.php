@@ -37,7 +37,7 @@ class MonitoringPasienController extends Controller
                 'nama_function'
             )->get(),
         ];
-
+        // dd($data['dataImut']);
         return view('contents.monitoring.monitoringPasien.noImut.main', $data);
     }
 

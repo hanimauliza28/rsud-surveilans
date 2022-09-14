@@ -38,8 +38,10 @@ class VariabelSurveyRequest extends FormRequest
     public function rules()
     {
         return [
-            'namaKategori' => 'required',
+            'namaVariabel' => 'required',
+            'nama' => 'required',
             'keterangan' => 'required',
+            'kategoriVariabelSurvey' => 'required',
         ];
 
     }
@@ -52,8 +54,10 @@ class VariabelSurveyRequest extends FormRequest
     public function messages()
     {
         return [
-            'namaKategori.required' => 'Nama Kategori Survey Tidak Boleh Kosong',
+            'namaVariabel.required' => 'Nama Function Variabel Survey Tidak Boleh Kosong',
+            'nama.required' => 'Nama Tidak Boleh Kosong',
             'keterangan.required' => 'Keterangan Tidak Boleh Kosong',
+            'kategoriVariabelSurvey.required' => 'Kategori Variabel Survey Tidak Boleh Kosong',
         ];
     }
 

@@ -180,6 +180,11 @@
         $('#nilai-modal').on('hidden.bs.modal', function() {
             cariDataFilter();
         });
+
+        cost rekapNilai = (id) => {
+            alert('rekap');
+        }
+
     </script>
 
 @endpush

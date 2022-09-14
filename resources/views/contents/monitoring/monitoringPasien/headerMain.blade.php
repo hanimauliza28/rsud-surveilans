@@ -25,7 +25,7 @@
         <select class="form-select form-select-solid" data-control="select2" data-placeholder="Pilihan Indikator Mutu Nasional" name="daftarImutNasional" id="daftarImutNasional">
             <option></option>
             @foreach ($dataImut as $imut)
-            <option value="{{ $imut->nama_function }}"> {!! strip_tags($imut->judul) !!} </option>
+            <option value="{{ $imut->nama_function ? $imut->nama_function : '' }}"> {!! strip_tags($imut->judul) !!} </option>
             @endforeach
         </select>
         <!--end::Input-->

@@ -10,7 +10,6 @@ class SumberDataPasien extends Model
 {
     public function __construct()
     {
-        $this->base_url = env('WS_INFORMASI');
         $this->helpers = new Helpers;
         $this->apiInformasi = new ApiInformasi;
     }
@@ -19,7 +18,7 @@ class SumberDataPasien extends Model
     public function sumberDataPasien($function, $url, $mode, $tanggal, $keyword, $kdbagian = null)
     {
         // Url
-        $url = $this->base_url.$url;
+        $url = $url;
 
         // Mode
         $mode = $mode;
@@ -61,8 +60,7 @@ class SumberDataPasien extends Model
     {
         // Url
         $urls = 'bagian';
-        $base_url = env('WS_INFORMASI');
-        $url = $base_url.$urls;
+        $url = $urls;
 
         // Mode
         $mode = 'POST';

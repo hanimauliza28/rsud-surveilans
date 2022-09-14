@@ -54,8 +54,11 @@ class VariabelSurveyController extends Controller
     public function store(VariabelSurveyRequest $request)
     {
         $data = [
-            'nama_kategori' => $request->nama,
+            'parent_id' => $request->parentId,
+            'nama_variabel' => $request->namaVariabel,
+            'nama' => $request->nama,
             'keterangan' => $request->keterangan,
+            'kategori_variabel_survey_id' => $request->kategoriVariabelSurvey
         ];
 
         $saveData = VariabelSurvey::create($data);
@@ -63,11 +66,11 @@ class VariabelSurveyController extends Controller
         $saveData
             ? ($response = $this->helpers->retunJson(
                 200,
-                'Web Service Berhasil ditambahkan'
+                'Variabel Survey Berhasil ditambahkan'
             ))
             : ($response = $this->helpers->retunJson(
                 400,
-                'Web Service Gagal ditambahkan'
+                'Variabel Survey Gagal ditambahkan'
             ));
 
         return $response;
@@ -103,7 +106,7 @@ class VariabelSurveyController extends Controller
             ))
             : ($response = $this->helpers->retunJson(
                 404,
-                'Web Service Tidak Ditemukan'
+                'Variabel Survey Tidak Ditemukan'
             ));
 
         return $response;
@@ -122,8 +125,11 @@ class VariabelSurveyController extends Controller
         $data = $request->except('_token');
 
         $data = [
-            'nama_kategori' => $request->nama,
+            'parent_id' => $request->parentId,
+            'nama_variabel' => $request->namaVariabel,
+            'nama' => $request->nama,
             'keterangan' => $request->keterangan,
+            'kategori_variabel_survey_id' => $request->kategoriVariabelSurvey
         ];
 
         $saveData = VariabelSurvey::where('id', $request->id)->update($data);
@@ -131,11 +137,11 @@ class VariabelSurveyController extends Controller
         $saveData
             ? ($response = $this->helpers->retunJson(
                 200,
-                'Web Service Berhasil diubah'
+                'Variabel Survey Berhasil diubah'
             ))
             : ($response = $this->helpers->retunJson(
                 400,
-                'Web Service Gagal diubah'
+                'Variabel Survey Gagal diubah'
             ));
 
         return $response;
@@ -156,11 +162,11 @@ class VariabelSurveyController extends Controller
         $delete
             ? ($response = $this->helpers->retunJson(
                 200,
-                'Web Service berhasil dihapus'
+                'Variabel Survey berhasil dihapus'
             ))
             : ($response = $this->helpers->retunJson(
                 400,
-                'Web Service gagal dihapus'
+                'Variabel Survey gagal dihapus'
             ));
 
         return $response;

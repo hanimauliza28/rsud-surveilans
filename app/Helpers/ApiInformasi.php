@@ -13,7 +13,7 @@ class ApiInformasi
     public function curlApiInformasi($url, $mode, $data = '', $header = '')
     {
         // Koneksi API
-        $userId = 'ApiInformasi';
+        $userId = 'ApiMyRsud';
 
         $secretKey = $this->keyApiInformasi;
         $mainUrl = $this->urlApiInformasi;
@@ -31,6 +31,7 @@ class ApiInformasi
             'X-signature' => $encodedSignature,
             'X-stamp' => $stamp
         ];
+
 
         try {
             if ($mode == 'GET') {

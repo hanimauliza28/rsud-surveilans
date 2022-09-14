@@ -1,28 +1,28 @@
 {{-- KHUSUS KEPATUHAN IDENTIFIKASI KODE KI --}}
 
 <script>
-    const resetERT = () => {
-        $('#emergency-respon-time-form').trigger('reset');
+    const resetWTRJ = () => {
+        $('#waktu-tunggu-rawat-jalan-form').trigger('reset');
         return false;
     }
 
-    const simpanERT = () => {
+    const simpanWTRJ = () => {
         //var data = {
          //   'waktuPasienDatang' => $('input[name="waktuPasienDatang"]').val(),
          //   'waktuPasienDilayani' => $('input[name="waktuPasienDilayani"]').val(),
          //   'waktuTanggap' => $('input[name="waktuTanggap"]').val()
         //};
 
-        var data = $('#emergency-respon-time-form').serializeArray();
+        var data = $('#waktu-tunggu-rawat-jalan-form').serializeArray();
         var dataPasien = $('#data-pasien-form').serializeArray();
         var hasilSurveyId = $('#hasilSurveyId').val();
 
         if (hasilSurveyId <= 0) {
             var method = 'POST';
-            var url = route('emergency-respon-time.store');
+            var url = route('waktu-tunggu-rawat-jalan.store');
         } else {
             var method = 'PUT';
-            var url = route('emergency-respon-time.update', hasilSurveyId);
+            var url = route('waktu-tunggu-rawat-jalan.update', hasilSurveyId);
         }
 
         var checkPasien = checkDataPasien();
