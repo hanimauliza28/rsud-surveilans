@@ -244,7 +244,7 @@ class KepatuhanIdentifikasiPasienController extends Controller
             }
 
             //Hapus Detail yang tidak ada dalam daftar
-            $delete = HasilSurveyImutNasionalDetail::whereNotIn('id', $dataDetail)->delete();
+            $delete = HasilSurveyImutNasionalDetail::where('hasil_survey_id', $hasilSurveyId)->whereNotIn('id', $dataDetail)->delete();
 
             return $this->helpers->retunJson(
                 200,
