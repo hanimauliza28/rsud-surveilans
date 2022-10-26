@@ -76,7 +76,7 @@ Monitoring Indikator Mutu Pelayanan Pada Pasien
                         <!--end::Svg Icon-->
                         <!--end::Icon-->
                         <!--begin::Datepicker-->
-                        <input class="form-control form-control-solid ps-12" placeholder="Range Tanggal Resi" name="filterTanggal" id="filterTanggal" />
+                        <input class="form-control form-control-solid ps-12" placeholder="Range Tanggal Periksa" name="filterTanggal" id="filterTanggal" />
                         <!--end::Datepicker-->
                     </div>
                     {{-- end::date range picker --}}
@@ -137,3 +137,4 @@ Monitoring Indikator Mutu Pelayanan Pada Pasien
 @include('contents.monitoring.monitoringPasien.js.jsKepatuhanIndentifikasi')
 @include('contents.monitoring.monitoringPasien.js.jsEmergencyResponTime')
 @include('contents.monitoring.monitoringPasien.js.jsWaktuTungguRawatJalan')
+@include('contents.monitoring.monitoringPasien.js.jsPenundaanOperasiElektif')

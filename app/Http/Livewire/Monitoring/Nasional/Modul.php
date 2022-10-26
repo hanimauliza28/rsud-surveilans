@@ -8,14 +8,17 @@ use App\Models\IndikatorMutuNasional;
 use App\Models\KategoriVariabelSurvey;
 use App\Models\HasilSurveyImutNasional;
 
+use Carbon\Carbon;
+use App\Models\SumberDataPasien;
 use App\Models\SumberDataPelayanan;
 
 class Modul extends Component
 {
-    protected $listeners = ['cariImut'];
+    protected $listeners = ['cariImut', 'penundaanOperasi'];
 
     public $filterImut = null;
     public $noReg = null;
+    public $tanggalSurvey = null;
 
     public function render()
     {
@@ -33,12 +36,14 @@ class Modul extends Component
         )->first();
 
         if ($indikatorMutu) {
-            $hasilSurvey = HasilSurveyImutNasional::whereHas(
-                'object',
-                function ($query) use ($noReg) {
-                    $query->where('no_reg', $noReg);
-                }
-            )
+            if($page != 'penundaan-operasi-elektif')
+            {
+                $hasilSurvey = HasilSurveyImutNasional::whereHas(
+                    'object',
+                    function ($query) use ($noReg) {
+                        $query->where('no_reg', $noReg);
+                    }
+                )
                 ->where('indikator_mutu_id', $indikatorMutu->id)
                 ->with([
                     'detail' => function ($query) {
@@ -60,6 +65,7 @@ class Modul extends Component
                     },
                 ])
                 ->first();
+            }
         }
 
         //Kepatuhan Identifikasi Pasien
@@ -89,6 +95,7 @@ class Modul extends Component
                     ? collect($hasilSurvey['detail'])
                     : [],
             ];
+
         } elseif ($page == 'emergency-respon-time') {
             $pasienEmergency = SumberDataPelayanan::pasienEmergency();
 
@@ -105,7 +112,7 @@ class Modul extends Component
                 'detailHasilSurvey' => $dataDetail ?? '',
             ];
         } elseif ($page == 'waktu-tunggu-rawat-jalan') {
-            $waktuTungguRawatJalan = SumberDataPelayanan::waktuTungguRawatJalan();
+            $waktuTungguRawatJalan = SumberDataPelayanan::waktuTungguRawatJalan($noReg);
 
             if (isset($hasilSurvey->detail)) {
                 foreach ($hasilSurvey->detail as $detail) {
@@ -115,12 +122,27 @@ class Modul extends Component
 
             $data = [
                 'indikatorMutu' => $indikatorMutu,
-                'dataPelayanan' => $waktuTungguRawatJalan,
+                'dataPelayanan' => $waktuTungguRawatJalan[0],
                 'hasilSurvey' => $hasilSurvey,
                 'detailHasilSurvey' => $dataDetail ?? '',
             ];
-        }
 
+            // dd($data);
+        } elseif ($page == 'penundaan-operasi-elektif') {
+            $tanggalSurvey = $this->tanggalSurvey ?? date('Y-m-d');
+            $hasilSurvey = HasilSurveyImutNasional::where('indikator_mutu_id', $indikatorMutu->id)->whereDate('tgl_survey', $tanggalSurvey)->with('detail')->first();
+            $tanggal = Carbon::parse($tanggalSurvey);
+            $tanggalFormat = $tanggal->isoFormat('DD/MM/YYYY');
+            $list = SumberDataPasien::listPasienOperasi();
+            // dd($tanggalFormat);
+            $data = [
+                'indikatorMutu' => $indikatorMutu,
+                'hasilSurvey' => $hasilSurvey,
+                'hasilSurveyDetail' => $hasilSurvey->detail ?? '',
+                'pasienOperasi' => $list
+            ];
+
+        }
         return view('livewire.monitoring.nasional.' . $page, $data);
     }
 
@@ -128,5 +150,11 @@ class Modul extends Component
     {
         $this->filterImut = $dataFilter['filterImut'];
         $this->noReg = $dataFilter['noReg'];
+    }
+
+    public function penundaanOperasi($dataParameter)
+    {
+        $this->tanggalSurvey = $dataParameter['tanggalSurvey'];
+        $this->filterImut = 'penundaan-operasi-elektif';
     }
 }

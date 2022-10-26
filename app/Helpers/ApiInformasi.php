@@ -32,7 +32,6 @@ class ApiInformasi
             'X-stamp' => $stamp
         ];
 
-
         try {
             if ($mode == 'GET') {
                 $response = \Http::withHeaders($header)->get($mainUrl.$url, $data);

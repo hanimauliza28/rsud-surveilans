@@ -55,21 +55,47 @@ class SumberDataPelayanan extends Model
 
     }
 
-    public function waktuTungguRawatJalan()
+    public function waktuTungguRawatJalan($noReg)
     {
-        $waktuDatang = date('Y-m-d H:i:s', strtotime('+87 minutes', strtotime(date('Y-m-d H:i:s'))));
-        $waktuDilayani = date('Y-m-d H:i:s');
+        // $waktuDatang = date('Y-m-d H:i:s', strtotime('+87 minutes', strtotime(date('Y-m-d H:i:s'))));
+        // $waktuDilayani = date('Y-m-d H:i:s');
 
-        $waktuTanggu = strtotime($waktuDatang) - strtotime($waktuDilayani);
+        // $waktuTanggu = strtotime($waktuDatang) - strtotime($waktuDilayani);
 
+        // $data = [
+        //     'waktuDatang' => date('Y-m-d H:i:s', strtotime('+5 minutes', strtotime(date('Y-m-d H:i:s')))),
+        //     'waktuDilayani' => date('Y-m-d H:i:s'),
+        //     'waktuTunggu' => $waktuTanggu
+        // ];
+
+        // return collect($data);
+
+
+        $url = 'waktu-tunggu-pasien-rawat-jalan';
+
+        // Mode
+        $mode = 'POST';
         $data = [
-            'waktuDatang' => date('Y-m-d H:i:s', strtotime('+5 minutes', strtotime(date('Y-m-d H:i:s')))),
-            'waktuDilayani' => date('Y-m-d H:i:s'),
-            'waktuTunggu' => $waktuTanggu
+            'noreg' => $noReg
         ];
+        $apiInformasi = new ApiInformasi;
+        $response = $apiInformasi->curlApiInformasi($url, $mode, $data);
+        if ($response->code == 500) {
+            return null;
+        }
 
-        return collect($data);
+        if ($response->code != 200) {
+            return null;
+        }
+
+        return $response->response;
+
 
     }
 
+
+    public function pasienJadwalOperasi()
+    {
+
+    }
 }

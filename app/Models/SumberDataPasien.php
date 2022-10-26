@@ -80,4 +80,32 @@ class SumberDataPasien extends Model
 
         return $response->response;
     }
+
+    public function listPasienOperasi()
+    {
+
+        $apiInformasi = new ApiInformasi;
+
+        $url = 'pasien-rawat-inap';
+
+        $mode = 'POST';
+
+        $data = [
+            // 'kdbagian' => '9311',
+            'tanggal' => '2022-09-14',
+            'status' => 'dalamPerawatan'
+        ];
+
+        $response = $apiInformasi->curlApiInformasi($url, $mode, $data);
+
+        if ($response->code == 500) {
+            return null;
+        }
+
+        if ($response->code != 200) {
+            return null;
+        }
+
+        return $response->response;
+    }
 }

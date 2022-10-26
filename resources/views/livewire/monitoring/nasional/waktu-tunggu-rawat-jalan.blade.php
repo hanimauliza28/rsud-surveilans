@@ -1,4 +1,5 @@
 <div>
+    {{ dd($dataPelayanan) }}
     <div class="card">
         <div class="card-body">
             <form id="waktu-tunggu-rawat-jalan-form">
@@ -14,7 +15,7 @@
                     <div class="col-sm-12 col-md-12">
                         <input type="text" name="waktuDatang" id="waktuDatang"
                             class="form-control form-control-lg form-control-solid" placeholder="Waktu Pasien Datang"
-                            value="{{ $detailHasilSurvey ? $detailHasilSurvey['waktuDatang'] : $dataPelayanan['waktuDatang'] }}" />
+                            value="{{ $detailHasilSurvey ? $detailHasilSurvey['waktuDatang'] : $dataPelayanan->MULAI_LAYANAN }}" />
                     </div>
                 </div>
 
@@ -27,7 +28,7 @@
                     <div class="col-sm-12 col-md-12">
                         <input type="text" name="waktuDilayani" id="waktuDilayani"
                             class="form-control form-control-lg form-control-solid" placeholder="Waktu Pasien Datang"
-                            value="{{ $detailHasilSurvey ? $detailHasilSurvey['waktuDilayani'] : $dataPelayanan['waktuDilayani'] }}" />
+                            value="{{ $detailHasilSurvey ? $detailHasilSurvey['waktuDilayani'] : $dataPelayanan->SELESAI_LAYANAN }}" />
                     </div>
                 </div>
 

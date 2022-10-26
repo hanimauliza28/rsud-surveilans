@@ -67,7 +67,6 @@
             var filterKeyword = $('#filterKeyword').val();
             var filterBagian = $('#filterBagian').val();
 
-
             Livewire.emitTo('monitoring.monitoring-pasien.filter-data-pasien', 'cariDataPasien', {
                 filterServicePasien: filterServicePasien,
                 filterKeyword: filterKeyword,
