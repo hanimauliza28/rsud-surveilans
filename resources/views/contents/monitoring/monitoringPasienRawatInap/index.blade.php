@@ -1,4 +1,6 @@
-<div>
+@extends('contents.monitoring.monitoringPasienRawatInap.tampilanRawatInap')
+
+@section('content-main')
     <div class="card mt-3">
         <div class="card-body">
             <!--begin::Notice-->
@@ -17,16 +19,11 @@
                 </span>
                 <!--end::Svg Icon-->
                 <!--end::Icon-->
-
-
                 <!--begin::Wrapper-->
                 <div class="d-flex flex-stack flex-grow-1">
                     <!--begin::Content-->
                     <div class="fw-bold">
-                        <div class="fs-6 text-gray-700">
-                            {{-- {{ $filterImut }} --}}
-                            Pilih Nama Pasien dan Indikator Mutu yang
-                            Akan di Isi</div>
+                        <div class="fs-6 text-gray-700">Pilih Nama Pasien dan Indikator Mutu yang Akan di Isi</div>
                     </div>
                     <!--end::Content-->
                 </div>
@@ -35,4 +32,9 @@
             <!--end::Notice-->
         </div>
     </div>
-</div>
+@endsection
+
+@include('contents.monitoring.monitoringPasienRawatInap.js')
+@include('contents.monitoring.jsMonitoring')
+@include('contents.monitoring.monitoringPasien.js.jsKepatuhanIndentifikasi')
+@include('contents.monitoring.monitoringPasien.js.jsEmergencyResponTime')

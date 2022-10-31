@@ -8,6 +8,11 @@ use App\Http\Controllers\Web\Monitoring\MonitoringPasien\EmergencyResponTimeCont
 use App\Http\Controllers\Web\Monitoring\MonitoringPasien\WaktuTungguRawatJalanController;
 use App\Http\Controllers\Web\Monitoring\MonitoringPasien\PenundaanOperasiElektifController;
 
+
+use App\Http\Controllers\Web\Monitoring\MonitoringPasienIgdController;
+use App\Http\Controllers\Web\Monitoring\MonitoringPasienRawatInapController;
+use App\Http\Controllers\Web\Monitoring\MonitoringPasienRawatJalanController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,7 +34,7 @@ Route::middleware([])->group(function () {
         Route::delete('{id}/destroy', [AnthropometricController::class, 'destroy'])->name('anthropometric.destroy');
     });
 
-    //Route Data Service
+    //Route Monitoring Pasien
     Route::group(['prefix' => 'monitoring-pasien'], function () {
         Route::get('/', [MonitoringPasienController::class, 'index'])->name('monitoring-pasien.index');
     });
@@ -57,5 +62,19 @@ Route::middleware([])->group(function () {
         Route::post('/', [PenundaanOperasiElektifController::class, 'store'])->name('penundaan-operasi-elektif.store');
         Route::put('{id}/update', [PenundaanOperasiElektifController::class, 'update'])->name('penundaan-operasi-elektif.update');
     });
+
+    // Monitoring Pasien IGD
+    Route::group(['prefix' => 'monitoring-pasien-igd'], function () {
+        Route::get('/', [MonitoringPasienIgdController::class, 'index'])->name('monitoring-pasien-igd.index');
+    });
+
+    Route::group(['prefix' => 'monitoring-pasien-rawat-inap'], function () {
+        Route::get('/', [MonitoringPasienRawatInapController::class, 'index'])->name('monitoring-pasien-rawat-inap.index');
+    });
+
+    Route::group(['prefix' => 'monitoring-pasien-rawat-jalan'], function () {
+        Route::get('/', [MonitoringPasienRawatJalanController::class, 'index'])->name('monitoring-pasien-rawat-jalan.index');
+    });
+
 
 });

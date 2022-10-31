@@ -1,49 +1,51 @@
 <?php
 
-namespace App\Http\Livewire\Monitoring\MonitoringPasien;
+namespace App\Http\Livewire\Monitoring;
 
 use Livewire\Component;
 use App\Helpers\Helpers;
 use App\Helpers\HelperTime;
+use App\Helpers\HelperSurveilans;
 use App\Models\SumberDataPasien;
-use App\Models\MasterWebService;
+use App\Models\DaftarPasien;
+use App\Models\Bagian;
 
 use Carbon\Carbon;
 
-class FilterDataPasien extends Component
+class FilterDataPasienRawatInap extends Component
 {
     protected $listeners = ['cariDataPasien'];
 
     public $filterKeyword = null;
     public $filterTanggal = null;
     public $filterBagian = null;
-    public $filterServicePasien = null;
+    public $filterRawat = null;
 
     public function render()
     {
         $helpers = new Helpers;
         $helperTime = new HelperTime;
-        $pasien = new SumberDataPasien;
-        $webService = new MasterWebService;
+        $helperSurveilans = new HelperSurveilans;
+        $sumberDataPasien = new SumberDataPasien;
+        $daftarPasien = new DaftarPasien;
+        $bagian = new Bagian;
 
         $filterKeyword = $this->filterKeyword;
         $filterBagian = $this->filterBagian;
+        $filterRawat = $this->filterRawat;
         $filterTanggal = $this->filterTanggal <> '' ? $this->filterTanggal : date('Y-m-d');
-        $filterServicePasien = $this->filterServicePasien <> "" ? $this->filterServicePasien : 1;
-
-        //Cari Service
-        $dataWebService = $webService->where('id', $filterServicePasien)->first();
+        $dataFilterRawat = $helperSurveilans->filterRawatInap();
+        $dataPasien = $daftarPasien->pasienRawatInap($filterTanggal, $filterKeyword, $filterBagian, $filterRawat);
 
         $data = [
             'filterKeyword' => $filterKeyword,
             'filterTanggal' => $filterTanggal,
-            'filterServicePasien' => $filterServicePasien,
+            'filterRawat' => $filterRawat,
             'filterBagian' => $filterBagian,
-            'dataPasien' => $pasien->sumberDataPasien($dataWebService->nama_unik, $dataWebService->url, $dataWebService->type, $filterTanggal, $filterKeyword, $filterBagian)
+            'dataPasien' => $dataPasien
         ];
 
-        // dd($data['dataPasien']);
-        return view('livewire.monitoring.monitoring-pasien.filter-data-pasien', $data);
+        return view('livewire.monitoring.filter-data-pasien-rawat-inap', $data);
     }
 
     public function cariDataPasien($dataFilter)
@@ -51,6 +53,6 @@ class FilterDataPasien extends Component
         $this->filterKeyword = $dataFilter['filterKeyword'];
         $this->filterTanggal = $dataFilter['filterTanggal'];
         $this->filterBagian = $dataFilter['filterBagian'];
-        $this->filterServicePasien = $dataFilter['filterServicePasien'];
+        $this->filterRawat = $dataFilter['filterRawat'];
     }
 }

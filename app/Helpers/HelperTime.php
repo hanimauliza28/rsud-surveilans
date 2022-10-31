@@ -4,6 +4,12 @@ use Carbon\Carbon;
 
 class HelperTime {
 
+    public function formatTanggalNoreg($date){
+        $default = Carbon::parse(date('Y-m-d', strtotime($date)));
+        $newDate = $default->isoFormat('YYYYMMDD');
+        return $newDate;
+    }
+
     public function splitFilterBatasWaktu($filterBatasWaktu)
     {
         // Filter

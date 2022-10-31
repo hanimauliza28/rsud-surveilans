@@ -67,6 +67,7 @@
             var filterKeyword = $('#filterKeyword').val();
             var filterBagian = $('#filterBagian').val();
 
+            console.log(filterKeyword);
             Livewire.emitTo('monitoring.monitoring-pasien.filter-data-pasien', 'cariDataPasien', {
                 filterServicePasien: filterServicePasien,
                 filterKeyword: filterKeyword,
@@ -95,7 +96,6 @@
                 filterImut: filterImut,
                 noReg: noReg
             });
-
         }
 
         const reloadForm = () => {
@@ -108,17 +108,5 @@
             });
         }
 
-        const checkDataPasien = () => {
-            var pasienNama = $('#dataPasienNama').val() ? 1 : 0;
-            var pasienNorm = $('#dataPasienNorm').val() ? 1 : 0;
-            var pasienBagian = $('#dataPasienBagian').val() ? 1 : 0;
-            var pasienKdbagian = $('#dataPasienKdbagian').val() ? 1 : 0;
-            var pasienNoreg = $('#dataPasienNoreg').val() ? 1 : 0;
-
-            var hasil = pasienNama + pasienNorm + pasienBagian + pasienKdbagian + pasienNoreg;
-
-            return hasil;
-
-        }
     </script>
 @endpush

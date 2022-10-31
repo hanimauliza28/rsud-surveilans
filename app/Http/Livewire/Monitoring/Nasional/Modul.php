@@ -22,11 +22,19 @@ class Modul extends Component
 
     public function render()
     {
-        $page = $this->filterImut != '' ? $this->filterImut : 'modul';
+        //Check appakah variabel no registrsi dan filter imut terisi
+        if($this->filterImut != '' && $this->noReg != '')
+        {
+            $page = $this->filterImut;
+        }else{
+            $page = "modul";
+        }
+
         $data = [
             'filterImut' => $this->filterImut,
             'noReg' => $this->noReg,
         ];
+
         $noReg = $data['noReg'];
 
         //Ambil Data Indikator Mutu
@@ -122,19 +130,18 @@ class Modul extends Component
 
             $data = [
                 'indikatorMutu' => $indikatorMutu,
-                'dataPelayanan' => $waktuTungguRawatJalan[0],
+                'dataPelayanan' => '',
                 'hasilSurvey' => $hasilSurvey,
                 'detailHasilSurvey' => $dataDetail ?? '',
             ];
 
-            // dd($data);
         } elseif ($page == 'penundaan-operasi-elektif') {
             $tanggalSurvey = $this->tanggalSurvey ?? date('Y-m-d');
             $hasilSurvey = HasilSurveyImutNasional::where('indikator_mutu_id', $indikatorMutu->id)->whereDate('tgl_survey', $tanggalSurvey)->with('detail')->first();
             $tanggal = Carbon::parse($tanggalSurvey);
             $tanggalFormat = $tanggal->isoFormat('DD/MM/YYYY');
             $list = SumberDataPasien::listPasienOperasi();
-            // dd($tanggalFormat);
+
             $data = [
                 'indikatorMutu' => $indikatorMutu,
                 'hasilSurvey' => $hasilSurvey,

@@ -166,4 +166,28 @@ class HelperSurveilans
 
         return $this->helpers->arrayToObject($data);
     }
+
+    public function filterRawatInap()
+    {
+        $data = [
+            [
+                'value' => 'dalamPerawatan',
+                'text' => 'Dalam Perawatan',
+            ],
+            [
+                'value' => 'pulang',
+                'text' => 'Pulang',
+            ],
+            [
+                'value' => 'rujuk',
+                'text' => 'Rujuk',
+            ],
+            [
+                'value' => 'meninggal',
+                'text' => 'Meninggal',
+            ]
+        ];
+
+        return $this->helpers->arrayToObject($data);
+    }
 }

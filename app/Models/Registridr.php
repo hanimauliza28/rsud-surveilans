@@ -20,4 +20,5 @@ class Registridr extends Model
         $this->helpers = new Helpers();
         $this->apiInformasi = new ApiInformasi();
     }
+
 }

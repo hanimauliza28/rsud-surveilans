@@ -40,6 +40,7 @@ Route::middleware([])->group(function () {
         Route::put('{id}/update', [IndikatorMutuNasionalWajibController::class, 'update'])->name('indikator-mutu-nasional-wajib.update');
         Route::delete('{id}/destroy', [IndikatorMutuNasionalWajibController::class, 'destroy'])->name('indikator-mutu-nasional-wajib.destroy');
 
+        Route::get('{id}/datasurvey', [IndikatorMutuNasionalWajibController::class, 'datasurvey'])->name('indikator-mutu-nasional-wajib.datasurvey');
         Route::post('{id}/variabel', [IndikatorMutuNasionalWajibController::class, 'variabel'])->name('indikator-mutu-nasional-wajib.variabel');
         Route::post('store-nilai', [IndikatorMutuNasionalWajibController::class, 'storeNilai'])->name('indikator-mutu-nasional-wajib.storeNilai');
     });
@@ -52,7 +53,6 @@ Route::middleware([])->group(function () {
         Route::get('{id}/edit', [IndikatorMutuNasionalKlinikController::class, 'edit'])->name('indikator-mutu-nasional-klinik.edit');
         Route::put('{id}/update', [IndikatorMutuNasionalKlinikController::class, 'update'])->name('indikator-mutu-nasional-klinik.update');
         Route::delete('{id}/destroy', [IndikatorMutuNasionalKlinikController::class, 'destroy'])->name('indikator-mutu-nasional-klinik.destroy');
-
         Route::post('{id}/variabel', [IndikatorMutuNasionalKlinikController::class, 'variabel'])->name('indikator-mutu-nasional-klinik.variabel');
         Route::post('store-nilai', [IndikatorMutuNasionalKlinikController::class, 'storeNilai'])->name('indikator-mutu-nasional-klinik.storeNilai');
     });
@@ -65,7 +65,6 @@ Route::middleware([])->group(function () {
         Route::get('{id}/edit', [IndikatorMutuNasionalManajemenController::class, 'edit'])->name('indikator-mutu-nasional-manajemen.edit');
         Route::put('{id}/update', [IndikatorMutuNasionalManajemenController::class, 'update'])->name('indikator-mutu-nasional-manajemen.update');
         Route::delete('{id}/destroy', [IndikatorMutuNasionalManajemenController::class, 'destroy'])->name('indikator-mutu-nasional-manajemen.destroy');
-
         Route::post('{id}/variabel', [IndikatorMutuNasionalManajemenController::class, 'variabel'])->name('indikator-mutu-nasional-manajemen.variabel');
         Route::post('store-nilai', [IndikatorMutuNasionalManajemenController::class, 'storeNilai'])->name('indikator-mutu-nasional-manajemen.storeNilai');
     });
@@ -89,7 +88,6 @@ Route::middleware([])->group(function () {
         Route::get('{id}/edit', [IndikatorMutuLokalMonitoringController::class, 'edit'])->name('indikator-mutu-lokal-monitoring.edit');
         Route::put('{id}/update', [IndikatorMutuLokalMonitoringController::class, 'update'])->name('indikator-mutu-lokal-monitoring.update');
         Route::delete('{id}/destroy', [IndikatorMutuLokalMonitoringController::class, 'destroy'])->name('indikator-mutu-lokal-monitoring.destroy');
-
         Route::post('{id}/variabel', [IndikatorMutuLokalMonitoringController::class, 'variabel'])->name('indikator-mutu-lokal-monitoring.variabel');
         Route::post('store-nilai', [IndikatorMutuLokalMonitoringController::class, 'storeNilai'])->name('indikator-mutu-lokal-monitoring.storeNilai');
     });

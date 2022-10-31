@@ -22,6 +22,7 @@
                     <td>{{ $nomor }}</td>
                     <td><a class="text-success" onclick="detail({{ $indikatorMutu->id }})">{!! $indikatorMutu['judul'] !!}</a>
                         <button class="btn btn-success btn-sm" onclick="rekapNilai($indikatorMutu->id)">Sync</button>
+                        <button class="btn btn-success btn-sm" href="{{ route('detail.hasil', $indikatorMutu->id) }}">Detail</button>
                     </td>
                     @for ($x = 1; $x <= $dayInMonth; $x++) <td class="text-center">
 

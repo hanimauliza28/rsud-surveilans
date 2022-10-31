@@ -261,4 +261,8 @@ class IndikatorMutuNasionalWajibController extends Controller
         return $response;
     }
 
+    public function datasurvey(){
+        return view('contents.indikatorMutu.nasional.wajib.index', $data);
+    }
+
 }
