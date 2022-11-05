@@ -11,6 +11,7 @@ use App\Models\HasilSurveyImutNasional;
 use Carbon\Carbon;
 use App\Models\SumberDataPasien;
 use App\Models\SumberDataPelayanan;
+use App\Models\RawatInap;
 
 class Modul extends Component
 {
@@ -23,11 +24,10 @@ class Modul extends Component
     public function render()
     {
         //Check appakah variabel no registrsi dan filter imut terisi
-        if($this->filterImut != '' && $this->noReg != '')
-        {
+        if ($this->filterImut != '' && $this->noReg != '') {
             $page = $this->filterImut;
-        }else{
-            $page = "modul";
+        } else {
+            $page = 'modul';
         }
 
         $data = [
@@ -44,35 +44,34 @@ class Modul extends Component
         )->first();
 
         if ($indikatorMutu) {
-            if($page != 'penundaan-operasi-elektif')
-            {
+            if ($page != 'penundaan-operasi-elektif') {
                 $hasilSurvey = HasilSurveyImutNasional::whereHas(
                     'object',
                     function ($query) use ($noReg) {
                         $query->where('no_reg', $noReg);
                     }
                 )
-                ->where('indikator_mutu_id', $indikatorMutu->id)
-                ->with([
-                    'detail' => function ($query) {
-                        return $query
-                            ->join(
-                                'variabel_survey',
-                                'variabel_survey.id',
-                                '=',
-                                'hasil_survey_imut_nasional_detail.variabel_survey_id'
-                            )
-                            ->select(
-                                'hasil_survey_imut_nasional_detail.hasil_survey_id',
-                                'hasil_survey_imut_nasional_detail.variabel_survey_id',
-                                'hasil_survey_imut_nasional_detail.sub_variabel',
-                                'hasil_survey_imut_nasional_detail.value',
-                                'hasil_survey_imut_nasional_detail.point',
-                                'variabel_survey.nama_variabel'
-                            );
-                    },
-                ])
-                ->first();
+                    ->where('indikator_mutu_id', $indikatorMutu->id)
+                    ->with([
+                        'detail' => function ($query) {
+                            return $query
+                                ->join(
+                                    'variabel_survey',
+                                    'variabel_survey.id',
+                                    '=',
+                                    'hasil_survey_imut_nasional_detail.variabel_survey_id'
+                                )
+                                ->select(
+                                    'hasil_survey_imut_nasional_detail.hasil_survey_id',
+                                    'hasil_survey_imut_nasional_detail.variabel_survey_id',
+                                    'hasil_survey_imut_nasional_detail.sub_variabel',
+                                    'hasil_survey_imut_nasional_detail.value',
+                                    'hasil_survey_imut_nasional_detail.point',
+                                    'variabel_survey.nama_variabel'
+                                );
+                        },
+                    ])
+                    ->first();
             }
         }
 
@@ -103,7 +102,6 @@ class Modul extends Component
                     ? collect($hasilSurvey['detail'])
                     : [],
             ];
-
         } elseif ($page == 'emergency-respon-time') {
             $pasienEmergency = SumberDataPelayanan::pasienEmergency();
 
@@ -120,7 +118,9 @@ class Modul extends Component
                 'detailHasilSurvey' => $dataDetail ?? '',
             ];
         } elseif ($page == 'waktu-tunggu-rawat-jalan') {
-            $waktuTungguRawatJalan = SumberDataPelayanan::waktuTungguRawatJalan($noReg);
+            $waktuTungguRawatJalan = SumberDataPelayanan::waktuTungguRawatJalan(
+                $noReg
+            );
 
             if (isset($hasilSurvey->detail)) {
                 foreach ($hasilSurvey->detail as $detail) {
@@ -134,10 +134,15 @@ class Modul extends Component
                 'hasilSurvey' => $hasilSurvey,
                 'detailHasilSurvey' => $dataDetail ?? '',
             ];
-
         } elseif ($page == 'penundaan-operasi-elektif') {
             $tanggalSurvey = $this->tanggalSurvey ?? date('Y-m-d');
-            $hasilSurvey = HasilSurveyImutNasional::where('indikator_mutu_id', $indikatorMutu->id)->whereDate('tgl_survey', $tanggalSurvey)->with('detail')->first();
+            $hasilSurvey = HasilSurveyImutNasional::where(
+                'indikator_mutu_id',
+                $indikatorMutu->id
+            )
+                ->whereDate('tgl_survey', $tanggalSurvey)
+                ->with('detail')
+                ->first();
             $tanggal = Carbon::parse($tanggalSurvey);
             $tanggalFormat = $tanggal->isoFormat('DD/MM/YYYY');
             $list = SumberDataPasien::listPasienOperasi();
@@ -146,10 +151,33 @@ class Modul extends Component
                 'indikatorMutu' => $indikatorMutu,
                 'hasilSurvey' => $hasilSurvey,
                 'hasilSurveyDetail' => $hasilSurvey->detail ?? '',
-                'pasienOperasi' => $list
+                'pasienOperasi' => $list,
             ];
-
         }
+        elseif ($page == 'kepatuhan-jam-visit-dokter') {
+            $rawatInap = new RawatInap;
+            $dataVisit = $rawatInap->dataVisit($noReg);
+
+            $tanggalSurvey = $this->tanggalSurvey ?? date('Y-m-d');
+            $hasilSurvey = HasilSurveyImutNasional::where(
+                'indikator_mutu_id',
+                $indikatorMutu->id
+            )
+                ->whereDate('tgl_survey', $tanggalSurvey)
+                ->with('detail')
+                ->first();
+            $tanggal = Carbon::parse($tanggalSurvey);
+            $tanggalFormat = $tanggal->isoFormat('DD/MM/YYYY');
+            $data =
+
+            $data = [
+                'indikatorMutu' => $indikatorMutu,
+                'hasilSurvey' => $hasilSurvey,
+                'hasilSurveyDetail' => $hasilSurvey->detail ?? '',
+                'dataVisit' => $dataVisit
+            ];
+        }
+
         return view('livewire.monitoring.nasional.' . $page, $data);
     }
 

@@ -27,13 +27,19 @@ class DaftarPasien extends Model
     {
         //Format Tanggal
         $prefix_noreg = $this->helpertime->formatTanggalNoreg($tanggal);
+        $cariKeyword = '';
+
+        if($keyword != '')
+        {
+            $cariKeyword = " AND (A.NMPASIEN LIKE '%".$keyword."%' OR B.NOREGRS LIKE '%".$keyword."%' OR B.NORMPAS LIKE '%".$keyword."%')";
+        }
 
         $sql = "SELECT A.NMPASIEN, A.NORMPAS, A.NOJAMINAN, A.ALAMATPAS, B.NOREGRS, C.KDDOKTER, C.REGBAGIAN, D.NAMABAGIAN
         FROM        MPASIENRS AS A INNER JOIN
                     REGISTRIPAS AS B ON A.NORMPAS = B.NORMPAS INNER JOIN
                     REGISTRIDR AS C ON B.NOREGRS = C.NOREGRS INNER JOIN
                     BAGIAN AS D ON C.REGBAGIAN = D.KDBAGIAN
-        WHERE     (D.KDBAGIAN = '9501') AND (C.NOREGRS LIKE '".$prefix_noreg."%')
+        WHERE     (D.KDBAGIAN = '9501') AND (C.NOREGRS LIKE '".$prefix_noreg."%') ".$cariKeyword."
         ORDER BY B.NOREGRS ASC";
 
         $hasil = DB::connection('simrs')->select(DB::raw($sql));

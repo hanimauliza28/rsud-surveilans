@@ -190,4 +190,38 @@ class HelperSurveilans
 
         return $this->helpers->arrayToObject($data);
     }
+
+    function labelStatusPanggil($status)
+    {
+        if($status == 'P')
+        {
+            $result = '<div class="badge text-success bg-light-success">Panggil</div>';
+        }elseif($status == 'T')
+        {
+            $result = '<div class="badge text-warning bg-light-warning">Tunda</div>';
+        }elseif($status == 'D')
+        {
+            $result = '<div class="badge text-success bg-light-success">Sudah</div>';
+        }else{
+            $result = '<div class="badge text-danger bg-light-danger">Belum di Panggil</div>';
+        }
+
+        return $result;
+    }
+
+
+    function labelStatusDilayani($status)
+    {
+        if($status == 'Y')
+        {
+            $result = '<div class="badge text-success bg-light-success">Sudah</div>';
+        }elseif($status == 'N')
+        {
+            $result = '<div class="badge text-warning bg-light-warning">Belum</div>';
+        }else{
+            $result = '<div class="badge text-danger bg-light-danger">Belum di Panggil</div>';
+        }
+
+        return $result;
+    }
 }

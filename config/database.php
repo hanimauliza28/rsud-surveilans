@@ -105,6 +105,19 @@ return [
             'prefix_indexes' => true,
         ],
 
+        'antrianigd' => [
+            'driver' => 'sqlsrv',
+            'url' => env('DATABASE_URL_ANTRIANIGD'),
+            'host' => env('DB_HOST_ANTRIANIGD', 'localhost'),
+            'port' => env('DB_PORT_ANTRIANIGD', '1433'),
+            'database' => env('DB_DATABASE_ANTRIANIGD', 'forge'),
+            'username' => env('DB_USERNAME_ANTRIANIGD', 'forge'),
+            'password' => env('DB_PASSWORD_ANTRIANIGD', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+        ],
+
     ],
 
     /*

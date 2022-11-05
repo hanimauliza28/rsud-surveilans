@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\Home\HomeController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +14,18 @@ use App\Http\Controllers\Web\Home\HomeController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('login', [AuthController::class, 'index'])->name('login');
+// Route::get('register', 'App\Http\Controllers\AuthController@register')->name('register');
+Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
+Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
 
-Route::middleware([])->group(function () {
+Route::middleware(['ceklogin'])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('index');
     Route::get('/dashboard', [HomeController::class, 'index'])->name('home.index');
     Route::get('/query', [HomeController::class, 'query'])->name('home.query');
 
+
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
+
+Auth::routes();

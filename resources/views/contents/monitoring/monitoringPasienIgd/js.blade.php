@@ -14,7 +14,6 @@
             var filterTanggal = moment($('#filterTanggal').val(), 'DD\MM\YYYY').format("YYYY-MM-DD");
             var filterKeyword = $('#filterKeyword').val();
 
-            console.log(filterKeyword);
             Livewire.emitTo('monitoring.filter-data-pasien-igd', 'cariDataPasien', {
                 filterKeyword: filterKeyword,
                 filterTanggal: filterTanggal,
