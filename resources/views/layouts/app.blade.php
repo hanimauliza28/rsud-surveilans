@@ -24,7 +24,14 @@ License: For each use you must have a valid license purchased only from above li
 		<div class="d-flex flex-column flex-root">
 			<!--begin::Page-->
 			<div class="page d-flex flex-row flex-column-fluid">
-				@include('layouts.partials.sidebar')
+
+            @if(session('userLogin')->level == '1')
+
+                @include('layouts.partials.sidebar-superadmin')
+            @else
+                @include('layouts.partials.sidebar')
+            @endif
+
 				<!--begin::Wrapper-->
 				<div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
 					@include('layouts.partials.header')

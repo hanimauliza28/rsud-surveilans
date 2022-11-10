@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Datatables\IndikatorMutu\IndikatorMutuNasionalDatatable;
+use App\Http\Controllers\Datatables\IndikatorMutu\IndikatorMutuNasionalHasilDatatable;
 use App\Http\Controllers\Datatables\IndikatorMutu\IndikatorMutuLokalDatatable;
 use App\Http\Controllers\Datatables\IndikatorMutu\VariabelDatatable;
 
@@ -21,6 +22,7 @@ use App\Http\Controllers\Datatables\IndikatorMutu\VariabelDatatable;
 Route::middleware([])->group(function () {
     //Modul Indikator Mutu Nasional
     Route::post('indikator-mutu-nasional-datatable', IndikatorMutuNasionalDatatable::class)->name('indikator-mutu-nasional.datatable');
+    Route::post('indikator-mutu-nasional-hasil-datatable', IndikatorMutuNasionalHasilDatatable::class)->name('indikator-mutu-nasional-hasil.datatable');
     // Route::post('indikator-mutu-nasional-kategori-datatable', IndikatorMutuNasionalKategoriDatatable::class)->name('indikator-mutu-nasional-kategori.datatable');
 
     //Modul Indikator Mutu Lokal

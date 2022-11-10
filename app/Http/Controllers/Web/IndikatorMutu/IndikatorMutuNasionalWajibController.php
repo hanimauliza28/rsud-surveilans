@@ -9,12 +9,15 @@ use App\Helpers\HelperTime;
 use Carbon\Carbon;
 
 use App\Models\IndikatorMutuNasional;
+use App\Models\HasilSurveyImutNasional;
 use App\Models\RefKategoriIndikator;
 use App\Models\RefFrekuensi;
 use App\Models\RefTipeIndikator;
 use App\Models\Variabel;
 use App\Models\SurveyLokal;
 use App\Models\SurveyNasional;
+use App\Models\DaftarPasien;
+use App\Models\AntrianIgd;
 
 use App\Http\Requests\IndikatorMutu\IndikatorMutuNasionalRequest;
 
@@ -263,6 +266,65 @@ class IndikatorMutuNasionalWajibController extends Controller
 
     public function datasurvey(){
         return view('contents.indikatorMutu.nasional.wajib.index', $data);
+    }
+
+    public function sync(Request $request)
+    {
+
+        /**
+         * Catatan rancangan pertama, untuk pengisian survey nasional denumerator dan numerator diambil langsung dari tabel antrian.
+         * Tapi bisa ada perubahan data, dan memungkinkan ada yang tidak dimasukkan. jadi diambil dari tabel Hasil Survey Indikator Nasioonal
+         *
+         * $jumlahPasienIgd = DaftarPasien::jumlahPasienIgd($prenoreg);
+         * $jumlahPatuh = AntrianIgd::jumlahPasienPatuh($prenoreg);
+         *
+         * **/
+
+
+        $filterTanggal = $request->filterTanggal;
+        $indikatorMutuId = $request->indikatorMutuId;
+
+        $bulan = date('m', strtotime($filterTanggal));
+        $tahun = date('Y', strtotime($filterTanggal));
+        $d = cal_days_in_month(CAL_GREGORIAN,$bulan,$tahun);
+
+        for($i=1; $i <= $d; $i++){
+            $prenoreg = date('Ymd', strtotime($tahun.'-'.$bulan.'-'.$i));
+            $tanggal = date('Y-m-d', strtotime($tahun.'-'.$bulan.'-'.$i));
+
+
+            //cari indikator mutu
+            $imut = IndikatorMutuNasional::where('id', $indikatorMutuId)->first();
+
+            $denumerator = HasilSurveyImutNasional::where('indikator_mutu_id', $imut->id)->whereDate('tgl_survey', $tanggal)->count();
+                $numerator = HasilSurveyImutNasional::where('indikator_mutu_id', $imut->id)->whereDate('tgl_survey', $tanggal)->where('score', '1.00')->count();
+
+                $data = [
+                    'denumerator' => $denumerator,
+                    'numerator' => $numerator,
+                    'tanggal_survey' => $tanggal,
+                    'indikator_mutu_id' => $indikatorMutuId,
+                    'user_id' => session('userLogin')->id,
+                    'sumber_data' => 'surveilans'
+                ];
+
+
+            if(isset($data))
+            {
+                $save = SurveyNasional::updateOrCreate([
+                    'tanggal_survey' => $tanggal,
+                    'indikator_mutu_id' => $indikatorMutuId
+                ],  $data);
+            }
+
+
+        }
+
+
+        isset($save) ?
+            $response=$this->helpers->retunJson(200, 'Sinkronasi Survey Berhasil', $data) :
+            $response=$this->helpers->retunJson(404, 'Sinkronasi Survey Gagal');
+        return $response;
     }
 
 }

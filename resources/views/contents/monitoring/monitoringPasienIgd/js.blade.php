@@ -53,7 +53,6 @@
             //delete active class
             $('.nav-link').removeClass('active');
             $('.'+filterImut).addClass('active');
-
             Livewire.emitTo('monitoring.nasional.modul', 'cariImut', {
                 filterImut: filterImut,
                 noReg: noReg

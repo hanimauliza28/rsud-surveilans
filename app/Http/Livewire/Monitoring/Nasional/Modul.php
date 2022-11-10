@@ -103,7 +103,7 @@ class Modul extends Component
                     : [],
             ];
         } elseif ($page == 'emergency-respon-time') {
-            $pasienEmergency = SumberDataPelayanan::pasienEmergency();
+            $pasienEmergency = SumberDataPelayanan::pasienEmergency($noReg);
 
             if (isset($hasilSurvey->detail)) {
                 foreach ($hasilSurvey->detail as $detail) {

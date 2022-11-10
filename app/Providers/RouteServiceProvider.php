@@ -64,6 +64,10 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path('routes/web/form.php'));
 
             Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/setting.php'));
+
+            Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/datatable/indikatorMutu.php'));
 
@@ -78,6 +82,10 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/datatable/form.php'));
+
+            Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/datatable/setting.php'));
 
         });
     }

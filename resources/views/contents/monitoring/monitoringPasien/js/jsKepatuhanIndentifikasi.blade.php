@@ -29,6 +29,7 @@
         var data = $('#kepatuhan-identifikasi-form').serializeArray();
         var dataPasien = $('#data-pasien-form').serializeArray();
         var hasilSurveyId = $('#hasilSurveyId').val();
+        var noReg = $('#dataPasienNoreg').val();
 
         if (hasilSurveyId <= 0) {
             var method = 'POST';
@@ -81,7 +82,12 @@
                     timer: 3000
                 });
 
-                reloadForm();
+
+                Livewire.emitTo('monitoring.nasional.modul', 'cariImut', {
+                    filterImut:'kepatuhan-identifikasi',
+                    noReg: noReg
+                });
+
             },
 
             error: function(data) {

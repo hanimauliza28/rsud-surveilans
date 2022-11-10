@@ -215,4 +215,37 @@ class IndikatorMutuNasionalController extends Controller
 
     }
 
+    public function hasil($id, $tanggal)
+    {
+        if($id == 0)
+        {
+            $id = 2;
+        }else{
+            $id = $id;
+        }
+
+        if($tanggal == 0)
+        {
+            $tanggal = date('Y-m-d');
+        }else{
+            $tanggal = $tanggal;
+        }
+
+        $indikatorMutuNasional = IndikatorMutuNasional::where('kategori_indikator_id', '3')->get();
+
+        $indikatorMutu = IndikatorMutuNasional::where('id', $id)->first();
+
+        $data = [
+            'daftarImut' => $indikatorMutuNasional,
+            'indikatorMutuId' => $id,
+            'filterTanggal' => $tanggal,
+            'indikatorMutu' => $indikatorMutu
+        ];
+
+        $hasil = \App\Models\HasilSurveyImutNasional::with('object')->get();
+
+        return view('contents.indikatorMutu.nasional.wajib.indexHasil', $data);
+
+    }
+
 }

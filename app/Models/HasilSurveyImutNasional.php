@@ -30,12 +30,4 @@ class HasilSurveyImutNasional extends Model
         return $this->hasMany(HasilSurveyImutNasionalDetail::class, 'hasil_survey_id', 'id');
     }
 
-    // public function  object()
-    // {
-    //     return $this->belongsTo(ObjectPasien::class, 'id_object', 'id');
-    //     if($this->jenis_object == 'pasien')
-    //     {
-    //         return $this->belongsTo(ObjectPasien::class, 'id_object', 'id');
-    //     }
-    // }
 }

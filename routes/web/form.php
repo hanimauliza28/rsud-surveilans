@@ -15,7 +15,6 @@ use App\Http\Controllers\Web\Form\RegistrasiAntrianIgdController;
 */
 
 Route::middleware([])->group(function () {
-
     // Form
     Route::group(['prefix' => 'registrasi-antrian-igd'], function () {
         Route::get('/', [RegistrasiAntrianIgdController::class, 'index'])->name('registrasi-antrian-igd.index');

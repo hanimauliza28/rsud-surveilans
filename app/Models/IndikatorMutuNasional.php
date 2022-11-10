@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\DB;
 
 class IndikatorMutuNasional extends Model
 {
-
-
     protected $table = 'indikator_mutu_nasional';
     protected $fillable = ['kategori_indikator_id', 'judul', 'nama_function', 'definisi_operasional', 'kriteria_inklusi', 'kriteria_eksklusi', 'sumber_data', 'area_monitoring', 'standar', 'faktor_pengali', 'satuan', 'tipe_indikator_id', 'frekuensi_id', 'created_at', 'updated_at'];
 
@@ -22,7 +20,6 @@ class IndikatorMutuNasional extends Model
     {
         return $this->belongsTo(RefKategoriIndikator::class, 'kategori_indikator_id', 'id');
     }
-
 
     public function tipe()
     {

@@ -15,8 +15,8 @@ class RegistrasiAntrianIgdDatatable extends Controller
 {
     public function __construct()
     {
-        $this->helperTime = new HelperTime;
-        $this->helperSurveilans = new HelperSurveilans;
+        $this->helperTime = new HelperTime();
+        $this->helperSurveilans = new HelperSurveilans();
     }
     /**
      * Handle the incoming request.
@@ -32,13 +32,12 @@ class RegistrasiAntrianIgdDatatable extends Controller
         $filterDilayani = $request->filterDilayani;
 
         $antrian = AntrianIgd::where('TGL_ANTRI', $filterTanggal)
-            ->when($filterPanggil, function($query) use($filterPanggil){
+            ->when($filterPanggil, function ($query) use ($filterPanggil) {
                 $query->where('STATUS_PANGGIL', $filterPanggil);
             })
-            ->when($filterDilayani, function($query) use($filterDilayani){
+            ->when($filterDilayani, function ($query) use ($filterDilayani) {
                 $query->where('STATUS_DILAYANI', $filterDilayani);
             });
-
 
         return DataTables::of($antrian)
             //hanya judul
@@ -58,48 +57,48 @@ class RegistrasiAntrianIgdDatatable extends Controller
                 );
             })
             ->editColumn('JAM_DILAYANI', function ($antrian) use ($request) {
-                if($antrian->JAM_DILAYANI == NULL)
-                {
+                if ($antrian->JAM_DILAYANI == null) {
                     return '<span class="badge badge-danger">Belum di Layani</span>';
-                }else{
+                } else {
                     return date('H:i:s', strtotime($antrian->JAM_DILAYANI));
                 }
-
             })
             ->editColumn('JAM_SELESAI', function ($antrian) use ($request) {
-                if($antrian->JAM_SELESAI == NULL)
-                {
+                if ($antrian->JAM_SELESAI == null) {
                     return '<span class="badge badge-danger">Belum Selesai</span>';
-                }else{
+                } else {
                     return date('H:i:s', strtotime($antrian->JAM_SELESAI));
                 }
             })
 
             ->editColumn('NAMAPAS', function ($antrian) use ($request) {
-                if($antrian->NAMAPAS)
-                {
-                    $namapasien = $antrian->NAMAPAS.'('.$antrian->NORMPAS.') <br>'.$antrian->NOREGRS;
-                }else{
-                    $namapasien = '<span class="badge badge-warning">Belum Ada Data</span>';
+                if ($antrian->NAMAPAS) {
+                    $namapasien =
+                        $antrian->NAMAPAS .
+                        '(' .
+                        $antrian->NORMPAS .
+                        ') <br>' .
+                        $antrian->NOREGRS;
+                } else {
+                    $namapasien =
+                        '<span class="badge badge-warning">Belum Ada Data</span>';
                 }
                 return $namapasien;
-
             })
-
 
             ->addColumn('EMERGENCYTIME', function ($antrian) use ($request) {
 
-                $date = new Carbon($antrian->TGL_INPUT, 'Asia/Jakarta');
-
-                if($antrian->JAM_DILAYANI == NULL)
+                if($antrian->ERT > 300)
                 {
-                    $menit = "Menunggu";
+                    return '<span class="badge badge-light-danger">'.$antrian->ERT.'</span>';
                 }else{
-                    $menit = $date->diffInMinutes($antrian->JAM_DILAYANI);
+                    return '<span class="badge badge-light-success">'.$antrian->ERT.'</span>';
                 }
+            })
 
-                return $menit;
 
+            ->addColumn('LAMA_PELAYANAN', function ($antrian) use ($request) {
+                return '<span class="badge badge-light-info">'.$antrian->LAMA_PELAYANAN.'</span>';
             })
 
             ->addColumn('action', function ($antrian) {
@@ -114,7 +113,9 @@ class RegistrasiAntrianIgdDatatable extends Controller
                 'STATUS_DILAYANI',
                 'JAM_DILAYANI',
                 'JAM_SELESAI',
-                'NAMAPAS'
+                'NAMAPAS',
+                'EMERGENCYTIME',
+                'LAMA_PELAYANAN'
             ])
             ->make(true);
     }

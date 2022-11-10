@@ -71,66 +71,69 @@ class KepatuhanIdentifikasiPasienController extends Controller
             $pasienSimpan = ObjectPasien::create($simpanPasien);
 
             foreach ($request->data as $data) {
-                if ($data['name'] == 'indikatorMutuId') {
-                    $indikatorMutuId = $data['value'];
-                    $indikatorMutu = IndikatorMutuNasional::where(
-                        'id',
-                        $indikatorMutuId
-                    )->first();
+                if($data['name'] != 'kepatuhan-identifikasi')
+                {
+                    if ($data['name'] == 'indikatorMutuId') {
+                        $indikatorMutuId = $data['value'];
+                        $indikatorMutu = IndikatorMutuNasional::where(
+                            'id',
+                            $indikatorMutuId
+                        )->first();
 
-                    //master hasil survey
-                    $dataHasil = [
-                        'id_object' => $pasienSimpan->id,
-                        'jenis_object' => 'App\Models\ObjectPasien',
-                        'tgl_survey' => date('Y-m-d'),
-                        'indikator_mutu_id' => $indikatorMutuId,
-                        'surveyor' => 'Diisi NIP',
-                        'numerator' => 0,
-                        'denumerator' => 0,
-                        'score' => 0
-                    ];
+                        //master hasil survey
+                        $dataHasil = [
+                            'id_object' => $pasienSimpan->id,
+                            'jenis_object' => 'App\Models\ObjectPasien',
+                            'tgl_survey' => date('Y-m-d'),
+                            'indikator_mutu_id' => $indikatorMutuId,
+                            'surveyor' => 'Diisi NIP',
+                            'numerator' => 0,
+                            'denumerator' => 0,
+                            'score' => 0
+                        ];
 
-                    $simpanHasil = HasilSurveyImutNasional::create($dataHasil);
-                } else if ($data['name'] != 'indikatorMutuId' AND $data['name'] != 'hasilSurveyId') {
-                    $variabelSurveyId = substr($data['name'], -1);
-                    $subVariabel = substr($data['name'], 0, -1);
+                        $simpanHasil = HasilSurveyImutNasional::create($dataHasil);
+                    } else if ($data['name'] != 'indikatorMutuId' AND $data['name'] != 'hasilSurveyId') {
+                        $variabelSurveyId = substr($data['name'], -1);
+                        $subVariabel = substr($data['name'], 0, -1);
 
-                    $dataDetailHasil = [
-                        'hasil_survey_id' => $simpanHasil->id,
-                        'variabel_survey_id' => $variabelSurveyId,
-                        'sub_variabel' => $subVariabel,
-                        'value' => $data['value'],
-                        'point' => 1,
-                    ];
+                        $dataDetailHasil = [
+                            'hasil_survey_id' => $simpanHasil->id,
+                            'variabel_survey_id' => $variabelSurveyId,
+                            'sub_variabel' => $subVariabel,
+                            'value' => $data['value'],
+                            'point' => 1,
+                        ];
 
-                    if($subVariabel == 'identifikasi')
-                    {
-                        $denumerator = $denumerator+1;
+                        if($subVariabel == 'identifikasi')
+                        {
+                            $denumerator = $denumerator+1;
+                        }
+
+                        if($subVariabel <> 'identifikasi' )
+                        {
+                            $sub_numerator = $sub_numerator+1;
+                        }else{
+                            $sub_numerator = 0;
+                        }
+
+                        if($sub_numerator == 2)
+                        {
+                            $numerator = $numerator+1;
+                        }
+
+                        $updateHasil = HasilSurveyImutNasional::where('id', $simpanHasil->id)->update(
+                            [
+                                'numerator' => $numerator,
+                                'denumerator' => $denumerator,
+                                'score' => number_format($numerator/$denumerator, 2)
+                            ]
+                        );
+
+                        $simpanDetailHasil = HasilSurveyImutNasionalDetail::create(
+                            $dataDetailHasil
+                        );
                     }
-
-                    if($subVariabel <> 'identifikasi' )
-                    {
-                        $sub_numerator = $sub_numerator+1;
-                    }else{
-                        $sub_numerator = 0;
-                    }
-
-                    if($sub_numerator == 2)
-                    {
-                        $numerator = $numerator+1;
-                    }
-
-                    $updateHasil = HasilSurveyImutNasional::where('id', $simpanHasil->id)->update(
-                        [
-                            'numerator' => $numerator,
-                            'denumerator' => $denumerator,
-                            'score' => number_format($numerator/$denumerator, 2)
-                        ]
-                    );
-
-                    $simpanDetailHasil = HasilSurveyImutNasionalDetail::create(
-                        $dataDetailHasil
-                    );
                 }
             }
 
@@ -222,22 +225,26 @@ class KepatuhanIdentifikasiPasienController extends Controller
                         $numerator = $numerator+1;
                     }
 
-                    $updateHasil = HasilSurveyImutNasional::where('id', $hasilSurveyId)->update(
-                        [
-                            'numerator' => $numerator,
-                            'denumerator' => $denumerator,
-                            'score' => number_format($numerator/$denumerator, 2)
-                        ]
-                    );
-
-                    $simpanDetailHasil = HasilSurveyImutNasionalDetail::updateOrCreate(
-                        $dataDetailHasil
-                    );
-
-                    if($simpanDetailHasil)
+                    if($denumerator != 0)
                     {
-                        $dataDetail[] = $simpanDetailHasil->id;
+                        $updateHasil = HasilSurveyImutNasional::where('id', $hasilSurveyId)->update(
+                            [
+                                'numerator' => $numerator,
+                                'denumerator' => $denumerator,
+                                'score' => number_format($numerator/$denumerator, 2)
+                            ]
+                        );
+
+                        $simpanDetailHasil = HasilSurveyImutNasionalDetail::updateOrCreate(
+                            $dataDetailHasil
+                        );
+
+                        if($simpanDetailHasil)
+                        {
+                            $dataDetail[] = $simpanDetailHasil->id;
+                        }
                     }
+
                 }
 
 

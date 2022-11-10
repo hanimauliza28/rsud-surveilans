@@ -12,6 +12,7 @@ use App\Http\Controllers\Web\Monitoring\MonitoringPasien\PenundaanOperasiElektif
 use App\Http\Controllers\Web\Monitoring\MonitoringPasienIgdController;
 use App\Http\Controllers\Web\Monitoring\MonitoringPasienRawatInapController;
 use App\Http\Controllers\Web\Monitoring\MonitoringPasienRawatJalanController;
+use App\Http\Controllers\Web\Monitoring\DataSurveyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,6 +67,7 @@ Route::middleware([])->group(function () {
     // Monitoring Pasien IGD
     Route::group(['prefix' => 'monitoring-pasien-igd'], function () {
         Route::get('/', [MonitoringPasienIgdController::class, 'index'])->name('monitoring-pasien-igd.index');
+        Route::post('/antrian', [MonitoringPasienIgdController::class, 'antrian'])->name('monitoring-pasien-igd.antrian');
     });
 
     Route::group(['prefix' => 'monitoring-pasien-rawat-inap'], function () {
@@ -77,7 +79,8 @@ Route::middleware([])->group(function () {
     });
 
 
-    // Form
-
+    Route::group(['prefix' => 'data-survey'], function () {
+        Route::get('/', [DataSurveyController::class, 'index'])->name('data-survey.index');
+    });
 
 });

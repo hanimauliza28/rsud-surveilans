@@ -1,15 +1,12 @@
 <!--begin::Wrapper-->
-<div class="aside-user-info flex-row-fluid flex-wrap ms-5">
+<div class="aside-user-info flex-row-fluid flex-wrap mx-5">
     <!--begin::Section-->
     <div class="d-flex">
         <!--begin::Info-->
         <div class="flex-grow-1 me-2">
             <!--begin::Username-->
-            <a href="#" class="text-white text-hover-primary fs-6 fw-bold">Nama Pegawai</a>
+            <a href="#" class="text-white text-hover-primary fs-6 fw-bold">{{ session('userLogin')->name }}</a>
             <!--end::Username-->
-            <!--begin::Description-->
-            <span class="text-gray-600 fw-bold d-block fs-8 mb-1">Jabatan Pegawai</span>
-            <!--end::Description-->
             <!--begin::Label-->
             <div class="d-flex align-items-center text-success fs-9">
                 <span class="bullet bullet-dot bg-success me-1"></span>online</div>
@@ -19,7 +16,7 @@
         <!--begin::User menu-->
         <div class="me-n2">
             <!--begin::Action-->
-            <a href="#" class="btn btn-icon btn-sm btn-active-color-primary mt-n2" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" data-kt-menu-overflow="true">
+            <a href="#" class="btn btn-icon btn-sm btn-active-color-primary mt-n2 me-5" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" data-kt-menu-overflow="true">
                 <!--begin::Svg Icon | path: icons/duotune/coding/cod001.svg-->
                 <span class="svg-icon svg-icon-muted svg-icon-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -36,14 +33,14 @@
                     <div class="menu-content d-flex align-items-center px-3">
                         <!--begin::Avatar-->
                         <div class="symbol symbol-50px me-5">
-                            <img alt="Logo" src="{{ asset('assets/media/avatars/300-1.jpg') }}" />
+                            <img alt="Logo" src="{{ asset('assets/media/icons/medical/doctor.png') }}" />
                         </div>
                         <!--end::Avatar-->
                         <!--begin::Username-->
                         <div class="d-flex flex-column">
-                            <div class="fw-bolder d-flex align-items-center fs-5">Max Smith
-                                <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">Pro</span></div>
-                            <a href="#" class="fw-bold text-muted text-hover-primary fs-7">max@kt.com</a>
+                            <div class="fw-bolder d-flex align-items-center fs-5">{{ session('userLogin')->username }}
+                                <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2"></span></div>
+                            <a href="#" class="fw-bold text-muted text-hover-primary fs-7">{{ session('userLogin')->email }}</a>
                         </div>
                         <!--end::Username-->
                     </div>
@@ -54,23 +51,12 @@
                 <!--end::Menu separator-->
                 <!--begin::Menu item-->
                 <div class="menu-item px-5">
-                    <a href="../../demo8/dist/authentication/flows/basic/sign-in.html" class="menu-link px-5">Sign Out</a>
+                    <a href="{{ route('logout') }}" class="menu-link px-5">Sign Out</a>
                 </div>
                 <!--end::Menu item-->
                 <!--begin::Menu separator-->
                 <div class="separator my-2"></div>
                 <!--end::Menu separator-->
-                <!--begin::Menu item-->
-                <div class="menu-item px-5">
-                    <div class="menu-content px-5">
-                        <label class="form-check form-switch form-check-custom form-check-solid pulse pulse-success" for="kt_user_menu_dark_mode_toggle">
-                            <input class="form-check-input w-30px h-20px" type="checkbox" value="1" name="mode" id="kt_user_menu_dark_mode_toggle" data-kt-url="../../demo8/dist/index.html" />
-                            <span class="pulse-ring ms-n1"></span>
-                            <span class="form-check-label text-gray-600 fs-7">Dark Mode</span>
-                        </label>
-                    </div>
-                </div>
-                <!--end::Menu item-->
             </div>
             <!--end::User account menu-->
             <!--end::Action-->

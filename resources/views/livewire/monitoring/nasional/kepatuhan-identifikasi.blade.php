@@ -3,6 +3,7 @@
     <div class="card pt-1">
 
         <form id="kepatuhan-identifikasi-form">
+            <input type="hidden" id="daftarImutNasional" name="kepatuhan-identifikasi">
             <input type="hidden" name="indikatorMutuId" id="indikatorMutuId" value="{{ $indikatorMutu->id }}">
             <input type="hidden" name="hasilSurveyId" id="hasilSurveyId" value="{{ $hasilSurvey->id ?? 0 }}">
             <div class="card-body">

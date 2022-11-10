@@ -41,9 +41,9 @@ Registrasi Antrian IGD dengan No. Registrasi Pasien
         <!--begin::Card body-->
         <div class="card-body pt-2">
             <!--begin::Datatable-->
-            <table id="data-table" class="table align-middle table-row-dashed fs-6 gy-3">
+            <table id="data-table" class="table align-middle table-row-dashed fs-6 gy-1 ">
                 <thead>
-                    <tr class="text-start fw-bolder fs-7 text-uppercase gs-0">
+                    <tr class="text-start fw-bolder fs-6 text-uppercase gs-0">
                         <th>No</th>
                         <th>No. Antri</th>
                         <th>Nama Pasien</th>
@@ -52,11 +52,12 @@ Registrasi Antrian IGD dengan No. Registrasi Pasien
                         <th>Jam Datang</th>
                         <th>Jam Mulai</th>
                         <th>Jam Selesai</th>
-                        <th>Emergency Time (menit)</th>
+                        <th>Emergency Time <br>(detik)</th>
+                        <th>Lama Pelayanan <br>(detik)</th>
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody class="text-gray-600 fw-bold">
+                <tbody class="text-gray-600">
                 </tbody>
             </table>
             <!--end::Datatable-->

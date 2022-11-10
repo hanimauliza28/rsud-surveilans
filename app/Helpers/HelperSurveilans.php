@@ -224,4 +224,91 @@ class HelperSurveilans
 
         return $result;
     }
+
+    function listJenisMenu()
+    {
+        $data = [
+            [
+                'value' => 'section',
+                'text' => 'Menu Section',
+            ],
+            [
+                'value' => 'parent',
+                'text' => 'Menu Utama',
+            ],
+            [
+                'value' => 'child',
+                'text' => 'Sub Menu',
+            ],
+        ];
+
+        return $this->helpers->arrayToObject($data);
+    }
+
+
+    function listLevelUser()
+    {
+        $data = [
+            [
+                'value' => '1',
+                'text' => 'Superadmin',
+            ],
+            [
+                'value' => '2',
+                'text' => 'Administrator',
+            ],
+            [
+                'value' => '3',
+                'text' => 'Surveyor',
+            ],
+        ];
+
+        return $this->helpers->arrayToObject($data);
+    }
+
+
+    function labelLevelUser($level)
+    {
+        if($level == '1')
+        {
+            $result = '<div class="badge text-success bg-light-success">Superadmin</div>';
+        }elseif($level == '2')
+        {
+            $result = '<div class="badge text-warning bg-light-warning">Administator</div>';
+        }else{
+            $result = '<div class="badge text-primary bg-light-primary">Surveyor</div>';
+        }
+
+        return $result;
+    }
+
+
+    function listStatusUser()
+    {
+        $data = [
+            [
+                'value' => 'Y',
+                'text' => 'Aktif',
+            ],
+            [
+                'value' => 'N',
+                'text' => 'Tidak',
+            ]
+        ];
+
+        return $this->helpers->arrayToObject($data);
+    }
+
+
+    function labelStatusUser($status)
+    {
+        if($status == 'Y')
+        {
+            $result = '<div class="badge text-success bg-light-success">Aktif</div>';
+        }else{
+            $result = '<div class="badge text-danger bg-light-primary">Tidak Aktif</div>';
+        }
+
+        return $result;
+    }
 }

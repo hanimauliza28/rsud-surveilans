@@ -68,7 +68,7 @@ class EmergencyResponTimeController extends Controller
                     $simpanHasil = HasilSurveyImutNasional::create($dataHasil);
                 } elseif (
                     $data['name'] != 'indikatorMutuId' and
-                    $data['name'] != 'hasilSurveyId'
+                    $data['name'] != 'hasilSurveyId' and $data['name'] != 'emergency-respon-time'
                 ) {
                     $cariIdVariabel = VariabelSurvey::where(
                         'nama_variabel',
@@ -168,46 +168,49 @@ class EmergencyResponTimeController extends Controller
                         $hasilSurveyId
                     )->update($dataHasil);
                 } elseif (
-                    $data['name'] != 'indikatorMutuId' and
+                    $data['name'] != 'indikatorMutuId' &&
                     $data['name'] != 'hasilSurveyId'
                 ) {
-                    $cariIdVariabel = VariabelSurvey::where(
-                        'nama_variabel',
-                        $data['name']
-                    )->first();
+                    if($data['name'] != 'emergency-respon-time')
+                    {
+                        $cariIdVariabel = VariabelSurvey::where(
+                            'nama_variabel',
+                            $data['name']
+                        )->first();
 
-                    $dataDetailHasil = [
-                        'hasil_survey_id' => $hasilSurveyId,
-                        'variabel_survey_id' => $cariIdVariabel->id,
-                        'sub_variabel' => '',
-                        'value' => $data['value'],
-                        'point' => 1,
-                    ];
+                        $dataDetailHasil = [
+                            'hasil_survey_id' => $hasilSurveyId,
+                            'variabel_survey_id' => $cariIdVariabel->id,
+                            'sub_variabel' => '',
+                            'value' => $data['value'],
+                            'point' => 1,
+                        ];
 
-                    if (
-                        $data['name'] == 'waktuTanggap' &&
-                        $data['value'] <= 300
-                    ) {
-                        $score = 1;
-                    } else {
-                        $score = 0;
-                    }
+                        if (
+                            $data['name'] == 'waktuTanggap' &&
+                            $data['value'] <= 300
+                        ) {
+                            $score = 1;
+                        } else {
+                            $score = 0;
+                        }
 
-                    if ($score) {
-                        $updateHasil = HasilSurveyImutNasional::where(
-                            'id',
+                        if ($score) {
+                            $updateHasil = HasilSurveyImutNasional::where(
+                                'id',
+                                $hasilSurveyId
+                            )->update([
+                                'score' => $score,
+                            ]);
+                        }
+
+                        $simpanDetailHasil = HasilSurveyImutNasionalDetail::where(
+                            'hasil_survey_id',
                             $hasilSurveyId
-                        )->update([
-                            'score' => $score,
-                        ]);
+                        )
+                            ->where('variabel_survey_id', $cariIdVariabel->id)
+                            ->update($dataDetailHasil);
                     }
-
-                    $simpanDetailHasil = HasilSurveyImutNasionalDetail::where(
-                        'hasil_survey_id',
-                        $hasilSurveyId
-                    )
-                        ->where('variabel_survey_id', $cariIdVariabel->id)
-                        ->update($dataDetailHasil);
                 }
             }
 

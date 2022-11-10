@@ -2,20 +2,36 @@
 
 <script>
     const resetERT = () => {
-        $('#emergency-respon-time-form').trigger('reset');
-        return false;
+        var dataPasien = $('#data-pasien-form').serializeArray();
+         $.ajax({
+            url: "{{ route('monitoring-pasien-igd.antrian') }}",
+            type: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                dataPasien: dataPasien
+            },
+            beforeSend: function(data) {
+                toastr.info("Mengembalikan Isian Sesuai Data Antrian IGD");
+            },
+
+            success: function(data) {
+
+            },
+
+            error: function(data) {
+                toastr.danger("Gagal Mengambil Data Antrian IGD");
+            }
+        })
+
+
     }
 
     const simpanERT = () => {
-        //var data = {
-         //   'waktuPasienDatang' => $('input[name="waktuPasienDatang"]').val(),
-         //   'waktuPasienDilayani' => $('input[name="waktuPasienDilayani"]').val(),
-         //   'waktuTanggap' => $('input[name="waktuTanggap"]').val()
-        //};
 
         var data = $('#emergency-respon-time-form').serializeArray();
         var dataPasien = $('#data-pasien-form').serializeArray();
         var hasilSurveyId = $('#hasilSurveyId').val();
+        var noReg = $('#dataPasienNoreg').val();
 
         if (hasilSurveyId <= 0) {
             var method = 'POST';
@@ -67,7 +83,11 @@
                     timer: 3000
                 });
 
-                reloadForm();
+
+                Livewire.emitTo('monitoring.nasional.modul', 'cariImut', {
+                    filterImut:'emergency-respon-time',
+                    noReg: noReg
+                });
             },
 
             error: function(data) {

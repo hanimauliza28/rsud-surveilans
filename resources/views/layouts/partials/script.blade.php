@@ -1,7 +1,6 @@
 <!--begin::Javascript-->
 <script>
     var hostUrl = "{{ asset('assets/') }}";
-
 </script>
 <!--begin::Global Javascript Bundle(used by all pages)-->
 <script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
@@ -34,11 +33,29 @@
 <script src="{{ asset('assets/js/custom/utilities/modals/users-search.js') }}"></script>
 <script src="{{ asset('assets/plugins/custom/datepicker/js/bootstrap-datepicker.min.js') }}"></script>
 <script>
-    function nospaces(t){
-        if(t.value.match(/\s/g)){
-            t.value=t.value.replace(/\s/g,'');
+    function nospaces(t) {
+        if (t.value.match(/\s/g)) {
+            t.value = t.value.replace(/\s/g, '');
         }
     }
+
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toastr-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "10",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
 </script>
 @routes
 @livewireScripts

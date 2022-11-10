@@ -38,18 +38,32 @@ class SumberDataPelayanan extends Model
         return '30';
     }
 
-    public function pasienEmergency()
+    public function pasienEmergency($noreg)
     {
-        $waktuBooking = date('Y-m-d H:i:s', strtotime('+5 minutes', strtotime(date('Y-m-d H:i:s'))));
-        $waktuPelayanan = date('Y-m-d H:i:s');
+        $antrianIgd = AntrianIgd::where('NOREGRS', $noreg)->first();
 
-        $waktuTanggap = strtotime($waktuBooking) - strtotime($waktuPelayanan);
+        if($antrianIgd)
+        {
 
-        $data = [
-            'waktuBooking' => date('Y-m-d H:i:s', strtotime('+5 minutes', strtotime(date('Y-m-d H:i:s')))),
-            'waktuPelayanan' => date('Y-m-d H:i:s'),
-            'waktuTanggap' => $waktuTanggap
-        ];
+            $waktuBooking = $antrianIgd->TGL_INPUT;
+            $waktuPelayanan = $antrianIgd->JAM_DILAYANI;
+
+            // $waktuTanggap = strtotime($waktuBooking) - strtotime($waktuPelayanan);
+            $waktuTanggap = $antrianIgd->ERT;
+
+            $data = [
+                'waktuBooking' => $waktuBooking,
+                'waktuPelayanan' => $waktuPelayanan,
+                'waktuTanggap' => $waktuTanggap
+            ];
+        }else{
+            $data = [
+                'waktuBooking' => '',
+                'waktuPelayanan' => '',
+                'waktuTanggap' => ''
+            ];
+        }
+
 
         return collect($data);
 
@@ -93,9 +107,8 @@ class SumberDataPelayanan extends Model
 
     }
 
+    // public function pasienJadwalOperasi()
+    // {
 
-    public function pasienJadwalOperasi()
-    {
-
-    }
+    // }
 }

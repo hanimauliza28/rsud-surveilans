@@ -51,7 +51,8 @@ class RegistrasiAntrianIgdController extends Controller
 
         $data = [
             'filterPanggil' => $filterPanggil,
-            'filterDilayani' => $filterDilayani
+            'filterDilayani' => $filterDilayani,
+            // 'indikator' => $this->antrianIgd->indikator()
         ];
 
         return view('contents.form.registrasiAntrianIgd.index', $data);
@@ -102,6 +103,7 @@ class RegistrasiAntrianIgdController extends Controller
 
         if($antrian)
         {
+
             if($request->parameterIsian == 'JAM_DILAYANI')
             {
                 $jamDilayani = $antrian->JAM_DILAYANI;
@@ -165,28 +167,58 @@ class RegistrasiAntrianIgdController extends Controller
         $parameter = $request->parameterIsian;
         $waktu = date('Y-m-d H:i:s', strtotime($request->tanggal.' '.$request->jam));
 
-        if($parameter == 'JAM_DILAYANI'){
-            $task = 'Mulai Dilayani';
-            $data = [
-                'JAM_DILAYANI' => $waktu,
-                'STATUS_PANGGIL' => 'P'
-            ];
-
-        }else{
-
-            $task = 'Selesai Dilayani';
-            $data = [
-                'JAM_SELESAI' => $waktu,
-                'STATUS_PANGGIL' => 'S',
-                'STATUS_DILAYANI' => 'Y'
-            ];
-        }
-
         $where = [
             'GRUP_ANTRI' => $request->grupAntriWaktu,
             'NO_ANTRI' => $request->noAntriWaktu,
             'TGL_ANTRI' => $request->tglAntriWaktu
         ];
+
+        $antrian = AntrianIgd::where($where)->first();
+
+        $jamdatang = strtotime($antrian->TGL_INPUT);
+
+        if($parameter == 'JAM_DILAYANI'){
+            if(strtotime($waktu) < $jamdatang)
+            {
+                return $this->helpers->retunJson(
+                    400,
+                    'Jam Dilayani Tidak Boleh Lebih Kecil dari Jam Datang'
+                );
+            }
+            $task = 'Mulai Dilayani';
+
+            $date = new Carbon($antrian->TGL_INPUT, 'Asia/Jakarta');
+            $menit = $date->diffInSeconds($waktu);
+
+            $data = [
+                'JAM_DILAYANI' => $waktu,
+                'STATUS_PANGGIL' => 'P',
+                'ERT' => $menit
+            ];
+
+        }else{
+            $mulaidilayani = strtotime($antrian->JAM_DILAYANI);
+
+            if(strtotime($waktu) < $jamdatang  && strtotime($waktu) > $mulaidilayani)
+            {
+                return $this->helpers->retunJson(
+                    400,
+                    'Jam Selesai Tidak Boleh Lebih Kecil dari Jam Datang dan Jam Mulai Dilayani'
+                );
+            }
+
+            $date = new Carbon($antrian->JAM_DILAYANI, 'Asia/Jakarta');
+            $menit = $date->diffInSeconds($waktu);
+
+            $task = 'Selesai Dilayani';
+            $data = [
+                'JAM_SELESAI' => $waktu,
+                'STATUS_PANGGIL' => 'S',
+                'LAMA_PELAYANAN' => $menit,
+                'STATUS_DILAYANI' => 'Y'
+            ];
+        }
+
 
         $saveData = AntrianIgd::where($where)->update($data);
 
@@ -201,5 +233,11 @@ class RegistrasiAntrianIgdController extends Controller
             ));
 
         return $response;
+    }
+
+    public function antrian(Request $request)
+    {
+
+        $noreg = $request->dataPasien->dataNoreg;
     }
 }

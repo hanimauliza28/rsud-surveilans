@@ -1,26 +1,40 @@
 <div>
     <div class="card">
         <form id="emergency-respon-time-form">
+            <input type="hidden" id="daftarImutNasional" name="emergency-respon-time">
             <input type="hidden" name="indikatorMutuId" id="indikatorMutuId" value="{{ $indikatorMutu->id }}">
             <input type="hidden" name="hasilSurveyId" id="hasilSurveyId" value="{{ $hasilSurvey->id ?? 0 }}">
             <div class="card-body">
+                @if ($dataPelayanan['waktuPelayanan'] == '')
+                    <div class="alert alert-danger fw-bold">
+                        Nomor Antrian Pasien Belum di Masukan ke Nomor Registrasi Pasien. Klik <a
+                            href="{{ route('registrasi-antrian-igd.index') }}">Menu Registrasi Antrian IGD</a>.
+                    </div>
+                @endif
+
                 <div class="row mb-3">
                     <label class="col-lg-12 col-form-label fw-bold fs-6">
                         <span class="required">Waktu Pasien Datang</span>
-                        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Di ambil dari waktu booking layanan IGD"></i>
+                        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
+                            title="Di ambil dari waktu booking layanan IGD"></i>
                     </label>
                     <div class="col-sm-12 col-md-12">
-                        <input type="text" name="waktuPasienDatang" id="waktuPasienDatang" class="form-control form-control-lg form-control-solid" placeholder="Waktu Pasien Datang" value="{{ $detailHasilSurvey ? $detailHasilSurvey['waktuPasienDatang'] : $dataPelayanan['waktuBooking'] }}" />
+                        <input type="text" name="waktuPasienDatang" id="waktuPasienDatang"
+                            class="form-control form-control-lg form-control-solid" placeholder="Waktu Pasien Datang"
+                            value="{{ $detailHasilSurvey ? $detailHasilSurvey['waktuPasienDatang'] : $dataPelayanan['waktuBooking'] }}" />
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <label class="col-lg-12 col-form-label fw-bold fs-6">
                         <span class="required">Waktu Pasien Dilayani</span>
-                        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Di ambil dari jam mulai pelayanan di IGD"></i>
+                        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
+                            title="Di ambil dari jam mulai pelayanan di IGD"></i>
                     </label>
                     <div class="col-sm-12 col-md-12">
-                        <input type="text" name="waktuPasienDilayani" id="waktuPasienDilayani" class="form-control form-control-lg form-control-solid" placeholder="Waktu Pasien Dilayani" value="{{ $detailHasilSurvey ? $detailHasilSurvey['waktuPasienDilayani'] : $dataPelayanan['waktuPelayanan'] }}" />
+                        <input type="text" name="waktuPasienDilayani" id="waktuPasienDilayani"
+                            class="form-control form-control-lg form-control-solid" placeholder="Waktu Pasien Dilayani"
+                            value="{{ $detailHasilSurvey ? $detailHasilSurvey['waktuPasienDilayani'] : $dataPelayanan['waktuPelayanan'] }}" />
                     </div>
                 </div>
 
@@ -30,8 +44,12 @@
                         <span class="required">Waktu Tanggap Pelayanan Gawat Darurat (Detik)</span>
                     </label>
                     <div class="col-sm-12 col-md-12">
-                        <input type="text" name="waktuTanggap" id="waktuTanggap" class="form-control form-control-lg form-control-solid" placeholder="Waktu Tanggap Pelayanan Gawat Darurat" value="{{ $detailHasilSurvey ? $detailHasilSurvey['waktuTanggap'] : $dataPelayanan['waktuTanggap'] }}" />
-                        <div class="form-text">Waktu Tanggap Pelayanan Gawat Darurat yang Akan Dijadikan Numerator adalah paling lambat 5 menit (300 detik)</div>
+                        <input type="text" name="waktuTanggap" id="waktuTanggap"
+                            class="form-control form-control-lg form-control-solid"
+                            placeholder="Waktu Tanggap Pelayanan Gawat Darurat"
+                            value="{{ $detailHasilSurvey ? $detailHasilSurvey['waktuTanggap'] : $dataPelayanan['waktuTanggap'] }}" />
+                        <div class="form-text">Waktu Tanggap Pelayanan Gawat Darurat yang Akan Dijadikan Numerator
+                            adalah paling lambat 5 menit (300 detik)</div>
                     </div>
                 </div>
 
@@ -58,12 +76,13 @@
                     <div class="flex-grow-1 me-2">
                         <a href="#" class="fw-bolder text-gray-800 text-hover-primary fs-6">Score Survey</a>
                         <span
-                            class="text-muted fw-bold d-block">{{ $detailHasilSurvey ? $detailHasilSurvey['waktuPasienDilayani'] : $dataPelayanan['waktuTanggap'] }} Detik</span>
+                            class="text-muted fw-bold d-block">{{ $detailHasilSurvey ? $detailHasilSurvey['waktuTanggap'] : $dataPelayanan['waktuTanggap'] }}
+                        Detik</span>
                     </div>
                     <!--end::Title-->
                     <!--begin::Lable-->
                     <span class="fw-bolder text-warning py-1">{{ $hasilSurvey->score ?? '0' }}
-                        {{ $indikatorMutu->satuan }}</span>
+                        Terpenuhi</span>
                     <!--end::Lable-->
                 </div>
                 <!--end::Item-->
@@ -81,7 +100,9 @@
                     Mohon Menunggu... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
                 </span>
             </button>
+            <button id="btn-reset" onclick="resetERT()" class="btn btn-danger"><i class="fas fa-save"></i>
+                Reset
+            </button>
         </div>
     </div>
 </div>
-

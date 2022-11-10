@@ -29,6 +29,8 @@ Route::middleware([])->group(function () {
         Route::get('{id}/edit', [IndikatorMutuNasionalController::class, 'edit'])->name('indikator-mutu-nasional.edit');
         Route::put('{id}/update', [IndikatorMutuNasionalController::class, 'update'])->name('indikator-mutu-nasional.update');
         Route::delete('{id}/destroy', [IndikatorMutuNasionalController::class, 'destroy'])->name('indikator-mutu-nasional.destroy');
+
+        Route::get('{id}/{tanggal}/hasil', [IndikatorMutuNasionalController::class, 'hasil'])->name('indikator-mutu-nasional.hasil');
     });
 
     //Route Indikator Mutu Nasional Wajib
@@ -40,9 +42,9 @@ Route::middleware([])->group(function () {
         Route::put('{id}/update', [IndikatorMutuNasionalWajibController::class, 'update'])->name('indikator-mutu-nasional-wajib.update');
         Route::delete('{id}/destroy', [IndikatorMutuNasionalWajibController::class, 'destroy'])->name('indikator-mutu-nasional-wajib.destroy');
 
-        Route::get('{id}/datasurvey', [IndikatorMutuNasionalWajibController::class, 'datasurvey'])->name('indikator-mutu-nasional-wajib.datasurvey');
         Route::post('{id}/variabel', [IndikatorMutuNasionalWajibController::class, 'variabel'])->name('indikator-mutu-nasional-wajib.variabel');
         Route::post('store-nilai', [IndikatorMutuNasionalWajibController::class, 'storeNilai'])->name('indikator-mutu-nasional-wajib.storeNilai');
+        Route::post('sync', [IndikatorMutuNasionalWajibController::class, 'sync'])->name('indikator-mutu-nasional-wajib.sync');
     });
 
     //Route Indikator Mutu Nasional Klinik

@@ -6,7 +6,6 @@
                 placeholder: 'Filter Panggil',
                 dropdownParent: $(this).parent(),
                 allowClear: true,
-                width: 'element'
             });
         });
         $('#filterDilayani').each(function() {
@@ -14,7 +13,7 @@
                 placeholder: 'Filter Dilayani',
                 dropdownParent: $(this).parent(),
                 allowClear: true,
-                width: 'element'
+                //width: 'element'
             });
         });
 
@@ -50,7 +49,6 @@
 
         $('#registrasi-antrian-igd-modal').on('hidden.bs.modal', function() {
             var filterTanggal = $('#filterTanggal').val();
-            $('#filterTanggal').val(filterTanggal);
 
             $('input.form-control').val('');
             $('textarea.form-control').val('');
@@ -59,6 +57,8 @@
             $('#id').val('');
             $('#selectIsAktif').val('').change();
             resetValidasiForm();
+
+            $('#filterTanggal').val(filterTanggal);
         });
 
     </script>
@@ -127,6 +127,11 @@
                     data: 'EMERGENCYTIME',
                     name: 'EMERGENCYTIME',
                     class: 'text-center center'
+                },
+                 {
+                    data: 'LAMA_PELAYANAN',
+                    name: 'LAMA_PELAYANAN',
+                    class: 'text-center center'
                 }, {
                     data: 'action',
                     name: 'action',
@@ -176,11 +181,13 @@
                     tglAntri : tglAntri
                 },
                 success: function(data) {
+
                     $('#dataPasienNama').val(data.response.antrian.NAMAPAS);
                     $('#dataPasienNorm').val(data.response.antrian.NORMPAS);
                     $('#dataPasienBagian').val('IGD');
                     $('#dataPasienKdbagian').val('9501S');
                     $('#dataPasienNoreg').val(data.response.antrian.NOREGRS);
+                    cariRegistrasiIgd();
                 },
                 error: function(data) {
                     Swal.fire({
@@ -278,6 +285,7 @@
             var filterTanggalBefore = $('#filterTanggal').val();
             var filterTanggal = moment($('#filterTanggal').val(), 'DD\MM\YYYY').format("YYYY-MM-DD");
             var filterKeyword = $('#namapasien').val();
+
             Livewire.emitTo('monitoring.cari-pasien-igd', 'cariDataPasien', {
                 filterKeyword: filterKeyword,
                 filterTanggal: filterTanggal
@@ -308,7 +316,7 @@
             var textBtn;
 
             url = route('registrasi-antrian-igd.store')
-            textBtn = 'Ubah';
+            textBtn = 'Simpan';
 
             $.ajax({
                 url: url,
@@ -369,7 +377,7 @@
             var textBtn;
 
             url = route('registrasi-antrian-igd.store-waktu')
-            textBtn = 'Ubah';
+            textBtn = 'Simpan';
 
             $.ajax({
                 url: url,

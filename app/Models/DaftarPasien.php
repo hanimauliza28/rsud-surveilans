@@ -51,6 +51,22 @@ class DaftarPasien extends Model
         }
     }
 
+    public function jumlahPasienIgd($prefix_noreg)
+    {
+        $sql = "SELECT  COUNT(*) AS 'jumlahpasien'
+        FROM         REGISTRIDR
+        WHERE     (REGBAGIAN = '9501') AND (NOREGRS LIKE '".$prefix_noreg."%')";
+
+        $hasil = DB::connection('simrs')->select(DB::raw($sql));
+        if (count($hasil) != 0) {
+            $result['noreg'] = $prefix_noreg;
+            $result['jumlahpasien'] = $hasil[0]->jumlahpasien;
+            return $result;
+        } else {
+            return false;
+        }
+    }
+
     public function pasienRawatInap($tanggal, $keyword, $kdbagian, $status)
     {
         $cariStatus = '';
