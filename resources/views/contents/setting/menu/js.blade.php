@@ -82,6 +82,9 @@
                 }, {
                     data: 'nama_menu',
                     name: 'nama_menu'
+                },{
+                    data: 'status',
+                    name: 'status'
                 }, {
                     data: 'urut',
                     name: 'urut'
@@ -149,6 +152,7 @@
                     $('input[name="url"]').val(data.response.url);
                     $('input[name="icon"]').val(data.response.icon);
                     $('select[name="parentMenu"]').val(data.response.parent_menu).change();
+                    $('select[name="status"]').val(data.response.status).change();
                     $('select[name="sectionMenu"]').val(data.response.section_menu).change();
                     $('input[name="urut"]').val(data.response.urut);
                 }

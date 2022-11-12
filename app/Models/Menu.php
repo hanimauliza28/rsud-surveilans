@@ -15,4 +15,14 @@ class Menu extends Model
     {
         return $this->hasMany($this, 'parent_menu');
     }
+
+    public function getLabelStatusAttribute()
+    {
+        if($this->status == 'Y'){
+            $result = '<span class="badge badge-success">Aktif</span>';
+        }else{
+            $result = '<span class="badge badge-danger">Tidak Aktif</span>';
+        }
+        return $result;
+    }
 }

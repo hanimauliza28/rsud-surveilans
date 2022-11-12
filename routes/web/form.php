@@ -22,6 +22,7 @@ Route::middleware([])->group(function () {
         Route::post('edit', [RegistrasiAntrianIgdController::class, 'edit'])->name('registrasi-antrian-igd.edit');
         Route::post('store-waktu', [RegistrasiAntrianIgdController::class, 'storeWaktu'])->name('registrasi-antrian-igd.store-waktu');
         Route::post('edit-waktu', [RegistrasiAntrianIgdController::class, 'editWaktu'])->name('registrasi-antrian-igd.edit-waktu');
+        Route::post('{tanggal}/{panggil}/{layani}/export', [RegistrasiAntrianIgdController::class, 'export'])->name('registrasi-antrian-igd.export');
     });
 
 

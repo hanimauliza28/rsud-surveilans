@@ -22,6 +22,7 @@ class CreateMenuTable extends Migration
             $table->string('section_menu')->nullable();
             $table->bigInteger('permission')->nullable();
             $table->bigInteger('urut');
+            $table->enum('status', ['Y', 'N'])->default('Y');
             $table->timestamps();
         });
     }

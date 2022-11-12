@@ -60,19 +60,19 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-form-label text-left required fs-6 fw-bold">Level</label>
-                        <select name="level" id="selectLevel" data-control="select2" tab-index="89" data-placeholder="Pilih Level" class="form-select" data-allow-clear="true">
+                        <label class="col-form-label text-left required fs-6 fw-bold">Grup User</label>
+                        <select name="grupUserId" id="selectGrupUserId" data-placeholder="Pilih Grup User" class="form-select">
                             <option value=""></option>
-                            @foreach ($levelUser as $level)
-                            <option value="{{ $level->value }}">{{ $level->text }}</option>
+                            @foreach ($grupUser as $grupUser)
+                            <option value="{{ $grupUser->id }}">{{ $grupUser->nama_grup }}</option>
                             @endforeach
                         </select>
-                        <div class="invalid-feedback" id="level"></div>
+                        <div class="invalid-feedback" id="grupUserId"></div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-form-label text-left required fs-6 fw-bold">Status</label>
-                        <select name="status" id="selectStatus" data-control="select2" tab-index="89" data-placeholder="Pilih Level" class="form-select" data-allow-clear="true">
+                        <select name="status" id="selectStatus" data-placeholder="Pilih Status" class="form-select">
                             <option value=""></option>
                             @foreach ($statusUser as $status)
                             <option value="{{ $status->value }}">{{ $status->text }}</option>

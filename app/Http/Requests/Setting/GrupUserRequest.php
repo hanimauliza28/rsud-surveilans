@@ -8,7 +8,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 
 use App\Helpers\Helpers;
 
-class UserRequest extends FormRequest
+class GrupUserRequest extends FormRequest
 {
     /**
      * Constructor.
@@ -38,11 +38,7 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'required',
-            'name' => 'required',
-            'password' => 'confirmed',
-            'status' => 'required',
-            'grupUserId' => 'required'
+            'namaGrup' => 'required',
         ];
 
     }
@@ -55,13 +51,7 @@ class UserRequest extends FormRequest
     public function messages()
     {
         return [
-            'username.required' => 'Username Tidak Boleh Kosong',
-            'name.required' => 'Nama Tidak Boleh Kosong',
-            // 'password.required' => 'Password Tidak Boleh Kosong',
-            'password.confirmed' => 'Password Konfirmasi Harus Sama',
-            'password.min' => 'Password Minimal 6 Karakter',
-            'status.required' => 'Status User Harus di Pilih',
-            'grupUserId.required' => 'Grup User Harus di Pilih'
+            'namaGrup.required' => 'Username Tidak Boleh Kosong',
         ];
     }
 

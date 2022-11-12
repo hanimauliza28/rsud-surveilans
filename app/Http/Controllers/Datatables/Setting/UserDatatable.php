@@ -28,7 +28,7 @@ class UserDatatable extends Controller
     public function __invoke(Request $request)
     {
 
-        $user = User::query();
+        $user = User::with('grupUser');
 
                 return DataTables::of($user)
 
@@ -36,8 +36,8 @@ class UserDatatable extends Controller
                     return view('contents.setting.user.action',\compact('user'));
                 })
 
-                ->editColumn('level', function ($user) {
-                    return $this->helperSurveilans->labelLevelUser($user->level);
+                ->editColumn('grup_user_id', function ($user) {
+                    return $user->grupUser->nama_grup;
                 })
 
                 ->editColumn('status', function ($user) {

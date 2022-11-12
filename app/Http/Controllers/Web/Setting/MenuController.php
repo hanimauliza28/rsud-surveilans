@@ -62,7 +62,8 @@ class MenuController extends Controller
             'icon' => $request->icon,
             'parent_menu' => $request->parentMenu,
             'section_menu' => $request->sectionMenu,
-            'urut' => $request->urut
+            'urut' => $request->urut,
+            'status' => $request->status
         ];
 
         $saveData = Menu::create($data);
@@ -134,7 +135,8 @@ class MenuController extends Controller
             'icon' => $request->icon,
             'parent_menu' => $request->parentMenu,
             'section_menu' => $request->sectionMenu,
-            'urut' => $request->urut
+            'urut' => $request->urut,
+            'status' => $request->status
         ];
 
         $saveData = Menu::where('id', $request->id)->update($data);

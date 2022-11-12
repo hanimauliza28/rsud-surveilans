@@ -25,7 +25,7 @@ License: For each use you must have a valid license purchased only from above li
 			<!--begin::Page-->
 			<div class="page d-flex flex-row flex-column-fluid">
 
-            @if(session('userLogin')->level == '1')
+            @if(session('userLogin')->grup_user_id == '2')
 
                 @include('layouts.partials.sidebar-superadmin')
             @else

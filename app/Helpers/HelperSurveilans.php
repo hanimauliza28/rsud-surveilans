@@ -306,7 +306,7 @@ class HelperSurveilans
         {
             $result = '<div class="badge text-success bg-light-success">Aktif</div>';
         }else{
-            $result = '<div class="badge text-danger bg-light-primary">Tidak Aktif</div>';
+            $result = '<div class="badge text-danger bg-light-danger">Tidak Aktif</div>';
         }
 
         return $result;

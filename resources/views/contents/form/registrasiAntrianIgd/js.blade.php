@@ -153,6 +153,21 @@
         const cariData = () => {
             dataRegistrasiAntrianIgd();
         }
+
+        const exportExcel = () => {
+            var filterTanggal = moment($('#filterTanggal').val(), 'DD\MM\YYYY').format("YYYY-MM-DD");
+            var filterPanggil = $('#filterPanggil').val() ?? 'all';
+            var filterDilayani = $('#filterDilayani').val() ?? 'all';
+            const parameter = {
+                tanggal : filterTanggal,
+                panggil : filterPanggil,
+                layani : filterDilayani
+            };
+
+            var url = route('registrasi-antrian-igd.export');
+
+            window.open(url, '_blank');
+        }
     </script>
 
     {{-- JS Save Update --}}

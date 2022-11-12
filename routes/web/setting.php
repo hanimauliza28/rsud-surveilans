@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\Setting\MenuController;
 use App\Http\Controllers\Web\Setting\UserController;
+use App\Http\Controllers\Web\Setting\GrupUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,16 @@ Route::middleware(['ceklogin'])->group(function () {
         Route::get('{id}/edit', [UserController::class, 'edit'])->name('user.edit');
         Route::put('{id}/update', [UserController::class, 'update'])->name('user.update');
         Route::delete('{id}/destroy', [UserController::class, 'destroy'])->name('user.destroy');
+    });
+
+    Route::group(['prefix' => 'grup-user'], function () {
+        Route::get('/', [GrupUserController::class, 'index'])->name('grup-user.index');
+        Route::post('store', [GrupUserController::class, 'store'])->name('grup-user.store');
+        Route::get('{id}/view', [GrupUserController::class, 'view'])->name('grup-user.view');
+        Route::get('{id}/edit', [GrupUserController::class, 'edit'])->name('grup-user.edit');
+        Route::put('{id}/update', [GrupUserController::class, 'update'])->name('grup-user.update');
+        Route::delete('{id}/destroy', [GrupUserController::class, 'destroy'])->name('grup-user.destroy');
+        Route::post('pilihan-bagian', [GrupUserController::class, 'pilihanBagian'])->name('grup-user.pilihan-bagian');
     });
 
 });

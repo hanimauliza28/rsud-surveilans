@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Web\Form;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\AntrianIgdExport;
+use Carbon\Carbon;
 
 use App\Helpers\HelperSurveilans;
 use App\Helpers\Helpers;
 
 use App\Models\AntrianIgd;
-use Carbon\Carbon;
 
 class RegistrasiAntrianIgdController extends Controller
 {
@@ -235,9 +237,16 @@ class RegistrasiAntrianIgdController extends Controller
         return $response;
     }
 
-    public function antrian(Request $request)
-    {
+    public function export(Request $request){
+        $filterTanggal = $request->filterTanggal;
+        $filterTanggal = date('Y-m-d', strtotime($filterTanggal));
 
-        $noreg = $request->dataPasien->dataNoreg;
+        $data = [
+            'filterTanggal' => $filterTanggal,
+            'filterPanggil' => $request->filterPanggil,
+            'filterDilayani' => $request->filterDilayani
+        ];
+
+        return Excel::download(new AntrianIgdExport, 'Antrian IGD.xlsx', null, $data);
     }
 }

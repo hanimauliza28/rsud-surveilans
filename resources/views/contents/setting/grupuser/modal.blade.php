@@ -1,4 +1,4 @@
-<div class="modal fade" id="setting-menu-modal" role="dialog" aria-labelledby="Modal" aria-hidden="true">
+<div class="modal fade" id="grup-user-modal" role="dialog" aria-labelledby="Modal" aria-hidden="true">
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header py-4">
@@ -15,56 +15,37 @@
                 <!--end::Close-->
             </div>
             <div class="modal-body-layer modal-body py-4 px-10">
-                <form id="setting-menu-form" method="POST">
+                <form id="grup-user-form" method="POST">
                     {{ csrf_field() }}
                     <input type="hidden" id="id" value="" name="id">
                     <input type="hidden" name="_method" value="PUT" disabled>
 
                     <div class="form-group">
-                        <label class="col-form-label text-left required fs-6 fw-bold">Nama Menu</label>
-                        <input type="text" class="form-control" name="namaMenu" placeholder="Nama Menu" />
-                        <div class="invalid-feedback" id="namaMenu"></div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-form-label text-left required fs-6 fw-bold">Route</label>
-                        <input type="text" class="form-control" onkeyup="nospaces(this)" name="url" placeholder="Example : dashboard.index" />
-                        <div class="invalid-feedback" id="url"></div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-form-label text-left required fs-6 fw-bold">Icon</label>
-                        <input type="text" class="form-control" name="icon" placeholder="Example : fa fa-home. Fontawesome etc" />
-                        <div class="invalid-feedback" id="icon"></div>
+                        <label class="col-form-label text-left required fs-6 fw-bold">Nama Grup User</label>
+                        <input type="text" class="form-control" name="namaGrup" placeholder="Nama Grup User" />
+                        <div class="invalid-feedback" id="namaGrup"></div>
                     </div>
 
 
                     <div class="form-group">
-                        <label class="col-form-label text-left required fs-6 fw-bold">Parent Menu</label>
-                        <select name="parentMenu" id="selectParent" data-control="select2" tab-index="89" data-placeholder="Pilih Menu Parent" class="form-select" data-allow-clear="true">
+                        <label class="col-form-label text-left required fs-6 fw-bold">Grup Bagian</label>
+                        <select name="kdGrupBagian" id="selectKdGrupBagian" data-placeholder="Pilih Grup Bagian" class="form-select">
                             <option value=""></option>
-                            @foreach ($listMenu as $menu)
-                            <option value="{{ $menu->id }}">{{ $menu->nama_menu }}</option>
+                            @foreach ($grupBagian as $grup)
+                            <option value="{{ $grup->GRPUNIT }}">{{ $grup->NMGUNIT }}</option>
                             @endforeach
                         </select>
-                        <div class="invalid-feedback" id="parentMenu"></div>
+                        <div class="invalid-feedback" id="kdGrupBagian"></div>
                     </div>
 
 
                     <div class="form-group">
-                        <label class="col-form-label text-left required fs-6 fw-bold">Jenis Menu Section</label>
-                        <select name="sectionMenu" id="selectSectionMenu" data-control="select2" tab-index="89" data-placeholder="Jenis menu Section" class="form-select" data-allow-clear="true">
+                        <label class="col-form-label text-left required fs-6 fw-bold">Pilih Bagian</label>
+                        <select name="kdBagian" id="selectKdBagian" data-placeholder="Pilih Bagian" class="form-select">
                             <option value=""></option>
-                            <option value="Y">Ya</option>
-                            <option value="N" selected="selected">Tidak</option>
-                        </select>
-                        <div class="invalid-feedback" id="sectionMenu"></div>
-                    </div>
 
-                    <div class="form-group">
-                        <label class="col-form-label text-left required fs-6 fw-bold">No. Urut</label>
-                        <input type="text" class="form-control" name="urut" placeholder="No. Urut" />
-                        <div class="invalid-feedback" id="urut"></div>
+                        </select>
+                        <div class="invalid-feedback" id="kdBagian"></div>
                     </div>
 
                 </form>

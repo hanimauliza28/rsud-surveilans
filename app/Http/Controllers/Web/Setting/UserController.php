@@ -9,6 +9,7 @@ use App\Helpers\HelperSurveilans;
 use App\Helpers\Helpers;
 
 use App\Models\User;
+use App\Models\GrupUser;
 
 use App\Http\Requests\Setting\UserRequest;
 
@@ -29,8 +30,8 @@ class UserController extends Controller
     public function index()
     {
         $data = [
-            'levelUser' => $this->helperSurveilans->listLevelUser(),
-            'statusUser' => $this->helperSurveilans->listStatusUser()
+            'statusUser' => $this->helperSurveilans->listStatusUser(),
+            'grupUser' => GrupUser::get()
         ];
 
         return view('contents.setting.user.index', $data);
@@ -59,7 +60,7 @@ class UserController extends Controller
             'username' => $request->username,
             'email' => $request->email,
             'status' => $request->status,
-            'level' => $request->level
+            'grup_user_id' => $request->grupUserId
         ];
         if($request->password != '')
         {
@@ -135,7 +136,7 @@ class UserController extends Controller
             'username' => $request->username,
             'email' => $request->email,
             'status' => $request->status,
-            'level' => $request->level
+            'grup_user_id' => $request->grupUserId
         ];
 
         if($request->password != '')

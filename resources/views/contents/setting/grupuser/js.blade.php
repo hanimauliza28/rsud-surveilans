@@ -1,7 +1,24 @@
 @push('extraScript')
     {{-- Reset --}}
     <script>
-        $('#user-modal').on('hidden.bs.modal', function() {
+
+        $('#selectKdGrupBagian').each(function() {
+            $(this).select2({
+                placeholder: 'Pilih Grup Bagian',
+                dropdownParent: $(this).parent(),
+                allowClear: true,
+            });
+        });
+
+        $('#selectKdBagian').each(function() {
+            $(this).select2({
+                placeholder: 'Pilih Bagian',
+                dropdownParent: $(this).parent(),
+                allowClear: true,
+            });
+        });
+
+        $('#grup-user-modal').on('hidden.bs.modal', function() {
             $('input.form-control').val('');
             $('textarea.form-control').val('');
             $('select').val('').change();
@@ -10,47 +27,23 @@
             $('#selectIsAktif').val('').change();
             resetValidasiForm();
         });
-
     </script>
 
-    {{-- Select2 --}}
-    <script>
-        $('#selectGrupUserId').each(function() {
-            $(this).select2({
-                placeholder: 'Pilih Grup User',
-                dropdownParent: $(this).parent(),
-                allowClear: true,
-            });
-        });
-
-        $('#selectStatus').each(function() {
-            $(this).select2({
-                placeholder: 'Pilih Status',
-                dropdownParent: $(this).parent(),
-                allowClear: true,
-            });
-        });
-
-    </script>
 
     {{-- JS Datatable --}}
     <script>
-        const dataUser = () => {
-            var filterLevel = $('#filterLevel').val();
-
+        const dataGrupUser = () => {
             $('#data-table').DataTable({
                 searchDelay: 500,
                 destroy: true,
                 bProcessing: true,
                 bServerSide: true,
-
                 responsive: true,
                 ajax: {
-                    url: route('user.datatable'),
+                    url: route('grup-user.datatable'),
                     type: 'POST',
                     data: {
                         _token: '{{ csrf_token() }}',
-                        filterLevel: filterLevel
                     }
                 },
                 "fnCreatedRow": function(row, data, index) {
@@ -61,28 +54,25 @@
                     orderable: false,
                     searchable: false
                 }, {
-                    data: 'username',
-                    name: 'username'
+                    data: 'nama_grup',
+                    name: 'nama_grup'
                 }, {
-                    data: 'name',
-                    name: 'name'
+                    data: 'grup_bagian',
+                    name: 'grup_bagian'
                 }, {
-                    data: 'grup_user_id',
-                    name: 'grup_user_id'
-                },
-                {
-                    data: 'status',
-                    name: 'status'
-                },{
+                    data: 'nama_bagian',
+                    name: 'nama_bagian'
+                }, {
                     data: 'action',
                     name: 'action',
+                    'class' : 'text-center center',
                     orderable: false,
                     searchable: false
                 }]
             });
         }
 
-        dataUser();
+        dataGrupUser();
 
         const filterSearch = document.querySelector('[data-kt-docs-table-filter="search"]');
 
@@ -91,24 +81,24 @@
         });
 
         const cariData = () => {
-            dataUser();
+            dataGrupUser();
         }
     </script>
 
     {{-- JS Save Update --}}
     <script>
         $('#btn-tambah').on('click', function() {
-            $('#user-modal').modal('show');
-            $('.modal-title').text('Tambah Menu');
+            $('#grup-user-modal').modal('show');
+            $('.modal-title').text('Tambah Grup User');
             resetButton('#btn-simpan', 'Simpan');
         });
 
         const edit = (id) => {
-            $('#user-modal').modal('show');
-            $('.modal-title').text('Edit Menu');
+            $('#grup-user-modal').modal('show');
+            $('.modal-title').text('Edit Grup User');
 
             $.ajax({
-                url: route('user.edit', id),
+                url: route('grup-user.edit', id),
                 type: 'GET',
                 dataType: 'JSON',
                 beforeSend: function(data) {
@@ -121,12 +111,9 @@
 
                     $('#id').val(id);
                     $('input[name="_method"]').prop('disabled', false);
-                    $('input[name="username"]').val(data.response.username);
-                    $('input[name="name"]').val(data.response.name);
-                    $('input[name="email"]').val(data.response.email);
-                    $('select[name="grupUserId"]').val(data.response.grup_user_id).change();
-                    $('select[name="status"]').val(data.response.status).change();
-                    $('select[name="email"]').val(data.response.email).change();
+                    $('input[name="namaGrup"]').val(data.response.nama_grup);
+                    $('select[name="kdGrupBagian"]').val(data.response.kd_grup_bagian).change();
+                    $('select[name="kdBagian"]').val(data.response.kd_bagian).change();
                 }
             })
         }
@@ -135,15 +122,15 @@
             e.preventDefault();
 
 
-            var data = $('#user-form').serialize();
+            var data = $('#grup-user-form').serialize();
             var id = $('#id').val();
             var url;
             var textBtn;
             if (id === '') {
-                url = route('user.store');
+                url = route('grup-user.store');
                 textBtn = 'Simpan';
             } else {
-                url = route('user.update', id);
+                url = route('grup-user.update', id);
                 textBtn = 'Ubah';
             }
 
@@ -155,7 +142,7 @@
                     $('#btn-simpan').attr("data-kt-indicator", "on");
                 },
                 success: function(data) {
-                    $('#user-modal').modal('hide');
+                    $('#grup-user-modal').modal('hide');
                     resetButton('#btn-simpan', textBtn);
                     Swal.fire({
                         icon: "success",
@@ -211,7 +198,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: route('user.destroy', id),
+                        url: route('grup-user.destroy', id),
                         type: 'POST',
                         data: {
                             _method: 'DELETE',
@@ -250,5 +237,40 @@
                 }
             });
         }
+
+        $('#selectKdGrupBagian').on('change', function(e) {
+            var kdgrupbagian = this.value;
+            $.ajax({
+                url: route('grup-user.pilihan-bagian'),
+                type: 'POST',
+                dataType : 'JSON',
+                data: {
+                    _method: 'POST',
+                    _token: '{!! csrf_token() !!}',
+                    kdgrupbagian : kdgrupbagian
+                },
+                beforeSend: function(){
+                    $('#selectKdBagian').find('option')
+                        .remove()
+                        .end()
+                        .append('<option value="">Mencari Bagian...</option>')
+                        .val('')
+                },
+                success: function(data) {
+                    let bagian = data.response;
+                    $.each(bagian, function (key, entry) {
+                        $('#selectKdBagian').append($('<option></option>').attr('value', entry.KDBAGIAN).text(entry.NAMABAGIAN));
+                    });
+                },
+                error : function(data){
+                     $('#selectKdBagian').find('option')
+                        .remove()
+                        .end()
+                        .append('<option value="">Tidak Ada Bagian</option>')
+                        .val('')
+                }
+
+            });
+        });
     </script>
 @endpush

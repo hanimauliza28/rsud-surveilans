@@ -40,7 +40,8 @@ class MenuRequest extends FormRequest
         return [
             'namaMenu' => 'required',
             'url' => 'required',
-            'sectionMenu' => 'required'
+            'sectionMenu' => 'required',
+            'status' => 'required'
         ];
 
     }
@@ -55,7 +56,8 @@ class MenuRequest extends FormRequest
         return [
             'namaMenu.required' => 'Nama Menu Tidak Boleh Kosong',
             'url.required' => 'Route Tidak Boleh Kosong',
-            'sectionMenu.required' => 'Icon Tidak Boleh Kosong'
+            'sectionMenu.required' => 'Icon Tidak Boleh Kosong',
+            'status.required' => 'Status Harus di Pilih'
         ];
     }
 

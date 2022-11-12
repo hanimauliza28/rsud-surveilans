@@ -31,10 +31,13 @@ class MenuDatatable extends Controller
                     '<div class="badge badge-success">Ya</div>' :
                     '<div class="badge badge-danger">Tidak</div>';
                 })
+                ->editColumn('status', function ($menu) {
+                    return $menu->label_status;
+                })
                 ->addColumn('action', function ($menu) {
                     return view('contents.setting.menu.action',\compact('menu'));
                 })
-                ->rawColumns(['action','section_menu'])
+                ->rawColumns(['action','section_menu', 'status'])
                     ->make(true);
     }
 }
