@@ -10,6 +10,7 @@ use Carbon\Carbon;
 
 use App\Helpers\HelperSurveilans;
 use App\Helpers\Helpers;
+use App\Helpers\HelperTIme;
 
 use App\Models\AntrianIgd;
 
@@ -20,6 +21,7 @@ class RegistrasiAntrianIgdController extends Controller
     {
         $this->helpers = new Helpers;
         $this->helperSurveilas = new HelperSurveilans;
+        $this->helperTime = new HelperTime;
 
         $this->antrianIgd = new AntrianIgd;
     }
@@ -238,15 +240,39 @@ class RegistrasiAntrianIgdController extends Controller
     }
 
     public function export(Request $request){
-        $filterTanggal = $request->filterTanggal;
-        $filterTanggal = date('Y-m-d', strtotime($filterTanggal));
 
         $data = [
-            'filterTanggal' => $filterTanggal,
-            'filterPanggil' => $request->filterPanggil,
-            'filterDilayani' => $request->filterDilayani
+
         ];
 
-        return Excel::download(new AntrianIgdExport, 'Antrian IGD.xlsx', null, $data);
+        return view('contents.form.registrasiAntrianIgd.halamanExport', $data);
+
+
+        // $filterTanggal = $request->filterTanggal;
+        // $filterTanggal = date('Y-m-d', strtotime($filterTanggal));
+
+        // $data = [
+        //     'filterTanggal' => $filterTanggal,
+        //     'filterPanggil' => $request->filterPanggil,
+        //     'filterDilayani' => $request->filterDilayani
+        // ];
+
+        // return Excel::download(new AntrianIgdExport, 'Antrian IGD.xlsx', null, $data);
     }
+
+    public function exportExcel(Request $request)
+    {
+        $filterTanggal = $request->filterTanggal;
+
+        $tanggal = $this->helperTime->splitFilterBatasWaktu($filterTanggal);
+        $namafile = 'Data Antrian IGD '.$tanggal['batasWaktuMulai'].' - '.$tanggal['batasWaktuSelesai'];
+
+        return Excel::download(new AntrianIgdExport($filterTanggal), $namafile.'.xlsx');
+    }
+
+    public function statistik()
+    {
+        return "Halaman statistik akan muncul disini... ";
+    }
+
 }

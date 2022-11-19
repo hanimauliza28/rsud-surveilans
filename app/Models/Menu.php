@@ -16,6 +16,16 @@ class Menu extends Model
         return $this->hasMany($this, 'parent_menu');
     }
 
+    public function parent()
+    {
+        return $this->belongsTo($this, 'parent_menu', 'id');
+    }
+
+    public function grupUser()
+    {
+        return $this->belongsToMany(GrupUser::class, 'grup_user_menu');
+    }
+
     public function getLabelStatusAttribute()
     {
         if($this->status == 'Y'){

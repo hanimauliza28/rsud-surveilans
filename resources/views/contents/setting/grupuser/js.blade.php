@@ -63,6 +63,12 @@
                     data: 'nama_bagian',
                     name: 'nama_bagian'
                 }, {
+                    data: 'hakAkses',
+                    name: 'hakAkses',
+                    'class' : 'text-center center',
+                    orderable: false,
+                    searchable: false
+                }, {
                     data: 'action',
                     name: 'action',
                     'class' : 'text-center center',
@@ -271,6 +277,76 @@
                 }
 
             });
+        });
+
+        const hakAkses = (id) => {
+            $('#grupUserId').val(id);
+
+            Livewire.emitTo('setting.hak-akses-grup-user', 'refresh', {
+                grupUserId:id
+            });
+            $('#hak-akses-modal').modal('show');
+            $('.modal-title').text('Atur Hak Akses Grup');
+
+        }
+
+
+        $('#btn-simpan-hak-akses').on('click', function(e) {
+            e.preventDefault();
+
+            var data = $('#hak-akses-form').serialize();
+            var grupUserid = $('#grupUserId').val();
+            var url = route('grup-user.hak-akses');
+            var textBtn = 'Simpan';
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: data,
+                beforeSend: function(data) {
+                    $('#btn-simpan-hak-akses').attr("data-kt-indicator", "on");
+                },
+                success: function(data) {
+                    $('#grup-user-modal').modal('hide');
+                    resetButton('#btn-simpan-hak-akses', textBtn);
+                    Swal.fire({
+                        icon: "success",
+                        title: "Selamat!",
+                        text: data.message,
+                        padding: '2em',
+                        timer: 3000
+                    }).then($('#data-table').DataTable().ajax.reload(null, false))
+                },
+                error: function(data) {
+                    resetValidasiForm();
+                    resetButton('#btn-simpan-hak-akses', textBtn);
+                    if (data.status === 422) {
+                        for (const [key, value] of Object.entries(data.responseJSON.response)) {
+                            $('input[name="' + key + '"]').addClass('is-invalid');
+                            $('select[name="' + key + '"]').addClass('is-invalid');
+                            $('#' + key).append(value);
+                        }
+                    }
+                    if (data.status === 400) {
+                        Swal.fire({
+                            title: 'Gagal!',
+                            text: data.responseJSON.message,
+                            icon: 'error',
+                            padding: '2em',
+                            timer: 3000
+                        })
+                    }
+                    if (data.status === 500) {
+                        Swal.fire({
+                            title: 'Gagal!',
+                            text: 'Terjadi Kesalahan pada server, pastikan sudah di isi dengan benar',
+                            icon: 'error',
+                            padding: '2em',
+                            timer: 3000
+                        })
+                    }
+                }
+            })
         });
     </script>
 @endpush

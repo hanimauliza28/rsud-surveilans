@@ -32,7 +32,7 @@
             singleDatePicker: true,
             timePicker: true,
             showDropdowns: true,
-            timePickerSeconds:true,
+            timePickerSeconds: true,
             timePicker24Hour: true,
             minYear: 1901,
             locale: {
@@ -43,7 +43,7 @@
 
 
         Inputmask({
-            "mask" : "99:99:99"
+            "mask": "99:99:99"
         }).mask("#jam");
 
 
@@ -60,7 +60,6 @@
 
             $('#filterTanggal').val(filterTanggal);
         });
-
     </script>
 
     {{-- JS Datatable --}}
@@ -81,9 +80,9 @@
                     type: 'POST',
                     data: {
                         _token: '{{ csrf_token() }}',
-                        filterTanggal : filterTanggal,
-                        filterPanggil : filterPanggil,
-                        filterDilayani : filterDilayani
+                        filterTanggal: filterTanggal,
+                        filterPanggil: filterPanggil,
+                        filterDilayani: filterDilayani
                     }
                 },
                 "fnCreatedRow": function(row, data, index) {
@@ -91,54 +90,55 @@
                 },
 
                 columns: [{
-                    data: null,
-                    orderable: false,
-                    searchable: false
-                }, {
-                    data: 'NO_ANTRI',
-                    name: 'NO_ANTRI'
-                }, {
-                    data: 'NAMAPAS',
-                    name: 'NAMAPAS',
-                    class: 'text-center center'
-                }, {
-                    data: 'STATUS_PANGGIL',
-                    name: 'STATUS_PANGGIL',
-                    class: 'text-center center'
-                },  {
-                    data: 'STATUS_DILAYANI',
-                    name: 'STATUS_DILAYANI',
-                    class: 'text-center center'
-                },{
-                    data: 'TGL_INPUT',
-                    name: 'TGL_INPUT',
-                    class: 'text-center center'
-                }, {
-                    data: 'JAM_DILAYANI',
-                    name: 'JAM_DILAYANI',
-                    class: 'text-center center'
-                }, {
-                    data: 'JAM_SELESAI',
-                    name: 'JAM_SELESAI',
-                    class: 'text-center center'
-                },
+                        data: null,
+                        orderable: false,
+                        searchable: false
+                    }, {
+                        data: 'NO_ANTRI',
+                        name: 'NO_ANTRI'
+                    }, {
+                        data: 'NAMAPAS',
+                        name: 'NAMAPAS',
+                        class: 'text-center center'
+                    }, {
+                        data: 'STATUS_PANGGIL',
+                        name: 'STATUS_PANGGIL',
+                        class: 'text-center center'
+                    }, {
+                        data: 'STATUS_DILAYANI',
+                        name: 'STATUS_DILAYANI',
+                        class: 'text-center center'
+                    }, {
+                        data: 'TGL_INPUT',
+                        name: 'TGL_INPUT',
+                        class: 'text-center center'
+                    }, {
+                        data: 'JAM_DILAYANI',
+                        name: 'JAM_DILAYANI',
+                        class: 'text-center center'
+                    }, {
+                        data: 'JAM_SELESAI',
+                        name: 'JAM_SELESAI',
+                        class: 'text-center center'
+                    },
 
-                 {
-                    data: 'EMERGENCYTIME',
-                    name: 'EMERGENCYTIME',
-                    class: 'text-center center'
-                },
-                 {
-                    data: 'LAMA_PELAYANAN',
-                    name: 'LAMA_PELAYANAN',
-                    class: 'text-center center'
-                }, {
-                    data: 'action',
-                    name: 'action',
-                    class: 'text-center center',
-                    orderable: false,
-                    searchable: false
-                }]
+                    {
+                        data: 'EMERGENCYTIME',
+                        name: 'EMERGENCYTIME',
+                        class: 'text-center center'
+                    },
+                    {
+                        data: 'LAMA_PELAYANAN',
+                        name: 'LAMA_PELAYANAN',
+                        class: 'text-center center'
+                    }, {
+                        data: 'action',
+                        name: 'action',
+                        class: 'text-center center',
+                        orderable: false,
+                        searchable: false
+                    }
+                ]
             });
         }
 
@@ -159,9 +159,9 @@
             var filterPanggil = $('#filterPanggil').val() ?? 'all';
             var filterDilayani = $('#filterDilayani').val() ?? 'all';
             const parameter = {
-                tanggal : filterTanggal,
-                panggil : filterPanggil,
-                layani : filterDilayani
+                tanggal: filterTanggal,
+                panggil: filterPanggil,
+                layani: filterDilayani
             };
 
             var url = route('registrasi-antrian-igd.export');
@@ -172,7 +172,6 @@
 
     {{-- JS Save Update --}}
     <script>
-
         $('#btn-tambah').on('click', function() {
             $('#registrasi-antrian-igd-modal').modal('show');
             $('.modal-title').text('Tambah Variabel Survey');
@@ -191,9 +190,9 @@
                 type: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',
-                    grupAntri : grupAntri,
-                    noAntri : noAntri,
-                    tglAntri : tglAntri
+                    grupAntri: grupAntri,
+                    noAntri: noAntri,
+                    tglAntri: tglAntri
                 },
                 success: function(data) {
 
@@ -206,12 +205,12 @@
                 },
                 error: function(data) {
                     Swal.fire({
-                            title: 'Gagal!',
-                            text: 'Gagal Mengambil Data Antrian',
-                            icon: 'error',
-                            padding: '2em',
-                            timer: 3000
-                        })
+                        title: 'Gagal!',
+                        text: 'Gagal Mengambil Data Antrian',
+                        icon: 'error',
+                        padding: '2em',
+                        timer: 3000
+                    })
                 }
             });
 
@@ -224,10 +223,10 @@
                 type: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',
-                    grupAntri : grupAntri,
-                    noAntri : noAntri,
-                    tglAntri : tglAntri,
-                    parameterIsian : 'JAM_DILAYANI'
+                    grupAntri: grupAntri,
+                    noAntri: noAntri,
+                    tglAntri: tglAntri,
+                    parameterIsian: 'JAM_DILAYANI'
                 },
                 success: function(data) {
 
@@ -247,12 +246,12 @@
                 },
                 error: function(data) {
                     Swal.fire({
-                            title: 'Gagal!',
-                            text: 'Gagal Mengambil Data Antrian',
-                            icon: 'error',
-                            padding: '2em',
-                            timer: 3000
-                        })
+                        title: 'Gagal!',
+                        text: 'Gagal Mengambil Data Antrian',
+                        icon: 'error',
+                        padding: '2em',
+                        timer: 3000
+                    })
                 }
             });
         }
@@ -263,10 +262,10 @@
                 type: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',
-                    grupAntri : grupAntri,
-                    noAntri : noAntri,
-                    tglAntri : tglAntri,
-                    parameterIsian : 'JAM_SELESAI'
+                    grupAntri: grupAntri,
+                    noAntri: noAntri,
+                    tglAntri: tglAntri,
+                    parameterIsian: 'JAM_SELESAI'
                 },
                 success: function(data) {
 
@@ -286,12 +285,12 @@
                 },
                 error: function(data) {
                     Swal.fire({
-                            title: 'Gagal!',
-                            text: 'Gagal Mengambil Data Antrian',
-                            icon: 'error',
-                            padding: '2em',
-                            timer: 3000
-                        })
+                        title: 'Gagal!',
+                        text: 'Gagal Mengambil Data Antrian',
+                        icon: 'error',
+                        padding: '2em',
+                        timer: 3000
+                    })
                 }
             });
         }
@@ -308,8 +307,7 @@
 
         }
 
-        const survey = (noreg, filterImut) =>
-        {
+        const survey = (noreg, filterImut) => {
             var namapasien = $('#' + noreg + '').data('namapasien');
             var norm = $('#' + noreg + '').data('norm');
             var bagian = $('#' + noreg + '').data('bagian');

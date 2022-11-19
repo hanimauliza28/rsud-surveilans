@@ -61,6 +61,7 @@ Grup User
                         <th>Nama Grup</th>
                         <th>Grup Bagian</th>
                         <th>Bagian</th>
+                        <th>Hak Akses</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -75,3 +76,4 @@ Grup User
 
     @include('contents.setting.grupuser.js')
     @include('contents.setting.grupuser.modal')
+    @include('contents.setting.grupuser.modalHakAkses')

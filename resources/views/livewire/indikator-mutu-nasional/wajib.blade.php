@@ -46,7 +46,7 @@
                                     if ($denumerator == 0) {
                                         $score = 0;
                                     } else {
-                                        $score = $numerator / $denumerator;
+                                        $score = $numerator / $denumerator * 100;
                                     }
 
                                     //$numerator = $indikatorMutu->survey->where('tanggal_survey', $year.'-'.$month.'-'.$x)->numerator;
@@ -64,6 +64,9 @@
                                 </div>
                                 <a onclick="detailNilai({{ $indikatorMutu->id }})"
                                     class="badge bg-hover-success text-hover-white badge-light-success mt-2">Detail</a>
+
+                                <a onclick="sync({{ $indikatorMutu->id }}, $x)"
+                                    class="badge bg-hover-success text-hover-white badge-light-success mt-2">Sync</a>
                             </td>
                         @endfor
                     </tr>

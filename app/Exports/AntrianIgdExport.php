@@ -3,15 +3,40 @@
 namespace App\Exports;
 
 use App\Models\AntrianIgd;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use App\Helpers\HelperTime;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
 
-class AntrianIgdExport implements FromCollection
+use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+
+
+class AntrianIgdExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder implements FromView, WithCustomValueBinder,ShouldAutoSize
 {
     /**
     * @return \Illuminate\Support\Collection
-    */
-    public function collection()
+    **/
+
+    public function __construct(string $filterTanggal = null)
     {
-        return AntrianIgd::all();
+        $this->filterTanggal = $filterTanggal;
+        $this->helperTime = new HelperTime;
+    }
+
+    public function view(): View
+    {
+
+        $tanggal = $this->helperTime->splitFilterBatasWaktu($this->filterTanggal);
+
+        $batasAtas = $tanggal['batasWaktuMulai'];
+        $batasSelesai = $tanggal['batasWaktuSelesai'];
+        $antrian = AntrianIgd::whereDate('TGL_ANTRI', '>=', $batasSelesai)->whereDate('TGL_ANTRI', '<=', $batasSelesai)->orderBy('TGL_INPUT', 'ASC')->get();
+
+        $data = [
+            'tanggal' => $tanggal,
+            'antrian' => $antrian
+        ];
+
+        return view('contents.form.registrasiAntrianIgd.export', $data);
     }
 }

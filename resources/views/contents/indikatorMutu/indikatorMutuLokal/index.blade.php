@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('parentTitle')
+@section('childTitle')
 Indikator Mutu - Indikator Mutu Lokal
 @endsection
 

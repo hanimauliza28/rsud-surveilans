@@ -15,7 +15,7 @@ class HelperTime {
         // Filter
         $now = date('Y-m-d');
 
-        $batasWaktu = explode(' - ', $request->get('filterBatasWaktu'));
+        $batasWaktu = explode(' - ', $filterBatasWaktu);
 
         $batasWaktuMulai = date('Y-m-d', strtotime(str_replace('/', '-', $batasWaktu[0])));
         $batasWaktuSelesai = date('Y-m-d', strtotime(str_replace('/', '-', $batasWaktu[1])));

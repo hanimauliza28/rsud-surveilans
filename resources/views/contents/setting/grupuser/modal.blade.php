@@ -43,7 +43,6 @@
                         <label class="col-form-label text-left required fs-6 fw-bold">Pilih Bagian</label>
                         <select name="kdBagian" id="selectKdBagian" data-placeholder="Pilih Bagian" class="form-select">
                             <option value=""></option>
-
                         </select>
                         <div class="invalid-feedback" id="kdBagian"></div>
                     </div>

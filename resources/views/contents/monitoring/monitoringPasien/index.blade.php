@@ -4,7 +4,7 @@
 Monitoring Pasien
 @endsection
 
-@section('parentTitle')
+@section('childTitle')
 Monitoring Indikator Mutu Pelayanan Pada Pasien
 @endsection
 

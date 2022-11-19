@@ -16,7 +16,7 @@ class GrupUserDatatable extends Controller
 
     public function __construct()
     {
-        $this->helperSurveilans = new HelperSurveilans;
+        $this->grupuser = new GrupUser;
     }
 
     /**
@@ -31,6 +31,10 @@ class GrupUserDatatable extends Controller
         $grupuser = GrupUser::query();
 
                 return DataTables::of($grupuser)
+
+                ->addColumn('hakAkses', function ($grupuser) {
+                    return view('contents.setting.grupuser.hakakses',\compact('grupuser'));
+                })
 
                 ->addColumn('action', function ($grupuser) {
                     return view('contents.setting.grupuser.action',\compact('grupuser'));

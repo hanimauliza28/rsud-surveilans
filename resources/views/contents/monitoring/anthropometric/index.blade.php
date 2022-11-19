@@ -4,7 +4,7 @@
     Anthropometric
 @endsection
 
-@section('parentTitle')
+@section('childTitle')
     Survey Anthropometric Pasien
 @endsection
 

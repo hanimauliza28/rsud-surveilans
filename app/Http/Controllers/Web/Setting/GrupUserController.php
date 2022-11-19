@@ -11,6 +11,7 @@ use App\Helpers\Helpers;
 use App\Models\Bagian;
 use App\Models\BagianGrup;
 use App\Models\GrupUser;
+use App\Models\Menu;
 
 class GrupUserController extends Controller
 {
@@ -18,18 +19,18 @@ class GrupUserController extends Controller
     {
         $this->helperSurveilans = new HelperSurveilans();
         $this->helpers = new Helpers();
+        $this->grupUser = new GrupUser;
     }
 
 
     public function index()
     {
-
         $data = [
-            'grupBagian' => BagianGrup::get()
+            'grupBagian' => BagianGrup::get(),
+            'menu' => Menu::get()
         ];
 
         return view('contents.setting.grupuser.index', $data);
-
     }
 
     public function pilihanBagian(Request $request)
@@ -141,6 +142,37 @@ class GrupUserController extends Controller
             : ($response = $this->helpers->retunJson(
                 400,
                 'Grup User gagal dihapus'
+            ));
+
+        return $response;
+    }
+
+    public function hakAkses(Request $request)
+    {
+        $grupUserId = $request->grupUserId;
+        $menuId = $request->menuId;
+
+        $grupUser = $this->grupUser->where('id',  $grupUserId)->first();
+
+        //save the section
+        foreach($menuId as $childMenu)
+        {
+            $menu = Menu::where('id', $childMenu)->first();
+            $sectionMenu[] = $menu->parent_menu;
+        }
+
+        $menu_id = array_merge($menuId, $sectionMenu);
+
+        $sync = $grupUser->menu()->sync($menu_id);
+
+        $sync
+            ? ($response = $this->helpers->retunJson(
+                200,
+                'Hak Akses Berhasil di Simpan'
+            ))
+            : ($response = $this->helpers->retunJson(
+                400,
+                'Hak Akses Berhasil di Simpan'
             ));
 
         return $response;

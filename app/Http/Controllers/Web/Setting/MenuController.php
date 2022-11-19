@@ -28,12 +28,14 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $listMenu = $this->menu->select('id', 'nama_menu', 'url')->get();
+        $listMenu = $this->menu->select('id', 'nama_menu', 'url')->where('section_menu', 'Y')->get();
 
         $data = [
             'jenisMenu' => $this->helperSurveilans->listJenisMenu(),
             'listMenu' => $listMenu
         ];
+
+        $menu = Menu::where('parent_menu', '<>', null)->with('parent')->first();
 
         return view('contents.setting.menu.index', $data);
     }

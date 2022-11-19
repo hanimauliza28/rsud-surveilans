@@ -19,8 +19,8 @@
             <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 pt-1">
                 <!--begin::Item-->
                 <li class="breadcrumb-item text-muted">
-                    @if (trim($__env->yieldContent('parentTitle')))
-                    @yield('parentTitle')
+                    @if (trim($__env->yieldContent('childTitle')))
+                    @yield('childTitle')
 
                     @endif
                 </li>

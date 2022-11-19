@@ -4,7 +4,7 @@
     Monitoring Pasien Rawat Jalan
 @endsection
 
-@section('parentTitle')
+@section('childTitle')
     Monitoring Pasien Rawat Jalan
 @endsection
 

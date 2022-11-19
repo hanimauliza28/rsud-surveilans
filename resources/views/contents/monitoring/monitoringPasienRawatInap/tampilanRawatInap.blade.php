@@ -4,7 +4,7 @@
     Monitoring Pasien Rawat Inap
 @endsection
 
-@section('parentTitle')
+@section('childTitle')
     Monitoring Pasien Rawat Inap
 @endsection
 

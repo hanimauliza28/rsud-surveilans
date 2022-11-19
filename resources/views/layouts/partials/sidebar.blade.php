@@ -31,6 +31,7 @@
                 id="#kt_aside_menu" data-kt-menu="true">
 
                 {{-- Monitoring --}}
+
                 @foreach ($menuSidebar as $section)
                     <div class="menu-item">
                         <div class="menu-content pb-2">
@@ -38,6 +39,8 @@
                                 class="menu-section text-muted text-uppercase fs-8 ls-1">{{ $section->nama_menu }}</span>
                         </div>
                     </div>
+                    @if($section->children)
+
                     @foreach ($section->children as $menuutama)
                         <div class="menu-item">
                             <a class="menu-link" href="{{ route($menuutama->url) }}" title="{{ $menuutama->nama_menu }}"
@@ -52,6 +55,7 @@
                             </a>
                         </div>
                     @endforeach
+                    @endif
                 @endforeach
 
             </div>

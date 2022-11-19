@@ -45,6 +45,7 @@ Route::middleware(['ceklogin'])->group(function () {
         Route::put('{id}/update', [GrupUserController::class, 'update'])->name('grup-user.update');
         Route::delete('{id}/destroy', [GrupUserController::class, 'destroy'])->name('grup-user.destroy');
         Route::post('pilihan-bagian', [GrupUserController::class, 'pilihanBagian'])->name('grup-user.pilihan-bagian');
+        Route::post('hak-akses', [GrupUserController::class, 'hakAkses'])->name('grup-user.hak-akses');
     });
 
 });

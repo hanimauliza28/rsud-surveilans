@@ -4,7 +4,7 @@
     Monitoring Pasien IGD
 @endsection
 
-@section('parentTitle')
+@section('childTitle')
     Monitoring Pasien Gawat Darurat
 @endsection
 
