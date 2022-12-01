@@ -32,10 +32,9 @@ class MenuController extends Controller
 
         $data = [
             'jenisMenu' => $this->helperSurveilans->listJenisMenu(),
+            'sectionMenu' => $this->menu->where('section_menu', 'Y')->orderBy('urut', 'ASC')->get(),
             'listMenu' => $listMenu
         ];
-
-        $menu = Menu::where('parent_menu', '<>', null)->with('parent')->first();
 
         return view('contents.setting.menu.index', $data);
     }

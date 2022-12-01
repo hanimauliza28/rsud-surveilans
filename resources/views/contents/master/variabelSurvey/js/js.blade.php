@@ -44,6 +44,8 @@
                 bProcessing: true,
                 bServerSide: true,
                 responsive: true,
+                "iDisplayLength": 10,
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 ajax: {
                     url: route('variabel-survey.datatable'),
                     type: 'POST',
@@ -91,6 +93,7 @@
         });
 
         const cariData = () => {
+            $('#data-table').DataTable().clear().destroy();
             dataVariabelSurvey();
         }
     </script>

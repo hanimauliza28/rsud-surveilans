@@ -103,7 +103,7 @@
                             <!--end::Label-->
                             <!--begin::Options-->
                             <!--begin::Input wrapper-->
-                            <div class="position-relative d-flex w-100 fs-6">
+                            <div class="position-relative d-flex w-100">
 
                                 <select class="form-select form-select-solid w-100" name="filterPanggil"
                                     id="filterPanggil">
@@ -127,7 +127,7 @@
                             <!--end::Label-->
                             <!--begin::Switch-->
                             <!--begin::Input wrapper-->
-                            <div class="position-relative d-flex w-100 fs-6">
+                            <div class="position-relative d-flex w-100">
 
                                 <select class="form-select form-select-solid" name="filterDilayani"
                                     id="filterDilayani">

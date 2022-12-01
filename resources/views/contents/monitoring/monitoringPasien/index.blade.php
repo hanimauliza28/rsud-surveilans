@@ -136,4 +136,6 @@ Monitoring Indikator Mutu Pelayanan Pada Pasien
 @include('contents.monitoring.monitoringPasien.js.jsKepatuhanIndentifikasi')
 @include('contents.monitoring.monitoringPasien.js.jsEmergencyResponTime')
 @include('contents.monitoring.monitoringPasien.js.jsWaktuTungguRawatJalan')
+@include('contents.monitoring.monitoringPasien.js.jsKepatuhanJamVisitDokter')
 @include('contents.monitoring.monitoringPasien.js.jsPenundaanOperasiElektif')
+@include('contents.monitoring.monitoringPasien.js.jsUpayaPencegahanResikoCidera')

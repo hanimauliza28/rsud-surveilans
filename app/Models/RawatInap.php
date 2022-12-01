@@ -28,7 +28,8 @@ class RawatInap extends Model
         FROM MTINDAKAN A, TRTINDAKAN B
         WHERE B.NOREGRS LIKE '" .
             $noReg .
-            "' AND A.KDTINDAKAN IN ('00083', '00084', '00085', '00086', '00087', '00088', '00089', '0316') AND A.KDTINDAKAN=B.KDTINDAKAN";
+            "' AND A.KDTINDAKAN IN ('00083', '00084', '00085', '00086', '00087', '00088', '00089', '0316') AND A.KDTINDAKAN=B.KDTINDAKAN
+            ORDER BY  B.TGLPMR ASC";
 
         $hasil = DB::connection('simrs')->select(DB::raw($query));
 
@@ -37,5 +38,15 @@ class RawatInap extends Model
         } else {
             return false;
         }
+    }
+
+    public function anamnesa()
+    {
+        return $this->hasMany(Anamnesa::class, 'NOREGRS', 'NOREGRS');
+    }
+
+    public function anamnesari()
+    {
+        return $this->hasMany(AnamnesaRi::class, 'NOREGRS', 'NOREGRS');
     }
 }

@@ -13,13 +13,16 @@
 
         $('#filterBagian').select2({
             placeholder: 'Pilih Bagian',
-            width: 'resolve'
+            width: 'resolve',
+            allowClear: true,
+
         });
 
 
         $('#filterRawat').select2({
             placeholder: 'Pilih Status Rawat',
-            width: 'resolve'
+            width: 'resolve',
+            allowClear: true,
         });
 
         const cariData = () => {
@@ -69,8 +72,6 @@
             //delete active class
             $('.nav-link').removeClass('active');
             $('.'+filterImut).addClass('active');
-
-            console.log(noReg, filterImut);
 
             Livewire.emitTo('monitoring.nasional.modul', 'cariImut', {
                 filterImut: filterImut,

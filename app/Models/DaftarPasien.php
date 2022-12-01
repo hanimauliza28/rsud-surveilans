@@ -73,6 +73,7 @@ class DaftarPasien extends Model
         $cariTanggal = '';
         $cariBagian = '';
         $cariKeyword = '';
+        $rejectpart = " AND B.NOREGRS NOT LIKE '2021%' AND B.NOREGRS NOT LIKE '2020%' AND B.NOREGRS NOT LIKE '2019%' AND B.NOREGRS NOT LIKE '2018%' AND B.NOREGRS NOT LIKE '2017%' AND B.NOREGRS NOT LIKE '2016%'";
 
 
         if($tanggal != '')
@@ -87,13 +88,13 @@ class DaftarPasien extends Model
             if ($status == 'dalamPerawatan') {
                 $cariStatus = " AND C.STSPULANG='I'";
                 if ($tanggal) {
-                    $cariTanggal = " AND C.TGLMASUK >= '" . $tanggal . "'";
-                    // $cariTanggal = '';
+                    // $cariTanggal = " AND C.TGLMASUK >= '" . $tanggal . "'";
+                    $cariTanggal = '';
                 }
             } elseif ($status == 'pulang') {
                 $cariStatus = " AND (C.STSPULANG='A' OR C.STSPULANG='B' OR C.STSPULANG='E')";
                 if ($tanggal) {
-                    $cariTanggal = " AND C.TGLPULANG='" . $tanggal . "'";
+                    $cariTanggal = " AND CONVERT(DATE, C.TGLPULANG)='".$tanggal."'";
                 }
             } elseif ($status == 'rujuk') {
                 $cariStatus = " AND (C.STSPULANG='C' OR C.STSPULANG='D')";
@@ -108,6 +109,10 @@ class DaftarPasien extends Model
             }else{
 
             }
+        }else{
+            //Jika tidak dipilih statusnya maka akan dimunculkan semua  yang masih menginap
+            $cariStatus = " AND C.STSPULANG='I'";
+            $cariTanggal = '';
         }
 
         if ($kdbagian != '') {
@@ -119,16 +124,13 @@ class DaftarPasien extends Model
             $cariKeyword = " AND (A.NMPASIEN LIKE '%".$keyword."%' OR B.NOREGRS LIKE '%".$keyword."%' OR B.NORMPAS LIKE '%".$keyword."%')";
         }
 
-
-
-
         $sql = "SELECT A.NMPASIEN, A.NORMPAS, A.NOJAMINAN, A.ALAMATPAS, A.TGLLAHIR, B.NOREGRS, C.KDBAGIAN, D.NAMABAGIAN
         FROM        MPASIENRS AS A INNER JOIN
                     REGISTRIPAS AS B ON A.NORMPAS = B.NORMPAS INNER JOIN
                     REGISTRIRWI AS C ON C.NOREGRS = B.NOREGRS INNER JOIN
                     BAGIAN AS D ON C.KDBAGIAN = D.KDBAGIAN
-        WHERE     (D.GRPUNIT = '93') ". $cariBagian . $cariKeyword . $cariStatus . $cariTanggal .
-        "ORDER BY B.NOREGRS DESC";
+        WHERE     (D.GRPUNIT = '93') ". $rejectpart . $cariBagian . $cariKeyword . $cariStatus . $cariTanggal .
+        " ORDER BY B.NOREGRS DESC";
 
         $hasil = DB::connection('simrs')->select(DB::raw($sql));
 

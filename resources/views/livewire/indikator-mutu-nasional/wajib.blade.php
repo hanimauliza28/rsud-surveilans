@@ -62,8 +62,8 @@
                                     <span
                                         class="badge bg-light-success text-gray-500 me-0">{{ $hasilSurvey->denumerator ?? 0 }}</span>
                                 </div>
-                                <a onclick="detailNilai({{ $indikatorMutu->id }})"
-                                    class="badge bg-hover-success text-hover-white badge-light-success mt-2">Detail</a>
+                                {{-- <a onclick="detailNilai({{ $indikatorMutu->id }})"
+                                    class="badge bg-hover-success text-hover-white badge-light-success mt-2">Detail</a> --}}
 
                                 <a onclick="sync({{ $indikatorMutu->id }}, $x)"
                                     class="badge bg-hover-success text-hover-white badge-light-success mt-2">Sync</a>

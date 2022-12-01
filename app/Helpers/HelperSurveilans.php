@@ -229,17 +229,17 @@ class HelperSurveilans
     {
         $data = [
             [
-                'value' => 'section',
+                'value' => 'Y',
                 'text' => 'Menu Section',
             ],
             [
-                'value' => 'parent',
-                'text' => 'Menu Utama',
+                'value' => 'N',
+                'text' => 'Menu',
             ],
-            [
-                'value' => 'child',
-                'text' => 'Sub Menu',
-            ],
+            // [
+            //     'value' => 'child',
+            //     'text' => 'Sub Menu',
+            // ],
         ];
 
         return $this->helpers->arrayToObject($data);

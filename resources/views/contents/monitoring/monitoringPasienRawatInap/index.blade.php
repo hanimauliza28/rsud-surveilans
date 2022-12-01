@@ -38,3 +38,5 @@
 @include('contents.monitoring.jsMonitoring')
 @include('contents.monitoring.monitoringPasien.js.jsKepatuhanIndentifikasi')
 @include('contents.monitoring.monitoringPasien.js.jsEmergencyResponTime')
+@include('contents.monitoring.monitoringPasien.js.jsKepatuhanJamVisitDokter')
+

@@ -54,6 +54,7 @@ class KepatuhanIdentifikasiPasienController extends Controller
         $sub_numerator = 0;
 
         try {
+
             foreach ($request->dataPasien as $pasien) {
                 $dataPasien[$pasien['name']] = $pasien['value'];
             }
@@ -68,8 +69,8 @@ class KepatuhanIdentifikasiPasienController extends Controller
             ];
 
             //simpan ke data object
-            $pasienSimpan = ObjectPasien::create($simpanPasien);
-
+            $pasienSimpan = ObjectPasien::updateOrCreate($simpanPasien);
+            if($dataPasien['dataPasienNoreg'])
             foreach ($request->data as $data) {
                 if($data['name'] != 'kepatuhan-identifikasi')
                 {

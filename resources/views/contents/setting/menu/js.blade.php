@@ -44,19 +44,22 @@
         });
 
 
-        $('#filterJenisFilter').each(function() {
+        $('#filterSection').each(function() {
             $(this).select2({
-                placeholder: 'Filter Jenis Filter',
+                placeholder: 'Filter Grup Section',
                 dropdownParent: $(this).parent(),
                 allowClear: true,
             });
         });
+
+
     </script>
 
     {{-- JS Datatable --}}
     <script>
         const dataSettingMenu = () => {
             var filterJenisMenu = $('#filterJenisMenu').val();
+            var filterSection = $('#filterSection').val();
 
             $('#data-table').DataTable({
                 searchDelay: 500,
@@ -69,7 +72,8 @@
                     type: 'POST',
                     data: {
                         _token: '{{ csrf_token() }}',
-                        filterJenisMenu: filterJenisMenu
+                        filterJenisMenu: filterJenisMenu,
+                        filterSection: filterSection
                     }
                 },
                 "fnCreatedRow": function(row, data, index) {

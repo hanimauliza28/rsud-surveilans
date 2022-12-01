@@ -10,6 +10,14 @@ class HelperTime {
         return $newDate;
     }
 
+
+    public function formatTanggalDatabase($date){
+        $waktu = explode('/', $date);
+
+        $newDate = $waktu[2].'-'.$waktu[1].'-'.$waktu[0];
+        return $newDate;
+    }
+
     public function splitFilterBatasWaktu($filterBatasWaktu)
     {
         // Filter

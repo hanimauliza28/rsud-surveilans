@@ -6,9 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Helpers\Helpers;
+use App\Helpers\HelperTime;
 use App\Models\MasterWebService;
 use App\Models\IndikatorMutuNasional;
+use App\Models\DaftarPasien;
 use App\Models\ObjectPasien;
+use App\Models\RawatInap;
 use App\Models\VariabelSurvey;
 use App\Models\KategoriVariabelSurvey;
 use App\Models\HasilSurveyImutNasional;
@@ -20,205 +23,141 @@ class KepatuhanJamVisitDokterController extends Controller
     {
         $this->objectPasien = new ObjectPasien();
         $this->helpers = new Helpers();
+        $this->helperTime = new HelperTime();
+        $this->daftarPasien = new DaftarPasien();
+        $this->rawatInap = new RawatInap();
     }
 
     public function store(Request $request)
     {
-        $denumerator = 0;
-        $numerator = 0;
-        $sub_numerator = 0;
+        $tanggal = $request->tanggal;
 
-        try {
-            foreach ($request->dataPasien as $pasien) {
-                $dataPasien[$pasien['name']] = $pasien['value'];
+        $tanggalNew = $this->helperTime->formatTanggalDatabase($tanggal);
+
+        //Sync Data Pasien, Hanya ambil Pasien dalam daftar
+        $dataPasien = $this->daftarPasien->pasienRawatInap(
+            $tanggal,
+            '',
+            '',
+            ''
+        );
+        $variabelSurvey = VariabelSurvey::where(
+            'nama_variabel',
+            'jamVisitDokter'
+        )->first();
+
+        foreach ($request->data as $data) {
+            if ($data['name'] == 'indikatorMutuId') {
+                $indikatorMutuId = $data['value'];
             }
-
-            //Simpan Data Pasien
-            $simpanPasien = [
-                'no_reg' => $dataPasien['dataPasienNoreg'],
-                'nama_pasien' => $dataPasien['dataPasienNama'],
-                'norm' => $dataPasien['dataPasienNorm'],
-                'kdbagian' => $dataPasien['dataPasienKdbagian'],
-                'nama_bagian' => $dataPasien['dataPasienBagian'],
-            ];
-
-            //simpan ke data object
-            $pasienSimpan = ObjectPasien::updateOrCreate($simpanPasien);
-
-            foreach ($request->data as $data) {
-                if ($data['name'] == 'indikatorMutuId') {
-                    $indikatorMutuId = $data['value'];
-                    $indikatorMutu = IndikatorMutuNasional::where(
-                        'id',
-                        $indikatorMutuId
-                    )->first();
-
-                    //master hasil survey
-                    $dataHasil = [
-                        'id_object' => $pasienSimpan->id,
-                        'jenis_object' => 'App\Models\ObjectPasien',
-                        'tgl_survey' => date('Y-m-d'),
-                        'indikator_mutu_id' => $indikatorMutuId,
-                        'surveyor' => 'Diisi NIP',
-                        'numerator' => 0,
-                        'denumerator' => 0,
-                        'score' => 0,
-                    ];
-
-                    $simpanHasil = HasilSurveyImutNasional::create($dataHasil);
-                } elseif (
-                    $data['name'] != 'indikatorMutuId' and
-                    $data['name'] != 'hasilSurveyId'
-                ) {
-                    $cariIdVariabel = VariabelSurvey::where(
-                        'nama_variabel',
-                        $data['name']
-                    )->first();
-
-                    $dataDetailHasil = [
-                        'hasil_survey_id' => $simpanHasil->id,
-                        'variabel_survey_id' => $cariIdVariabel->id,
-                        'sub_variabel' => '',
-                        'value' => $data['value'],
-                        'point' => 1,
-                    ];
-
-                    if (
-                        $data['name'] == 'waktuTanggap' &&
-                        $data['value'] <= 300
-                    ) {
-                        $score = 1;
-                    } else {
-                        $score = 0;
-                    }
-
-                    if ($score) {
-                        $updateHasil = HasilSurveyImutNasional::where(
-                            'id',
-                            $simpanHasil->id
-                        )->update([
-                            'score' => $score,
-                        ]);
-                    }
-
-                    $simpanDetailHasil = HasilSurveyImutNasionalDetail::create(
-                        $dataDetailHasil
-                    );
-                }
-            }
-
-            return $this->helpers->retunJson(
-                200,
-                'Survey Emergency Respon Time Berhasil di Simpan'
-            );
-        } catch (exception $e) {
-            return $this->helpers->retunJson(
-                400,
-                'Terjadi Kesalahan Saat Menyimpan Survey Emergency Respon Time Gagal Disimpan'
-            );
         }
-    }
-
-    public function update(Request $request, $id)
-    {
-        $denumerator = 0;
-        $numerator = 0;
-        $sub_numerator = 0;
-        $hasilSurveyId = $id;
 
         try {
-            foreach ($request->dataPasien as $pasien) {
-                $dataPasien[$pasien['name']] = $pasien['value'];
-            }
+            foreach ($dataPasien as $pasien) {
 
-            //Simpan Data Pasien
-            $simpanPasien = [
-                'no_reg' => $dataPasien['dataPasienNoreg'],
-                'nama_pasien' => $dataPasien['dataPasienNama'],
-                'norm' => $dataPasien['dataPasienNorm'],
-                'kdbagian' => $dataPasien['dataPasienKdbagian'],
-                'nama_bagian' => $dataPasien['dataPasienBagian'],
-            ];
+                $numerator = 0;
+                $denumerator = 0;
+                $score = 0;
 
-            //simpan ke data object
-            $pasienSimpan = ObjectPasien::updateOrCreate($simpanPasien);
+                //Simpan Data Pasien
+                $simpanPasien = [
+                    'no_reg' => $pasien->NOREGRS,
+                    'nama_pasien' => $pasien->NMPASIEN,
+                    'norm' => $pasien->NORMPAS,
+                    'kdbagian' => $pasien->KDBAGIAN,
+                    'nama_bagian' => $pasien->NAMABAGIAN,
+                ];
 
-            foreach ($request->data as $data) {
-                if ($data['name'] == 'indikatorMutuId') {
-                    $indikatorMutuId = $data['value'];
-                    $indikatorMutu = IndikatorMutuNasional::where(
-                        'id',
-                        $indikatorMutuId
-                    )->first();
+                //simpan ke data object
+                $pasienSimpan = ObjectPasien::firstOrCreate($simpanPasien);
 
-                    //master hasil survey
-                    $dataHasil = [
+                $dataHasil = [
+                    'id_object' => $pasienSimpan->id,
+                    'jenis_object' => 'App\Models\ObjectPasien',
+                    'tgl_survey' => $tanggalNew,
+                    'indikator_mutu_id' => $indikatorMutuId,
+                    'surveyor' => session('userLogin')->username,
+                    'numerator' => 0,
+                    'denumerator' => 0,
+                    'score' => 0,
+                ];
+
+                $simpanHasil = HasilSurveyImutNasional::firstOrCreate(
+                    [
                         'id_object' => $pasienSimpan->id,
-                        'jenis_object' => 'App\Models\ObjectPasien',
-                        'tgl_survey' => date('Y-m-d'),
                         'indikator_mutu_id' => $indikatorMutuId,
-                        'surveyor' => 'Diisi NIP',
-                        'numerator' => 0,
-                        'denumerator' => 0,
-                        'score' => 0,
-                    ];
+                    ],
+                    $dataHasil
+                );
 
-                    $simpanHasil = HasilSurveyImutNasional::where(
-                        'id',
-                        $hasilSurveyId
-                    )->update($dataHasil);
-                } elseif (
-                    $data['name'] != 'indikatorMutuId' and
-                    $data['name'] != 'hasilSurveyId'
-                ) {
-                    $cariIdVariabel = VariabelSurvey::where(
-                        'nama_variabel',
-                        $data['name']
-                    )->first();
+                //Ambil data visit pasien dalam daftar
+                $dataVisit = $this->rawatInap->dataVisit($pasien->NOREGRS);
 
-                    $dataDetailHasil = [
-                        'hasil_survey_id' => $hasilSurveyId,
-                        'variabel_survey_id' => $cariIdVariabel->id,
-                        'sub_variabel' => '',
-                        'value' => $data['value'],
-                        'point' => 1,
-                    ];
+                if ($dataVisit != '') {
+                    foreach ($dataVisit as $visit) {
+                        if ($visit->TANGGAL == $tanggalNew) {
 
-                    if (
-                        $data['name'] == 'waktuTanggap' &&
-                        $data['value'] <= 300
-                    ) {
-                        $score = 1;
-                    } else {
-                        $score = 0;
+                            $denumerator = $denumerator+1;
+
+                            if ($visit->WAKTU < '14:00:00') {
+                                $point = 1;
+                                $numerator = $numerator+1;
+                                $score = 1;
+                            } else {
+                                $point = 0;
+                                $numerator = $numerator+0;
+                                $score = 0;
+                            }
+
+                            $jamvisit = substr($visit->WAKTU, 0, 8);
+
+                            $dataDetailHasil = [
+                                'hasil_survey_id' => $simpanHasil->id,
+                                'variabel_survey_id' => $variabelSurvey->id,
+                                'sub_variabel' => '',
+                                'value' => $jamvisit,
+                                'point' => 1,
+                            ];
+
+                            $simpanDetailHasil = HasilSurveyImutNasionalDetail::updateOrCreate(
+                                [
+                                    'hasil_survey_id' => $simpanHasil->id,
+                                    'variabel_survey_id' => $variabelSurvey->id,
+                                ],
+                                $dataDetailHasil
+                            );
+
+                            $dataHasil = [
+                                'id_object' => $pasienSimpan->id,
+                                'jenis_object' => 'App\Models\ObjectPasien',
+                                'tgl_survey' => $tanggalNew,
+                                'indikator_mutu_id' => $indikatorMutuId,
+                                'surveyor' => session('userLogin')->username,
+                                'numerator' => $numerator,
+                                'denumerator' => $denumerator,
+                                'score' => $score,
+                            ];
+
+                            $simpanHasil = HasilSurveyImutNasional::updateOrCreate(
+                                [
+                                    'tgl_survey' => $tanggalNew,
+                                    'id_object' => $pasienSimpan->id,
+                                ],
+                                $dataHasil
+                            );
+                        }
                     }
-
-                    if ($score) {
-                        $updateHasil = HasilSurveyImutNasional::where(
-                            'id',
-                            $hasilSurveyId
-                        )->update([
-                            'score' => $score,
-                        ]);
-                    }
-
-                    $simpanDetailHasil = HasilSurveyImutNasionalDetail::where(
-                        'hasil_survey_id',
-                        $hasilSurveyId
-                    )
-                        ->where('variabel_survey_id', $cariIdVariabel->id)
-                        ->update($dataDetailHasil);
                 }
             }
 
             return $this->helpers->retunJson(
                 200,
-                'Survey Emergency Respon Time Berhasil di Perbarui'
+                'Survey Kepatuhan Jam Visit Dokter Spesialis Berhasil di Simpan'
             );
         } catch (exception $e) {
             return $this->helpers->retunJson(
                 400,
-                'Terjadi Kesalahan Saat Menyimpan Survey Emergency Respon Time Gagal Diperbarui'
+                'Terjadi Kesalahan Saat Menyimpan Data, Survey Kepatuhan Jam Visit Dokter Spesialis Gagal Disimpan'
             );
         }
     }

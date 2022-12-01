@@ -17,7 +17,7 @@
                         <div onclick="survey({{ $pasien->NOREGRS }})" id="{{ $pasien->NOREGRS }}"
                             data-namapasien="{{ $pasien->NMPASIEN }}" data-norm="{{ $pasien->NORMPAS }}"
                             data-bagian="{{ $pasien->NAMABAGIAN }}" data-kdbagian="{{ $pasien->REGBAGIAN }}"
-                            class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">{{ $pasien->NMPASIEN }}
+                            class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2 hoverable">{{ $pasien->NMPASIEN }}
                         </div>
                         <div class="fw-bold text-muted">{{ $pasien->NOREGRS ?? $pasie->ALAMATPAS }}</div>
                     </div>

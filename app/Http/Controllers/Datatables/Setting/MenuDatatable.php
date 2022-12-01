@@ -26,7 +26,17 @@ class MenuDatatable extends Controller
      }
     public function __invoke(Request $request)
     {
-        $menu = Menu::with('parent');
+        $filterJenisMenu = $request->filterJenisMenu;
+        $filterSection = $request->filterSection;
+
+        $menu = Menu::
+        when($filterJenisMenu, function($query) use($filterJenisMenu){
+            $query->where('section_menu', $filterJenisMenu);
+        })
+        ->when($filterSection, function($query) use($filterSection){
+            $query->where('parent_menu', $filterSection);
+        })
+        ->with('parent');
 
         return DataTables::of($menu)
             ->editColumn('section_menu', function ($menu) {

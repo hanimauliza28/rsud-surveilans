@@ -62,7 +62,7 @@
                 searchDelay: 500,
                 destroy: true,
                 bProcessing: true,
-                bServerSide: true,
+                bServerSide: false,
                 responsive: true,
                 ajax: {
                     url: route('web-service.datatable'),

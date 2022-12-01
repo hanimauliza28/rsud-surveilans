@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Helpers\Helpers;
 use App\Helpers\HelperTime;
 use Carbon\Carbon;
-
+use DB;
 use App\Models\IndikatorMutuNasional;
 use App\Models\HasilSurveyImutNasional;
 use App\Models\RefKategoriIndikator;
@@ -280,7 +280,6 @@ class IndikatorMutuNasionalWajibController extends Controller
          *
          * **/
 
-
         $filterTanggal = $request->filterTanggal;
         $indikatorMutuId = $request->indikatorMutuId;
 
@@ -292,30 +291,55 @@ class IndikatorMutuNasionalWajibController extends Controller
             $prenoreg = date('Ymd', strtotime($tahun.'-'.$bulan.'-'.$i));
             $tanggal = date('Y-m-d', strtotime($tahun.'-'.$bulan.'-'.$i));
 
-
             //cari indikator mutu
             $imut = IndikatorMutuNasional::where('id', $indikatorMutuId)->first();
 
-            $denumerator = HasilSurveyImutNasional::where('indikator_mutu_id', $imut->id)->whereDate('tgl_survey', $tanggal)->count();
+            if($imut->nama_function = 'kepatuhan-jam-visit-dokter')
+            {
+                $dataHasil = HasilSurveyImutNasional::select(DB::raw("SUM(numerator) as numerator, SUM(denumerator) as denumerator"))->where('indikator_mutu_id', $imut->id)->whereDate('tgl_survey', $tanggal)->first();
+
+                    $data = [
+                        'denumerator' => $dataHasil->denumerator ?? 0,
+                        'numerator' => $dataHasil->numerator ?? 0,
+                        'tanggal_survey' => $tanggal,
+                        'indikator_mutu_id' => $indikatorMutuId,
+                        'user_id' => session('userLogin')->id,
+                        'sumber_data' => 'surveilans'
+                    ];
+
+
+                if(isset($data))
+                {
+                    $save = SurveyNasional::updateOrCreate([
+                        'tanggal_survey' => $tanggal,
+                        'indikator_mutu_id' => $indikatorMutuId
+                    ],  $data);
+                }
+            }else{
+
+                $denumerator = HasilSurveyImutNasional::where('indikator_mutu_id', $imut->id)->whereDate('tgl_survey', $tanggal)->count();
                 $numerator = HasilSurveyImutNasional::where('indikator_mutu_id', $imut->id)->whereDate('tgl_survey', $tanggal)->where('score', '1.00')->count();
 
-                $data = [
-                    'denumerator' => $denumerator,
-                    'numerator' => $numerator,
-                    'tanggal_survey' => $tanggal,
-                    'indikator_mutu_id' => $indikatorMutuId,
-                    'user_id' => session('userLogin')->id,
-                    'sumber_data' => 'surveilans'
-                ];
+                    $data = [
+                        'denumerator' => $denumerator,
+                        'numerator' => $numerator,
+                        'tanggal_survey' => $tanggal,
+                        'indikator_mutu_id' => $indikatorMutuId,
+                        'user_id' => session('userLogin')->id,
+                        'sumber_data' => 'surveilans'
+                    ];
 
 
-            if(isset($data))
-            {
-                $save = SurveyNasional::updateOrCreate([
-                    'tanggal_survey' => $tanggal,
-                    'indikator_mutu_id' => $indikatorMutuId
-                ],  $data);
+                if(isset($data))
+                {
+                    $save = SurveyNasional::updateOrCreate([
+                        'tanggal_survey' => $tanggal,
+                        'indikator_mutu_id' => $indikatorMutuId
+                    ],  $data);
+                }
             }
+
+
 
 
         }

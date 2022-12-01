@@ -1,8 +1,16 @@
 <div>
     <div class="card">
         <div class="card-body">
-            <form id="kepatuhan-visit-pasien-form">
+            <div class="responsive">
+                <div class="alert alert-primary border border-primary fw-bold w-300px end">
+                    Jam Masuk Pasien : {{ date('Y-m-d H:i:s', strtotime($dataRegistrasi->JAMMASUK)) }}
+                </div>
 
+            </div>
+            <section class="separator separator-solid m-2"></section>
+            <form id="kepatuhan-jam-visit-dokter-form">
+
+                <input type="hidden" id="daftarImutNasional" name="daftarImutNasional" value="kepatuhan-jam-visit-dokter">
                 <input type="hidden" name="indikatorMutuId" id="indikatorMutuId" value="{{ $indikatorMutu->id }}">
                 <input type="hidden" name="hasilSurveyId" id="hasilSurveyId" value="{{ $hasilSurvey->id ?? 0 }}">
 
@@ -17,11 +25,15 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $no = 1;
+                            $numerator = 0;
+                            $denumerator = 0;
+                        @endphp
                         @if ($dataVisit)
-                            @php
-                                $no = 1;
-                            @endphp
                             @foreach ($dataVisit as $visit)
+                                <input type="hidden" name="jamVisitDokter" id="jamVisitDokter"
+                                    value="<?= $visit->WAKTU ?>">
                                 <tr>
                                     <td>
                                         {{ $no }}
@@ -29,31 +41,44 @@
                                     <td>
                                         [{{ $visit->KDTINDAKAN }}]<br>
                                         {{ $visit->NAMAPMR }}
-
                                     </td>
                                     <td>
                                         {{ $visit->TANGGAL }}
                                     </td>
                                     <td>
-                                        {{ substr($visit->WAKTU, 0, 8) }}
+
+                                        @php
+                                            $jamvisit = substr($visit->WAKTU, 0, 8);
+
+                                        @endphp
+                                        {{ $jamvisit }}
                                     </td>
                                     <td>
-                                        @if ($visit->WAKTU < '14:00:00')
-                                            1
+                                        @if ($jamvisit < '14:00:00')
+                                            @php
+                                                $numerator = $numerator + 1;
+                                                $denumerator = $denumerator + 1;
+                                            @endphp
+                                            <label class="badge badge-light-primary">(1) Patuh</label>
                                         @else
-                                            -
+                                            @php
+                                                $denumerator = $denumerator + 1;
+                                            @endphp
+                                            <label class="badge badge-light-danger">(0) Tidak Patuh</label>
                                         @endif
                                     </td>
                                 </tr>
 
-
                                 @php
-                                    $no = $no++;
+                                    $jumlahVisit = $no;
+                                    $no = $no + 1;
                                 @endphp
                             @endforeach
                         @else
                             <tr>
-                                <td colspan="5" class="text text-center">Tidak Ada Data Visit Dokter</td>
+                                <td colspan="5" class="text text-center">
+                                    <div class="alert alert-danger fw-bold">Tidak Ada Data Visit Dokter Spesialis</div>
+                                </td>
                             </tr>
                         @endif
                     </tbody>
@@ -80,32 +105,52 @@
                     <!--end::Svg Icon-->
                 </span>
                 <!--end::Icon-->
+
+                @php
+                    if ($denumerator != 0) {
+                        $hasil = (intval($numerator) / intval($denumerator)) * 100;
+                    } else {
+                        $hasil = 0;
+                    }
+
+                @endphp
                 <!--begin::Title-->
                 <div class="flex-grow-1 me-2">
                     <a href="#" class="fw-bolder text-gray-800 text-hover-primary fs-6">Score Survey</a>
                     <span class="text-muted fw-bold d-block">
-                        {{-- {{ $detailHasilSurvey ? $detailHasilSurvey['waktuTunggu'] : $dataPelayanan['waktuTunggu'] }} --}}
-                        Detik / Pasien</span>
+                        {{ $numerator }} dari {{ $denumerator }} Visit Patuh
+                    </span>
                 </div>
                 <!--end::Title-->
                 <!--begin::Lable-->
-                <span class="fw-bolder text-warning py-1"></span>
+                <span class="fw-bolder text-warning py-1">
+
+                    {{ $hasil }}
+                    {{ $indikatorMutu->satuan }}
+                </span>
                 <!--end::Lable-->
             </div>
             <!--end::Item-->
 
         </div>
         <div class="card-footer text-end mt-1 pt-4">
-            <button id="btn-simpan" class="btn btn-primary" onclick="ambilDataVisitDokter()">
+
+            <div class="alert border-dashed outline-dashed text-start mt-5">
+                Sync Data SIMRS akan merekap seluruh data visit dokter spesialis pada tanggal yang tertera di filter.
+            </div>
+
+            <button id="btn-simpan" class="btn btn-primary" onclick="simpanKjvd()">
                 <span id="btn-simpan-text" class="indicator-label">
-                    <i class="fas fa-save"></i>
-                    Ambil Data SIMRS
+                    <i class="fa fa-sync"></i>
+                    Sync Data SIMRS
                 </span>
                 <span class="indicator-progress">
-                    <i class="fas fa-save"></i>
+                    <i class="fas fa-sync"></i>
                     Mohon Menunggu... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
                 </span>
             </button>
+
+
         </div>
     </div>
 </div>

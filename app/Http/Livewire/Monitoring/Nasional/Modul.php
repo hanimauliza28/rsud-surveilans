@@ -12,6 +12,8 @@ use Carbon\Carbon;
 use App\Models\SumberDataPasien;
 use App\Models\SumberDataPelayanan;
 use App\Models\RawatInap;
+use App\Models\AnamnesaRi;
+use App\Models\Anamnesa;
 
 class Modul extends Component
 {
@@ -154,9 +156,15 @@ class Modul extends Component
                 'pasienOperasi' => $list,
             ];
         }
+
+
+        // JAM VISIT DOKTER
         elseif ($page == 'kepatuhan-jam-visit-dokter') {
             $rawatInap = new RawatInap;
             $dataVisit = $rawatInap->dataVisit($noReg);
+            $dataRegistrasi = $rawatInap->where('NOREGRS', $noReg)->first();
+
+
 
             $tanggalSurvey = $this->tanggalSurvey ?? date('Y-m-d');
             $hasilSurvey = HasilSurveyImutNasional::where(
@@ -168,13 +176,43 @@ class Modul extends Component
                 ->first();
             $tanggal = Carbon::parse($tanggalSurvey);
             $tanggalFormat = $tanggal->isoFormat('DD/MM/YYYY');
-            $data =
+
+            $data = [
+                'dataRegistrasi' => $dataRegistrasi,
+                'indikatorMutu' => $indikatorMutu,
+                'hasilSurvey' => $hasilSurvey,
+                'hasilSurveyDetail' => $hasilSurvey->detail ?? '',
+                'dataVisit' => $dataVisit
+            ];
+
+
+        }
+
+
+        // PENCEGAHAN RESIKO CIDERA
+        elseif ($page == 'upaya-pencegahan-resiko-cidera') {
+            //tgl pulang akan jadi tgl_survey
+            $anamnesari = AnamnesaRi::where('NOREGRS', $noReg)->select('NOREGRS', 'RESIKOJATUH', 'DATEENTRY')->get();
+            $anamnesa = Anamnesa::where('NOREGRS', $noReg)->select('NOREGRS', 'RESIKOJATUH', 'DATEENTRY')->get();
+
+            $tanggalSurvey = $this->tanggalSurvey ?? date('Y-m-d');
+            $hasilSurvey = HasilSurveyImutNasional::where(
+                'indikator_mutu_id',
+                $indikatorMutu->id
+            )
+                ->whereDate('tgl_survey', $tanggalSurvey)
+                ->with('detail')
+                ->first();
+
+            $rawatInap = new RawatInap;
+            $dataRegistrasi = $rawatInap->where('NOREGRS', $noReg)->with('anamnesa', 'anamnesari')->first();
 
             $data = [
                 'indikatorMutu' => $indikatorMutu,
                 'hasilSurvey' => $hasilSurvey,
                 'hasilSurveyDetail' => $hasilSurvey->detail ?? '',
-                'dataVisit' => $dataVisit
+                'anamnesari' => $anamnesari,
+                'anamnesa' => $anamnesa
             ];
         }
 

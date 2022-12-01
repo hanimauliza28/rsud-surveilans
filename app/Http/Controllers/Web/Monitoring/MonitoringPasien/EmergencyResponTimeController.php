@@ -65,7 +65,10 @@ class EmergencyResponTimeController extends Controller
                         'score' => 0,
                     ];
 
-                    $simpanHasil = HasilSurveyImutNasional::create($dataHasil);
+                    $simpanHasil = HasilSurveyImutNasional::firstOrCreate(
+                        ['id_object' => $pasienSimpan->id, 'indikator_mutu_id' => $indikatorMutuId],
+                        $dataHasil);
+
                 } elseif (
                     $data['name'] != 'indikatorMutuId' and
                     $data['name'] != 'hasilSurveyId' and $data['name'] != 'emergency-respon-time'

@@ -7,6 +7,9 @@ use App\Http\Controllers\Web\Monitoring\MonitoringPasien\KepatuhanIdentifikasiPa
 use App\Http\Controllers\Web\Monitoring\MonitoringPasien\EmergencyResponTimeController;
 use App\Http\Controllers\Web\Monitoring\MonitoringPasien\WaktuTungguRawatJalanController;
 use App\Http\Controllers\Web\Monitoring\MonitoringPasien\PenundaanOperasiElektifController;
+use App\Http\Controllers\Web\Monitoring\MonitoringPasien\KepatuhanJamVisitDokterController;
+use App\Http\Controllers\Web\Monitoring\MonitoringPasien\UpayaPencegahanResikoCideraController;
+
 
 
 use App\Http\Controllers\Web\Monitoring\MonitoringPasienIgdController;
@@ -53,7 +56,6 @@ Route::middleware([])->group(function () {
         Route::put('{id}/update', [EmergencyResponTimeController::class, 'update'])->name('emergency-respon-time.update');
     });
 
-
     Route::group(['prefix' => 'waktu-tunggu-rawat-jalan'], function () {
         Route::post('/', [WaktuTungguRawatJalanController::class, 'store'])->name('waktu-tunggu-rawat-jalan.store');
         Route::put('{id}/update', [WaktuTungguRawatJalanController::class, 'update'])->name('waktu-tunggu-rawat-jalan.update');
@@ -63,6 +65,19 @@ Route::middleware([])->group(function () {
         Route::post('/', [PenundaanOperasiElektifController::class, 'store'])->name('penundaan-operasi-elektif.store');
         Route::put('{id}/update', [PenundaanOperasiElektifController::class, 'update'])->name('penundaan-operasi-elektif.update');
     });
+
+    Route::group(['prefix' => 'kepatuhan-jam-visit-dokter'], function () {
+        Route::post('/', [KepatuhanJamVisitDokterController::class, 'store'])->name('kepatuhan-jam-visit-dokter.store');
+        Route::put('{id}/update', [KepatuhanJamVisitDokterController::class, 'update'])->name('kepatuhan-jam-visit-dokter.update');
+    });
+
+
+    Route::group(['prefix' => 'upaya-pencegahan-resiko-cidera'], function () {
+        Route::post('/', [UpayaPencegahanResikoCideraController::class, 'store'])->name('upaya-pencegahan-resiko-cidera.store');
+        Route::put('{id}/update', [UpayaPencegahanResikoCideraController::class, 'update'])->name('upaya-pencegahan-resiko-cidera.update');
+    });
+
+
 
     // Monitoring Pasien IGD
     Route::group(['prefix' => 'monitoring-pasien-igd'], function () {

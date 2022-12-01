@@ -36,6 +36,7 @@ class VariabelSurveyDatatable extends Controller
                 );
             })
             ->rawColumns(['action'])
-            ->make(true);
+            // ->make(true)
+            ->toJson();
     }
 }
