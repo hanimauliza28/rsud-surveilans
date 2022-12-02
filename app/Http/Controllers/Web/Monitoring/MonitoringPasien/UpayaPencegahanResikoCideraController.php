@@ -34,7 +34,6 @@ class UpayaPencegahanResikoCideraController extends Controller
         $asesmenAwal = $request->asesmenAwal ?? '';
         $asesmenUlang = $request->asesmenUlang ?? '';
 
-
         try {
             foreach ($request->dataPasien as $pasien) {
                 $dataPasien[$pasien['name']] = $pasien['value'];
@@ -58,7 +57,7 @@ class UpayaPencegahanResikoCideraController extends Controller
 
             if($dataRegistrasi->JAMPULANG != '')
             {
-                $tanggalSurvey = date('Y-m-d', strtotime($dataRegistrasi->JAMPULANG))->first();
+                $tanggalSurvey = date('Y-m-d', strtotime($dataRegistrasi->JAMPULANG));
             }else{
                 $tanggalSurvey = date('Y-m-d');
             }
@@ -157,33 +156,40 @@ class UpayaPencegahanResikoCideraController extends Controller
                 $dataAsesmenUlang
             );
 
-            if(($pointAsesmenAwal == '1' && $pointAsesmenUlang == '1') && $pointSkriningIgdRajal == '1')
+            $hasilPoint = $pointAsesmenAwal+$pointAsesmenUlang+$pointSkriningIgdRajal;
+            if($hasilPoint < 3)
             {
-
-                //Simpan Hasil Survey
-                $dataHasil = [
-                    'numerator' => 3,
-                    'denumerator' => 0,
-                    'score' => 1,
-                ];
-
-                $simpanHasil = HasilSurveyImutNasional::updateOrCreate(
-                    [
-                        'id_object' => $pasienSimpan->id,
-                        'indikator_mutu_id' => $indikatorMutuId,
-                    ],
-                    $dataHasil
-                );
+                $response['keterangan'] = 'Tidak Terpenuhi';
+                $response['score'] = '0';
+            }else{
+                $response['keterangan'] = 'Terpenuhi';
+                $response['score'] = '1';
             }
+
+             //Simpan Hasil Survey
+             $dataHasil = [
+                'numerator' => $hasilPoint,
+                'denumerator' => 3,
+                'score' => $response['score'],
+            ];
+
+            $simpanHasil = HasilSurveyImutNasional::updateOrCreate(
+                [
+                    'id_object' => $pasienSimpan->id,
+                    'indikator_mutu_id' => $indikatorMutuId
+                ],
+                $dataHasil
+            );
 
             return $this->helpers->retunJson(
                 200,
-                'Survey Kepatuhan Identifikasi Pasien Berhasil di Simpan'
+                'Survey Kepatuhan Upaya Pencegahan Resiko Pasien Jatuh Berhasil di Simpan', $response
             );
+
         } catch (exception $e) {
             return $this->helpers->retunJson(
                 400,
-                'Terjadi Kesalahan Saat Menyimpan Data, Survey Kepatuhan Identifikasi Pasien Gagal Disimpan'
+                'Terjadi Kesalahan Saat Menyimpan Data, Survey Kepatuhan Upaya Pencegahan Resiko Pasien Jatuh Gagal Disimpan'
             );
         }
     }

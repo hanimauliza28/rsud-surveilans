@@ -1,5 +1,4 @@
 <div>
-    {{ dd($dataPelayanan) }}
     <div class="card">
         <div class="card-body">
             <form id="waktu-tunggu-rawat-jalan-form">

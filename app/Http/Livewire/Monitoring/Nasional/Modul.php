@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Livewire\Monitoring\Nasional;
 
 use Livewire\Component;
@@ -157,15 +156,11 @@ class Modul extends Component
             ];
         }
 
-
         // JAM VISIT DOKTER
         elseif ($page == 'kepatuhan-jam-visit-dokter') {
             $rawatInap = new RawatInap;
             $dataVisit = $rawatInap->dataVisit($noReg);
             $dataRegistrasi = $rawatInap->where('NOREGRS', $noReg)->first();
-
-
-
             $tanggalSurvey = $this->tanggalSurvey ?? date('Y-m-d');
             $hasilSurvey = HasilSurveyImutNasional::where(
                 'indikator_mutu_id',
@@ -174,6 +169,7 @@ class Modul extends Component
                 ->whereDate('tgl_survey', $tanggalSurvey)
                 ->with('detail')
                 ->first();
+
             $tanggal = Carbon::parse($tanggalSurvey);
             $tanggalFormat = $tanggal->isoFormat('DD/MM/YYYY');
 
@@ -191,11 +187,16 @@ class Modul extends Component
 
         // PENCEGAHAN RESIKO CIDERA
         elseif ($page == 'upaya-pencegahan-resiko-cidera') {
-            //tgl pulang akan jadi tgl_survey
+            //tgl pulang akan jadi tgl_survey, jika belum pulang akan otomatis mengamil tanggal hari ini
             $anamnesari = AnamnesaRi::where('NOREGRS', $noReg)->select('NOREGRS', 'RESIKOJATUH', 'DATEENTRY')->get();
             $anamnesa = Anamnesa::where('NOREGRS', $noReg)->select('NOREGRS', 'RESIKOJATUH', 'DATEENTRY')->get();
 
-            $tanggalSurvey = $this->tanggalSurvey ?? date('Y-m-d');
+            $rawatInap = new RawatInap;
+            $dataRegistrasi = $rawatInap->where('NOREGRS', $noReg)->with('anamnesa', 'anamnesari')->first();
+
+            $tanggalSurvey = $dataRegistrasi->JAMPULANG  ? date('Y-m-d', strtotime($dataRegistrasi->JAMPULANG)) : date('Y-m-d');
+            $izin =  $dataRegistrasi->JAMPULANG != '' ? 'Y' : 'N';
+
             $hasilSurvey = HasilSurveyImutNasional::where(
                 'indikator_mutu_id',
                 $indikatorMutu->id
@@ -204,15 +205,26 @@ class Modul extends Component
                 ->with('detail')
                 ->first();
 
-            $rawatInap = new RawatInap;
-            $dataRegistrasi = $rawatInap->where('NOREGRS', $noReg)->with('anamnesa', 'anamnesari')->first();
+                if(isset($hasilSurvey->detail))
+                {
+                    $variabel13 = $hasilSurvey->detail->where('variabel_survey_id', 13)->first();
+                    $variabel14 = $hasilSurvey->detail->where('variabel_survey_id', 14)->first();
+                    $variabel15 = $hasilSurvey->detail->where('variabel_survey_id', 15)->first();
+
+                    $value['value13'] = $variabel13->value ?? '';
+                    $value['value14'] = $variabel14->value ?? '';
+                    $value['value15'] = $variabel15->value ?? '';
+                }
 
             $data = [
                 'indikatorMutu' => $indikatorMutu,
                 'hasilSurvey' => $hasilSurvey,
                 'hasilSurveyDetail' => $hasilSurvey->detail ?? '',
                 'anamnesari' => $anamnesari,
-                'anamnesa' => $anamnesa
+                'dataRegistrasi' => $dataRegistrasi,
+                'anamnesa' => $anamnesa,
+                'izin' => $izin,
+                'value' => $value
             ];
         }
 
