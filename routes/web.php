@@ -23,9 +23,6 @@ Route::middleware(['ceklogin'])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('index');
     Route::get('/dashboard', [HomeController::class, 'index'])->name('home.index');
     Route::get('/query', [HomeController::class, 'query'])->name('home.query');
-
-
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
 
 Auth::routes();
