@@ -11,7 +11,6 @@
                 <div class="card-body">
 
                     @if ($izin == 'Y')
-
                         <form id="form-upaya-pencegahan-jatuh">
 
                             <input type="hidden" id="daftarImutNasional" name="daftarImutNasional"
@@ -36,9 +35,10 @@
                                     <div
                                         class="form-group d-flex form-check form-check-custom form-check-solid pt-2 checkAsesmenUlang">
                                         <input class="form-check-input form-sm" type="radio" name="skriningIgdRajal"
-                                            value="Y" id="skriningIgdRajalY" {{ $value['value13'] == 'Y' ? 'checked' : '' }}/>
-                                        <label class="form-check-label ms-3 text-muted"
-                                            for="skriningIgdRajalY">Berisiko</label>
+                                            value="Y" id="skriningIgdRajalY"
+                                            {{ $value['value13'] == 'Y' ? 'checked' : '' }} />
+                                        <label class="form-check-label ms-3 text-muted" for="skriningIgdRajalY">Berisiko
+                                            {{ $value['value13'] }}</label>
                                     </div>
                                     <!--end::Checkbox-->
 
@@ -47,7 +47,8 @@
                                     <div
                                         class="form-group d-flex form-check form-check-custom form-check-solid pt-2 checkAsesmenUlang">
                                         <input class="form-check-input form-sm" type="radio" name="skriningIgdRajal"
-                                            value="N" id="skriningIgdRajalN" {{ $value['value13'] == 'N' ? 'checked' : '' }}/>
+                                            value="N" id="skriningIgdRajalN"
+                                            {{ $value['value13'] == 'N' ? 'checked' : '' }} />
                                         <label class="form-check-label ms-3 text-muted" for="skriningIgdRajalN">Tidak
                                             Berisiko</label>
                                     </div>
@@ -73,7 +74,7 @@
                                     <div
                                         class="form-group d-flex form-check form-check-custom form-check-solid pt-2 checkAsesmenUlang">
                                         <input class="form-check-input" type="radio" name="asesmenAwal" value="Y"
-                                            id="asesmenAwalY" {{ $value['value14'] == 'Y' ? 'checked' : '' }}/>
+                                            id="asesmenAwalY" {{ $value['value14'] == 'Y' ? 'checked' : '' }} />
                                         <label class="form-check-label ms-3 text-muted"
                                             for="asesmenAwalY">Berisiko</label>
                                     </div>
@@ -84,7 +85,7 @@
                                     <div
                                         class="form-group d-flex form-check form-check-custom form-check-solid pt-2 checkAsesmenUlang">
                                         <input class="form-check-input" type="radio" name="asesmenAwal" value="N"
-                                            id="asesmenAwalN" {{ $value['value14'] == 'N' ? 'checked' : '' }}/>
+                                            id="asesmenAwalN" {{ $value['value14'] == 'N' ? 'checked' : '' }} />
                                         <label class="form-check-label ms-3 text-muted" for="asesmenAwalN">Tidak
                                             Berisiko</label>
                                     </div>
@@ -112,7 +113,8 @@
                                         <div
                                             class="form-group d-flex form-check form-check-custom form-check-solid pt-2">
                                             <input class="form-check-input" type="radio" name="asesmenUlang"
-                                                value="Y" id="asesmenUlangY" {{ $value['value15'] == 'Y' ? 'checked' : '' }}/>
+                                                value="Y" id="asesmenUlangY"
+                                                {{ $value['value15'] == 'Y' ? 'checked' : '' }} />
                                             <label class="form-check-label ms-3 text-muted"
                                                 for="asesmenUlangY">Dilakukan</label>
                                         </div>
@@ -122,7 +124,8 @@
                                         <div
                                             class="form-group d-flex form-check form-check-custom form-check-solid pt-2">
                                             <input class="form-check-input" type="radio" name="asesmenUlang"
-                                                value="N" id="asesmenUlangN" {{ $value['value15'] == 'N' ? 'checked' : '' }}/>
+                                                value="N" id="asesmenUlangN"
+                                                {{ $value['value15'] == 'N' ? 'checked' : '' }} />
                                             <label class="form-check-label ms-3 text-muted" for="asesmenUlangN">Tidak
                                                 Dilakukan</label>
                                         </div>
@@ -135,44 +138,49 @@
                             </div>
                         </form>
 
-                                                <!--begin::Item-->
-            <div class="d-flex align-items-center bg-light-warning rounded p-5">
-                <!--begin::Icon-->
-                <span class="svg-icon svg-icon-warning me-5">
-                    <!--begin::Svg Icon | path: icons/duotune/abstract/abs027.svg-->
-                    <span class="svg-icon svg-icon-1 svg-icon-warning">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                            fill="none">
-                            <path opacity="0.3"
-                                d="M21.25 18.525L13.05 21.825C12.35 22.125 11.65 22.125 10.95 21.825L2.75 18.525C1.75 18.125 1.75 16.725 2.75 16.325L4.04999 15.825L10.25 18.325C10.85 18.525 11.45 18.625 12.05 18.625C12.65 18.625 13.25 18.525 13.85 18.325L20.05 15.825L21.35 16.325C22.35 16.725 22.35 18.125 21.25 18.525ZM13.05 16.425L21.25 13.125C22.25 12.725 22.25 11.325 21.25 10.925L13.05 7.62502C12.35 7.32502 11.65 7.32502 10.95 7.62502L2.75 10.925C1.75 11.325 1.75 12.725 2.75 13.125L10.95 16.425C11.65 16.725 12.45 16.725 13.05 16.425Z"
-                                fill="currentColor" />
-                            <path
-                                d="M11.05 11.025L2.84998 7.725C1.84998 7.325 1.84998 5.925 2.84998 5.525L11.05 2.225C11.75 1.925 12.45 1.925 13.15 2.225L21.35 5.525C22.35 5.925 22.35 7.325 21.35 7.725L13.05 11.025C12.45 11.325 11.65 11.325 11.05 11.025Z"
-                                fill="currentColor" />
-                        </svg>
-                    </span>
-                    <!--end::Svg Icon-->
-                </span>
-                <!--end::Icon-->
+                        <!--begin::Item-->
+                        <div class="d-flex align-items-center bg-light-warning rounded p-5">
+                            <!--begin::Icon-->
+                            <span class="svg-icon svg-icon-warning me-5">
+                                <!--begin::Svg Icon | path: icons/duotune/abstract/abs027.svg-->
+                                <span class="svg-icon svg-icon-1 svg-icon-warning">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none">
+                                        <path opacity="0.3"
+                                            d="M21.25 18.525L13.05 21.825C12.35 22.125 11.65 22.125 10.95 21.825L2.75 18.525C1.75 18.125 1.75 16.725 2.75 16.325L4.04999 15.825L10.25 18.325C10.85 18.525 11.45 18.625 12.05 18.625C12.65 18.625 13.25 18.525 13.85 18.325L20.05 15.825L21.35 16.325C22.35 16.725 22.35 18.125 21.25 18.525ZM13.05 16.425L21.25 13.125C22.25 12.725 22.25 11.325 21.25 10.925L13.05 7.62502C12.35 7.32502 11.65 7.32502 10.95 7.62502L2.75 10.925C1.75 11.325 1.75 12.725 2.75 13.125L10.95 16.425C11.65 16.725 12.45 16.725 13.05 16.425Z"
+                                            fill="currentColor" />
+                                        <path
+                                            d="M11.05 11.025L2.84998 7.725C1.84998 7.325 1.84998 5.925 2.84998 5.525L11.05 2.225C11.75 1.925 12.45 1.925 13.15 2.225L21.35 5.525C22.35 5.925 22.35 7.325 21.35 7.725L13.05 11.025C12.45 11.325 11.65 11.325 11.05 11.025Z"
+                                            fill="currentColor" />
+                                    </svg>
+                                </span>
+                                <!--end::Svg Icon-->
+                            </span>
+                            <!--end::Icon-->
 
-                <!--begin::Title-->
-                <div class="flex-grow-1 me-2">
-                    <a href="#" class="fw-bolder text-gray-800 text-hover-primary fs-6">Score Survey</a>
-                    <span class="text-muted fw-bold d-block" id="keteranganUpayaPencegahan">
-                        {{ $hasilSurvey->score == '1.00' ? 'Terpenuhi' : 'Tidak Terpenuhi'  }}
-                    </span>
-                </div>
-                <!--end::Title-->
-                <!--begin::Lable-->
-                <span class="fw-bolder text-warning py-1">
+                            <!--begin::Title-->
+                            <div class="flex-grow-1 me-2">
+                                <a href="#" class="fw-bolder text-gray-800 text-hover-primary fs-6">Score
+                                    Survey</a>
+                                <span class="text-muted fw-bold d-block" id="keteranganUpayaPencegahan">
 
-                    <span id="scoreUpayaPencegahan">{{ $hasilSurvey->score }}</span>
-                    Pasien
-                </span>
-                <!--end::Lable-->
-            </div>
-            <!--end::Item-->
+                                    @if(isset($hasilSurvey->score) == '1.00')
+                                        Terpenuhi
+                                    @else
+                                        Tidak Terpenuhi
+                                    @endif
+                                </span>
+                            </div>
+                            <!--end::Title-->
+                            <!--begin::Lable-->
+                            <span class="fw-bolder text-warning py-1">
 
+                                <span id="scoreUpayaPencegahan">{{ $hasilSurvey->score ?? '0' }}</span>
+                                Pasien
+                            </span>
+                            <!--end::Lable-->
+                        </div>
+                        <!--end::Item-->
                     @else
                         <!--begin::Notice-->
                         <div class="notice d-flex bg-light-danger rounded border-danger border border-dashed mb-9 p-6">
@@ -206,12 +214,11 @@
                             <!--end::Wrapper-->
                         </div>
                         <!--end::Notice-->
-
-
-
                     @endif
 
                 </div>
+
+                @if ($izin == 'Y')
 
                 <div class="card-footer text-end mt-1 pt-4">
                     <button class="btn btn-primary simpanUPRC">
@@ -227,6 +234,8 @@
                     </button>
                 </div>
 
+                @endif
+
             </div>
         </div>
 
@@ -241,7 +250,17 @@
                             @php
                                 $no = 1;
                             @endphp
-                            @foreach ($anamnesa as $anamnesa)
+
+                            @if($anamnesa->isEmpty() && $anamnesari->isEmpty())
+                                <tr>
+                                    <th class="fw-bold center text-center">
+                                        <div class="alert alert-danger">
+                                            Data Anamnesa Tidak Ditemukan
+                                        </div>
+                                    </th>
+                                </tr>
+                            @else
+                                @foreach ($anamnesa as $anamnesa)
                                 <tr>
                                     <td class="w-25px">
                                         <label class="form-check-label badge badge-light">{{ $no }}</label>
@@ -313,7 +332,7 @@
                                     $no = $no + 1;
                                 @endphp
                             @endforeach
-
+                            @endif
                             </tbody>
                         </table>
                     </div>
@@ -328,7 +347,7 @@
         </div>
     </div>
 
-        <script>
+    <script>
         $('#formAsesmenUlang').hide();
 
         const resetAsesmenUlang = () => {
@@ -339,7 +358,7 @@
 
             if (skriningIgdRajal == 'Y' && asesmenAwal == 'Y') {
                 $('input[name="asesmenUlang"]').prop("checked", false);
-                 $('input[name="asesmenUlang"][value="'+defaultValue15+'"]').prop("checked", true);
+                $('input[name="asesmenUlang"][value="' + defaultValue15 + '"]').prop("checked", true);
                 $('#formAsesmenUlang').show();
             } else {
                 $('#formAsesmenUlang').hide();
@@ -446,9 +465,9 @@
             })
         }
 
-    $('.simpanUPRC').on('click', function(){
-       simpanUPRC();
-    });
+        $('.simpanUPRC').on('click', function() {
+            simpanUPRC();
+        });
     </script>
 
 </div>

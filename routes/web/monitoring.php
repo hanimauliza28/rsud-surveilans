@@ -29,6 +29,7 @@ use App\Http\Controllers\Web\Monitoring\DataSurveyController;
 */
 
 Route::middleware([])->group(function () {
+
     //Route Anthropometric
     Route::group(['prefix' => 'anthropometric'], function () {
         Route::get('/', [AnthropometricController::class, 'index'])->name('anthropometric.index');

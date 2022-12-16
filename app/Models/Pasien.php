@@ -96,4 +96,36 @@ class Pasien extends Model
             return false;
         }
     }
+
+    public function jumlahPasienIgd($tanggalAwal, $tanggalAkhir)
+    {
+        $query = "SELECT
+        (SELECT COUNT(*) as jumlah
+          FROM [DBRS_BATANG].[dbo].[REGISTRIDR] as REGISTRIDR
+          WHERE REGISTRIDR.REGBAGIAN='9501'
+          AND CAST(REGISTRIDR.DATEENTRY AS date) >= '".$tanggalAwal."'
+          AND CAST(REGISTRIDR.DATEENTRY AS date) <= '".$tanggalAkhir."') as igd,
+
+        (SELECT COUNT(*) as jumlah
+          FROM [DBRS_BATANG].[dbo].[REGISTRIDR] as REGISTRIDR,
+          [DBRS_BATANG].[dbo].[REGISTRIRWI] as REGISTRIRWI
+          WHERE REGISTRIDR.REGBAGIAN='9501'
+          AND CAST(REGISTRIDR.DATEENTRY AS date) >= '".$tanggalAwal."'
+          AND CAST(REGISTRIDR.DATEENTRY AS date) <= '".$tanggalAkhir."'
+          AND REGISTRIDR.NOREGRS=REGISTRIRWI.NOREGRS) AS igdranap,
+
+         (SELECT COUNT(*) as jumlah
+          FROM [DBRS_BATANG].[dbo].[REGISTRIDR] as REGISTRIDR
+          LEFT JOIN DBRS_BATANG.dbo.REGISTRIRWI AS REGISTRIRWI ON REGISTRIDR.NOREGRS=REGISTRIRWI.NOREGRS
+          WHERE REGISTRIDR.REGBAGIAN='9501'
+          AND CAST(REGISTRIDR.DATEENTRY AS date) >= '".$tanggalAwal."'
+          AND CAST(REGISTRIDR.DATEENTRY AS date) <= '".$tanggalAkhir."'
+          AND REGISTRIRWI.NOREGRS IS NULL) AS igdrajal
+          ";
+
+
+        $hasil = DB::connection('simrs')->select(DB::raw($query));
+        return $hasil;
+
+    }
 }

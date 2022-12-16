@@ -26,5 +26,6 @@ Route::middleware([])->group(function () {
         Route::get('export', [RegistrasiAntrianIgdController::class, 'export'])->name('registrasi-antrian-igd.export');
         Route::post('export-excel', [RegistrasiAntrianIgdController::class, 'exportExcel'])->name('registrasi-antrian-igd.export-excel');
         Route::post('statistik', [RegistrasiAntrianIgdController::class, 'statistik'])->name('registrasi-antrian-igd.statistik');
+        Route::post('set-triage', [RegistrasiAntrianIgdController::class, 'setTriage'])->name('registrasi-antrian-igd.set-triage');
     });
 });

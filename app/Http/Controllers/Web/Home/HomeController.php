@@ -12,6 +12,7 @@ class HomeController extends Controller
     {
         $this->helpers = new Helpers;
     }
+
     public function index()
     {
         return view('contents.home.index');
@@ -19,22 +20,12 @@ class HomeController extends Controller
 
     public function query()
     {
-        $noreg = '202209030001';
-        $hasil = new \App\Models\HasilSurveyImutNasional;
-        // $data = [
-        //     'hasil' => $hasil->with('object')->first(),
-        // ];
+        $db = new \App\Models\AntrianIgd;
+        $hasil = $db->where('GRUP_ANTRI', '03')->whereDate("TGL_ANTRI", ">=", "2022-10-31")
+        ->whereDate("TGL_ANTRI", "<=", "2022-12-31")->get();
 
         $data = [
-            'hasil' => $hasil->whereHas('object', function($query) use($noreg){
-                $query->where('no_reg', $noreg);
-            })
-            ->with([
-                'detail' => function($query){
-                    return $query->select('hasil_survey_id', 'variabel_survey_id', 'sub_variabel', 'value', 'point');
-                }
-            ])
-            ->first()
+            'hasil' => $hasil
         ];
 
         $response = $this->helpers->retunJson(

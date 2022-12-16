@@ -1,6 +1,7 @@
 @push('extraScript')
     {{-- Reset --}}
     <script>
+
         $('#filterPanggil').each(function() {
             $(this).select2({
                 placeholder: 'Filter Panggil',
@@ -268,9 +269,6 @@
                     parameterIsian: 'JAM_SELESAI'
                 },
                 success: function(data) {
-
-                    console.log(data);
-
                     $('#waktu-modal').modal('show');
                     $('.modal-title').text('Mulai Layanan IGD');
                     $('#titleTanggal').text('Tanggal Mulai Layanan');
@@ -440,5 +438,30 @@
                 }
             })
         });
+
+        const setTriage = (grupAntri, noAntri, tglAntri, triage) => {
+            $.ajax({
+                url: route('registrasi-antrian-igd.set-triage'),
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    grupAntri : grupAntri,
+                    noAntri : noAntri,
+                    tglAntri : tglAntri,
+                    triage: triage,
+                },
+
+                success: function(data) {
+                    toastr.success("Triage Berhasil di Setting");
+                    $('#data-table').DataTable().ajax.reload(null, false)
+                },
+
+                error: function(data) {
+                    toastr.danger("Triage Gagal di Setting");
+                    $('#data-table').DataTable().ajax.reload(null, false)
+                }
+            })
+        }
     </script>
+
 @endpush

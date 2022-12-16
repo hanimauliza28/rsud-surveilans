@@ -137,4 +137,53 @@ class HelperTime {
         return collect($data);
     }
 
+
+
+    // public function secondMinute($seconds){
+
+    //     /// get minutes
+    //     $minResult = floor($seconds/60);
+
+    //     /// if minutes is between 0-9, add a "0" --> 00-09
+    //     if($minResult < 10){$minResult = 0 . $minResult;}
+
+    //     /// get sec
+    //     $secResult = ($seconds/60 - $minResult)*60;
+
+    //     /// if secondes is between 0-9, add a "0" --> 00-09
+    //     if($secResult < 10){$secResult = 0 . $secResult;}
+
+    //     /// return result
+    //     return $minResult." menit ". $secResult." detik";
+
+    // }
+
+
+
+    // public function secondHour($seconds){
+
+    //     /// get minutes
+    //     $hourResult = floor($seconds/3600);
+
+    //     /// if minutes is between 0-9, add a "0" --> 00-09
+    //     if($hourResult < 10){$hourResult = 0 . $hourResult;}
+
+    //     /// get minutes
+    //     $minResult = floor($seconds/60);
+
+    //     /// if minutes is between 0-9, add a "0" --> 00-09
+    //     if($minResult < 10){$minResult = 0 . $minResult;}
+
+    //     /// get sec
+    //     $secResult = ($seconds/60 - $minResult)*60;
+
+    //     /// if secondes is between 0-9, add a "0" --> 00-09
+    //     if($secResult < 10){$secResult = 0 . $secResult;}
+
+    //     /// return result
+    //     return $minResult." jam ". $minResult." menit ". $secResult." detik";
+
+    // }
+
+
 }

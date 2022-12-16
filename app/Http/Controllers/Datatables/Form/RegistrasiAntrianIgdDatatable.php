@@ -31,7 +31,7 @@ class RegistrasiAntrianIgdDatatable extends Controller
         $filterPanggil = $request->filterPanggil;
         $filterDilayani = $request->filterDilayani;
 
-        $antrian = AntrianIgd::where('TGL_ANTRI', $filterTanggal)
+        $antrian = AntrianIgd::where('TGL_ANTRI', $filterTanggal)->where('GRUP_ANTRI', '03')
             ->when($filterPanggil, function ($query) use ($filterPanggil) {
                 $query->where('STATUS_PANGGIL', $filterPanggil);
             })
@@ -39,8 +39,15 @@ class RegistrasiAntrianIgdDatatable extends Controller
                 $query->where('STATUS_DILAYANI', $filterDilayani);
             });
 
+
         return DataTables::of($antrian)
             //hanya judul
+            ->editColumn('NO_ANTRI', function ($antrian) use ($request) {
+                $tema = $this->helperSurveilans->labelTriage($antrian->TRIAGE);
+
+                return '<label class="badge badge-'.$tema['theme'].' fs-7">'.$antrian->NO_ANTRI.'</label>';
+
+            })
             ->editColumn('STATUS_PANGGIL', function ($antrian) use ($request) {
                 return view(
                     'contents.form.registrasiAntrianIgd.actionMulai',
@@ -90,15 +97,15 @@ class RegistrasiAntrianIgdDatatable extends Controller
 
                 if($antrian->ERT > 300)
                 {
-                    return '<span class="badge badge-light-danger">'.$antrian->ERT.'</span>';
+                    return '<span class="badge badge-light-danger">'.gmdate('H:i:s', $antrian->ERT).'</span>';
                 }else{
-                    return '<span class="badge badge-light-success">'.$antrian->ERT.'</span>';
+                    return '<span class="badge badge-light-success">'.gmdate('H:i:s', $antrian->ERT).'</span>';
                 }
             })
 
 
             ->addColumn('LAMA_PELAYANAN', function ($antrian) use ($request) {
-                return '<span class="badge badge-light-info">'.$antrian->LAMA_PELAYANAN.'</span>';
+                return '<span class="badge badge-light-info">'.gmdate('H:i:s', $antrian->LAMA_PELAYANAN).'</span>';
             })
 
             ->addColumn('action', function ($antrian) {
@@ -109,6 +116,7 @@ class RegistrasiAntrianIgdDatatable extends Controller
             })
             ->rawColumns([
                 'action',
+                'NO_ANTRI',
                 'STATUS_PANGGIL',
                 'STATUS_DILAYANI',
                 'JAM_DILAYANI',

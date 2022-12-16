@@ -70,6 +70,11 @@
                 }
             })
         }
+
+        const detailHasil = (id) => {
+            alert('haha');
+        }
+
     </script>
 
     {{-- MENILAI --}}

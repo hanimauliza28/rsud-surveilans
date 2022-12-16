@@ -29,7 +29,7 @@
                         <th>Jam Selesai</th>
                         <th>Emergency Time <br>(detik)</th>
                         <th>Lama Pelayanan <br>(detik)</th>
-                        <th>Action</th>
+                        <th>Action Triage</th>
                     </tr>
                 </thead>
                 <tbody class="text-gray-600">

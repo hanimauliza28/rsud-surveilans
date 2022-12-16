@@ -6,13 +6,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\AntrianIgdExport;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 use App\Helpers\HelperSurveilans;
 use App\Helpers\Helpers;
-use App\Helpers\HelperTIme;
+use App\Helpers\HelperTime;
 
 use App\Models\AntrianIgd;
+use App\Models\Pasien;
 
 class RegistrasiAntrianIgdController extends Controller
 {
@@ -24,9 +26,12 @@ class RegistrasiAntrianIgdController extends Controller
         $this->helperTime = new HelperTime;
 
         $this->antrianIgd = new AntrianIgd;
+        $this->pasien = new Pasien;
     }
     public function index()
     {
+        $data = $this->antrianIgd->whereDate('TGL_ANTRI', date('Y-m-d'))->get();
+
         $filterPanggil = [
             [
                 'value' => 'P',
@@ -270,9 +275,76 @@ class RegistrasiAntrianIgdController extends Controller
         return Excel::download(new AntrianIgdExport($filterTanggal), $namafile.'.xlsx');
     }
 
-    public function statistik()
+    public function statistik(Request $request)
     {
-        return "Halaman statistik akan muncul disini... ";
+        $filterTanggal = $request->filterTanggal;
+        $tanggal = $this->helperTime->splitFilterBatasWaktu($filterTanggal);
+
+        $jumlahrata = AntrianIgd::whereDate("TGL_ANTRI", ">=", $tanggal['batasWaktuMulai'])
+                ->whereDate("TGL_ANTRI", "<=", $tanggal['batasWaktuSelesai'])
+                ->where("GRUP_ANTRI", '03')
+                ->where("NOREGRS", "<>", NULL)
+                ->select(DB::raw('AVG(CAST(ERT AS DECIMAL)) as ert, AVG(CAST(LAMA_PELAYANAN AS DECIMAL)) as lamapelayanan,
+                SUM(CAST(ERT AS DECIMAL)) as totalert, SUM(CAST(LAMA_PELAYANAN AS DECIMAL)) as totallamapelayanan,
+                MAX(ERT) AS ertmax,
+                MAX(LAMA_PELAYANAN) as lamapelayananmax,
+                MIN(ERT) AS ertmin,
+                MIN(LAMA_PELAYANAN) as lamapelayananmin,
+                COUNT(*) as jumlahpasien'))->first();
+
+        // $inminutes = [
+        //     'rataert' => $this->helperTime->secondMinute($jumlahrata['ert']),
+        //     'ratalamapelayanan' => $this->helperTime->secondMinute($jumlahrata['lamapelayanan']),
+        //     'totalert' => $this->helperTime->secondMinute($jumlahrata['totalert']),
+        //     'totallamapelayanan' => $this->helperTime->secondMinute($jumlahrata['totallamapelayanan']),
+        // ];
+
+        $jumlahPasienIgd = $this->pasien->jumlahPasienIgd($tanggal['batasWaktuMulai'], $tanggal['batasWaktuSelesai'])[0];
+        $triage = $this->antrianIgd->triageJumlah($tanggal['batasWaktuMulai'], $tanggal['batasWaktuSelesai']);
+        $data = [
+            'filterTanggal'=> $filterTanggal,
+            'jumlahrata' => $jumlahrata,
+            'jumlahPasienIgd' => $jumlahPasienIgd,
+            'triage' => $triage
+        ];
+
+        return view('contents.form.registrasiAntrianIgd.statistik', $data);
+
+    }
+
+    public function setTriage(Request $request)
+    {
+        $GRUP_ANTRI = $request->grupAntri;
+        $NO_ANTRI = $request->noAntri;
+        $TGL_ANTRI = $request->tglAntri;
+        $triage = $request->triage;
+
+        $where = [
+            'GRUP_ANTRI' => $request->grupAntri,
+            'NO_ANTRI' => $request->noAntri,
+            'TGL_ANTRI' => $request->tglAntri
+        ];
+
+        $antrian = AntrianIgd::where($where)->first();
+
+        $data = [
+            'TRIAGE' => $triage
+        ];
+
+        $saveData = AntrianIgd::where($where)->update($data);
+
+        $saveData
+            ? ($response = $this->helpers->retunJson(
+                200,
+               'Setting Triage Berhasil'
+            ))
+            : ($response = $this->helpers->retunJson(
+                400,
+                'Setting Triage Gagal'
+            ));
+
+        return $response;
+
     }
 
 }

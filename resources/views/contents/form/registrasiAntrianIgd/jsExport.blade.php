@@ -50,5 +50,7 @@
                 }
             })
         }
+
+        statistik();
     </script>
 @endpush

@@ -270,7 +270,6 @@ class IndikatorMutuNasionalWajibController extends Controller
 
     public function sync(Request $request)
     {
-
         /**
          * Catatan rancangan pertama, untuk pengisian survey nasional denumerator dan numerator diambil langsung dari tabel antrian.
          * Tapi bisa ada perubahan data, dan memungkinkan ada yang tidak dimasukkan. jadi diambil dari tabel Hasil Survey Indikator Nasioonal
@@ -294,7 +293,7 @@ class IndikatorMutuNasionalWajibController extends Controller
             //cari indikator mutu
             $imut = IndikatorMutuNasional::where('id', $indikatorMutuId)->first();
 
-            if($imut->nama_function = 'kepatuhan-jam-visit-dokter')
+            if($imut->nama_function == 'kepatuhan-jam-visit-dokter')
             {
                 $dataHasil = HasilSurveyImutNasional::select(DB::raw("SUM(numerator) as numerator, SUM(denumerator) as denumerator"))->where('indikator_mutu_id', $imut->id)->whereDate('tgl_survey', $tanggal)->first();
 

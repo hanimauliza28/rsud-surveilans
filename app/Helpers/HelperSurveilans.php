@@ -311,4 +311,76 @@ class HelperSurveilans
 
         return $result;
     }
+
+    function labelTriage($triage)
+    {
+        if($triage == 'R'){//red
+            $data = [
+                'color' => '#F1416C',
+                'theme' => 'danger',
+
+            ];
+        }elseif($triage == 'Y'){
+            $data = [
+                'color' => '#FFC700',
+                'theme' => 'warning'
+            ];
+        }elseif($triage == 'G')
+        {
+            $data = [
+                'color' => '#50CD89',
+                'theme' => 'primary'
+            ];
+        }elseif($triage == 'B')
+        {
+            $data = [
+                'color' => '#181C32',
+                'theme' => 'dark'
+            ];
+        }else{
+            $data = [
+                'color' => '#E4E6EF',
+                'theme' => 'light'
+            ];
+        }
+
+        return $data;
+
+    }
+
+    // function Triage($kode)
+    // {
+    //     if($kode == 'I'){//red
+    //         $data = [
+    //             'color' => '#F1416C',
+    //             'ket' => 'Red',
+    //             'cl'
+    //         ];
+
+    //     }elseif($kode == 'II'){
+    //         $data = [
+    //             'color' => '#FFC700',
+    //             'ket' => 'Yellow'
+    //         ];
+    //     }elseif($kode == 'III')
+    //     {
+    //         $data = [
+    //             'color' => '#50CD89',
+    //             'ket' => 'Green'
+    //         ];
+    //     }elseif($kode == '0')
+    //     {
+    //         $data = [
+    //             'color' => '#181C32',
+    //             'ket' => 'Black'
+    //         ];
+    //     }else{
+    //         $data = [
+    //             'color' => '#E4E6EF',
+    //             'ket' => 'Belum di Tentukan'
+    //         ];
+    //     }
+
+    //     return $data;
+    // }
 }
