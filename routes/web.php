@@ -23,6 +23,10 @@ Route::middleware(['ceklogin'])->group(function () {
         return redirect('/dashboard');
     });
 
+    Route::get('', function () {
+        return redirect('/dashboard');
+    });
+
     // jika get (/) tidak terdetek dan keluar error tidak suport route
     // check htaccess samakan infocovid comment yang authorize dll
 
