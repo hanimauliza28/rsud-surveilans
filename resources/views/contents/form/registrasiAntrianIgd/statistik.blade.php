@@ -1,7 +1,6 @@
 <div class="row">
     <div class="col-sm-6 row">
         {{-- Box --}}
-
         <div class="col-md-6">
             <!--begin::Statistics Widget 5-->
             <div href="#" class="card bg-warning mb-xl-8 row me-1">
@@ -20,7 +19,8 @@
                         </svg>
                     </span>
                     <!--end::Svg Icon-->
-                    <div class="text-gray-100 fw-bolder fs-2 mb-2 mt-5"><?= gmdate('H:i:s', round($jumlahrata->ert)) ?></div>
+                    <div class="text-gray-100 fw-bolder fs-2 mb-2 mt-5"><?= gmdate('H:i:s', round($jumlahrata->ert)) ?>
+                    </div>
                     <div class="fw-bold text-gray-100">Rata-rata</div>
                 </div>
                 <!--end::Body-->
@@ -49,7 +49,8 @@
                         </svg>
                     </span>
                     <!--end::Svg Icon-->
-                    <div class="text-gray-100 fw-bolder fs-2 mb-2 mt-5"><?= gmdate('H:i:s', round($jumlahrata->lamapelayanan)) ?>
+                    <div class="text-gray-100 fw-bolder fs-2 mb-2 mt-5">
+                        <?= gmdate('H:i:s', round($jumlahrata->lamapelayanan)) ?>
                     </div>
                     <div class="fw-bold text-gray-100">Rata-rata</div>
                 </div>
@@ -92,7 +93,7 @@
             <!--begin::Statistics Widget 5-->
             <div href="#" class="card bg-primary mb-xl-8 row me-1">
                 <!--begin::Body-->
-                <div class="card-body d-flex">
+                <div class="card-body d-flex px-5">
 
                     <!--begin::Svg Icon | path: assets/media/icons/duotune/arrows/arr066.svg-->
                     <span class="svg-icon svg-icon-light svg-icon-2 me-3"><svg xmlns="http://www.w3.org/2000/svg"
@@ -106,12 +107,12 @@
                     <!--end::Svg Icon-->
                     <div class="">
                         <div class="text-gray-100 fw-bolder fs-6"><?= gmdate('H:i:s', $jumlahrata->ertmax) ?></div>
-                        <div class="fw-bold fs-8 text-gray-100">ERT</div>
+                        <div class="fw-bold fs-8 text-gray-100">Max. ERT</div>
                     </div>
                 </div>
                 <!--end::Body-->
 
-                <div class="card-footer bg-light-primary py-5 d-flex">
+                <div class="card-footer bg-light-primary py-5 d-flex px-5">
                     <!--begin::Svg Icon | path: assets/media/icons/duotune/arrows/arr066.svg-->
                     <span class="svg-icon svg-icon-dark svg-icon-2 me-3">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -126,7 +127,7 @@
                     <!--end::Svg Icon-->
                     <div class="">
                         <div class="text-gray-800 fw-bolder fs-6"><?= gmdate('H:i:s', $jumlahrata->ertmin) ?></div>
-                        <div class="fw-bold  fs-8 text-gray-800">ERT</div>
+                        <div class="fw-bold  fs-8 text-gray-800">Min. ERT</div>
                     </div>
                 </div>
             </div>
@@ -137,7 +138,7 @@
             <!--begin::Statistics Widget 5-->
             <div href="#" class="card bg-primary mb-xl-8 row me-1">
                 <!--begin::Body-->
-                <div class="card-body d-flex">
+                <div class="card-body d-flex px-5">
 
                     <!--begin::Svg Icon | path: assets/media/icons/duotune/arrows/arr066.svg-->
                     <span class="svg-icon svg-icon-light svg-icon-2 me-3"><svg xmlns="http://www.w3.org/2000/svg"
@@ -150,13 +151,14 @@
                         </svg></span>
                     <!--end::Svg Icon-->
                     <div class="">
-                        <div class="text-gray-100 fw-bolder fs-6"><?= gmdate('H:i:s', $jumlahrata->lamapelayananmax) ?></div>
-                        <div class="fw-bold fs-8 text-gray-100">Pelayanan</div>
+                        <div class="text-gray-100 fw-bolder fs-6"><?= gmdate('H:i:s', $jumlahrata->lamapelayananmax) ?>
+                        </div>
+                        <div class="fw-bold fs-8 text-gray-100">Max. Pelayanan</div>
                     </div>
                 </div>
                 <!--end::Body-->
 
-                <div class="card-footer bg-light-primary py-5 d-flex">
+                <div class="card-footer bg-light-primary py-5 d-flex px-5">
                     <!--begin::Svg Icon | path: assets/media/icons/duotune/arrows/arr066.svg-->
                     <span class="svg-icon svg-icon-dark svg-icon-2 me-3">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -170,8 +172,9 @@
                     </span>
                     <!--end::Svg Icon-->
                     <div class="">
-                        <div class="text-gray-800 fw-bolder fs-6"><?= gmdate('H:i:s', $jumlahrata->lamapelayananmin) ?></div>
-                        <div class="fw-bold fs-8 text-gray-800">Pelayanan</div>
+                        <div class="text-gray-800 fw-bolder fs-6"><?= gmdate('H:i:s', $jumlahrata->lamapelayananmin) ?>
+                        </div>
+                        <div class="fw-bold fs-8 text-gray-800">Min. Pelayanan</div>
                     </div>
 
                 </div>
@@ -188,7 +191,7 @@
                     <!--begin::Title-->
                     <h3 class="card-title align-items-start flex-column text-white pt-7">
                         <span class="fw-bolder fs-1 mb-3">Triage IGD</span>
-
+                        <span class="fw-bolder fs-3"></span>
                     </h3>
                     <!--end::Title-->
                 </div>
@@ -206,7 +209,8 @@
                                     <!--begin::Stats-->
                                     <div class="m-0">
                                         <!--begin::Number-->
-                                        <span class="text-danger fw-boldest d-block fs-1 lh-1 ls-n1 mb-4">{{ $triage['R'] ?? '0' }}</span>
+                                        <span
+                                            class="text-danger fw-boldest d-block fs-1 lh-1 ls-n1 mb-4">{{ $triage['R'] ?? '0' }}</span>
                                         <!--end::Number-->
                                         <!--begin::Desc-->
                                         <span class="text-danger fw-bold fs-6">(I) Gawat Darurat</span>
@@ -224,7 +228,8 @@
                                     <!--begin::Stats-->
                                     <div class="m-0">
                                         <!--begin::Number-->
-                                        <span class="text-warning fw-boldest d-block fs-1 lh-1 ls-n1 mb-4">{{ $triage['Y'] ?? '0' }}</span>
+                                        <span
+                                            class="text-warning fw-boldest d-block fs-1 lh-1 ls-n1 mb-4">{{ $triage['Y'] ?? '0' }}</span>
                                         <!--end::Number-->
                                         <!--begin::Desc-->
                                         <span class="text-warning fw-bold fs-6">(II) Gawat Tidak Darurat</span>
@@ -283,13 +288,21 @@
         </div>
 
 
+        <div class="alert m-0 border border-danger mb-5 mr-15">
+            <span class="fw-bold">Catatan : </span>
+            <ul class="">
+                <li>Antrian IGD dihitung dari antrian yang sudah di masukkan Nomor Registrasi pasiennya.</li>
+            </ul>
+        </div>
+
+
     </div>
 
     <div class="col-sm-6 top">
 
         {{-- Chart --}}
         <div class="col-12">
-        <canvas id="chartAntrianIgd" class="mh-300px"></canvas>
+            <canvas id="chartAntrianIgd" class="mh-300px"></canvas>
         </div>
         <hr class="text-grey-100 fw-normal">
         <div class="col-md-12 row mx-10 mt-10 top">

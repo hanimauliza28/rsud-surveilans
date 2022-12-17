@@ -16,7 +16,7 @@
         <!--begin::User menu-->
         <div class="me-n2">
             <!--begin::Action-->
-            <a href="home.index" class="btn btn-icon btn-sm btn-active-color-primary mt-n2 me-5" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" data-kt-menu-overflow="true">
+            <a href="{{ route('home.index') }}" class="btn btn-icon btn-sm btn-active-color-primary mt-n2 me-5" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" data-kt-menu-overflow="true">
                 <!--begin::Svg Icon | path: icons/duotune/coding/cod001.svg-->
                 <span class="svg-icon svg-icon-muted svg-icon-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -40,7 +40,7 @@
                         <div class="d-flex flex-column">
                             <div class="fw-bolder d-flex align-items-center fs-5">{{ session('userLogin')->username }}
                                 <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2"></span></div>
-                            <a href="home.index" class="fw-bold text-muted text-hover-primary fs-7">{{ session('userLogin')->email }}</a>
+                            <a href="{{ route('home.index') }}" class="fw-bold text-muted text-hover-primary fs-7">{{ session('userLogin')->email }}</a>
                         </div>
                         <!--end::Username-->
                     </div>

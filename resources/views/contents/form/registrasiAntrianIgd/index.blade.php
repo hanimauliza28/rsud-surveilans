@@ -27,8 +27,8 @@
                         <th>Jam Datang</th>
                         <th>Jam Mulai</th>
                         <th>Jam Selesai</th>
-                        <th>Emergency Time <br>(detik)</th>
-                        <th>Lama Pelayanan <br>(detik)</th>
+                        <th>Emergency Time</th>
+                        <th>Lama Pelayanan</th>
                         <th>Action Triage</th>
                     </tr>
                 </thead>

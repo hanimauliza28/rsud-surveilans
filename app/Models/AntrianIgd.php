@@ -48,7 +48,7 @@ class AntrianIgd extends Model
         $sql = "SELECT TRIAGE, COUNT(*) AS JUMLAH FROM ANTRI_NO WHERE GRUP_ANTRI='03' AND (CAST(TGL_ANTRI AS date) >= '".$tanggalAwal."' AND CAST(TGL_ANTRI AS date) <= '".$tanggalAkhir."') GROUP BY  TRIAGE";
 
         $hasil = DB::connection('antrianigd')->select(DB::raw($sql));
-
+        $data = [];
         foreach($hasil as $antrian)
         {
             $data[$antrian->TRIAGE] = $antrian->JUMLAH;

@@ -10,8 +10,8 @@
             <th>Jam Datang</th>
             <th>Jam Mulai Pelayanan</th>
             <th>Jam Selesai Pelayanan</th>
-            <th title="Emergency Respon Time">ERT (DETIK)</th>
-            <th>LAMA(DETIK)</th>
+            <th title="Emergency Respon Time">ERT</th>
+            <th>Lama Pelayanan</th>
         </tr>
     </thead>
     <tbody>
