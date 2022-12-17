@@ -18,15 +18,11 @@ Route::get('login', [AuthController::class, 'index'])->name('login');
 Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
 Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
 
+Route::get('/', function () {
+    return redirect('/dashboard');
+});
+
 Route::middleware(['ceklogin'])->group(function () {
-    Route::get('/', function () {
-        return redirect('/dashboard');
-    });
-
-    Route::get('', function () {
-        return redirect('/dashboard');
-    });
-
     // jika get (/) tidak terdetek dan keluar error tidak suport route
     // check htaccess samakan infocovid comment yang authorize dll
 
