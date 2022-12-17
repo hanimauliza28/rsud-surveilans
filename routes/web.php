@@ -15,7 +15,6 @@ use App\Http\Controllers\AuthController;
 |
 */
 Route::get('login', [AuthController::class, 'index'])->name('login');
-// Route::get('register', 'App\Http\Controllers\AuthController@register')->name('register');
 Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
 Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
 
@@ -23,6 +22,10 @@ Route::middleware(['ceklogin'])->group(function () {
     Route::get('/', function () {
         return redirect('/dashboard');
     });
+
+    // jika get (/) tidak terdetek dan keluar error tidak suport route
+    // check htaccess samakan infocovid comment yang authorize dll
+
     Route::get('/dashboard', [HomeController::class, 'index'])->name('home.index');
     Route::get('/query', [HomeController::class, 'query'])->name('home.query');
 });

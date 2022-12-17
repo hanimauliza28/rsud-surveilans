@@ -29,8 +29,8 @@
             <td>{{ $antrian->TGL_INPUT }}</td>
             <td>{{ $antrian->JAM_DILAYANI }}</td>
             <td>{{ $antrian->JAM_SELESAI }}</td>
-            <td>{{ $antrian->ERT }}</td>
-            <td>{{ $antrian->LAMA_PELAYANAN }}</td>
+            <td>{{ gmdate('H:i:s', $antrian->ERT) }}</td>
+            <td>{{ gmdate('H:i:s', $antrian->LAMA_PELAYANAN) }}</td>
         </tr>
     @php
         $no = $no+1;

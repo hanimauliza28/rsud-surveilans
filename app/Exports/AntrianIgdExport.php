@@ -30,7 +30,7 @@ class AntrianIgdExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder 
 
         $batasAtas = $tanggal['batasWaktuMulai'];
         $batasSelesai = $tanggal['batasWaktuSelesai'];
-        $antrian = AntrianIgd::where('')->whereDate('TGL_ANTRI', '>=', $batasSelesai)->whereDate('TGL_ANTRI', '<=', $batasSelesai)->orderBy('TGL_INPUT', 'ASC')->get();
+        $antrian = AntrianIgd::where('GRUP_ANTRI', '03')->whereDate('TGL_ANTRI', '>=', $batasSelesai)->whereDate('TGL_ANTRI', '<=', $batasSelesai)->orderBy('TGL_INPUT', 'ASC')->get();
 
         $data = [
             'tanggal' => $tanggal,

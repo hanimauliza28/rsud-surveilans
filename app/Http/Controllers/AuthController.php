@@ -63,7 +63,7 @@ class AuthController extends Controller
         if (Auth::attempt($kredensil)) {
             $user = Auth::user();
             $request->session()->put('userLogin', $user);
-            return redirect()->intended('/');
+            return redirect()->intended('/dashboard');
         }
 
 

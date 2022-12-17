@@ -252,23 +252,11 @@ class RegistrasiAntrianIgdController extends Controller
 
         return view('contents.form.registrasiAntrianIgd.halamanExport', $data);
 
-
-        // $filterTanggal = $request->filterTanggal;
-        // $filterTanggal = date('Y-m-d', strtotime($filterTanggal));
-
-        // $data = [
-        //     'filterTanggal' => $filterTanggal,
-        //     'filterPanggil' => $request->filterPanggil,
-        //     'filterDilayani' => $request->filterDilayani
-        // ];
-
-        // return Excel::download(new AntrianIgdExport, 'Antrian IGD.xlsx', null, $data);
     }
 
     public function exportExcel(Request $request)
     {
         $filterTanggal = $request->filterTanggal;
-
         $tanggal = $this->helperTime->splitFilterBatasWaktu($filterTanggal);
         $namafile = 'Data Antrian IGD '.$tanggal['batasWaktuMulai'].' - '.$tanggal['batasWaktuSelesai'];
 
