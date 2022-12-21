@@ -12,6 +12,8 @@
             <th>Jam Selesai Pelayanan</th>
             <th title="Emergency Respon Time">ERT</th>
             <th>Lama Pelayanan</th>
+            <th>ERT (detik)</th>
+            <th>Lama Pelayanan (detik)</th>
         </tr>
     </thead>
     <tbody>
@@ -22,7 +24,7 @@
         <tr>
             <td>{{ $no }}</td>
             <td>{{ date('Y-m-d', strtotime($antrian->TGL_INPUT)) }}</td>
-            <td>{{ $antrian->NO_ANTRIAN }}</td>
+            <td>{{ $antrian->NO_ANTRI }}</td>
             <td>{{ $antrian->NORMPAS }}</td>
             <td>{{ $antrian->NAMAPAS }}</td>
             <td>{{ $antrian->NOREGRS }}</td>
@@ -31,6 +33,8 @@
             <td>{{ $antrian->JAM_SELESAI }}</td>
             <td>{{ gmdate('H:i:s', $antrian->ERT) }}</td>
             <td>{{ gmdate('H:i:s', $antrian->LAMA_PELAYANAN) }}</td>
+            <th>{{ $antrian->ERT }}</th>
+            <th>{{ $antrian->LAMA_PELAYANAN }}</th>
         </tr>
     @php
         $no = $no+1;

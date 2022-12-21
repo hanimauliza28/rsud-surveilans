@@ -39,7 +39,6 @@ class RegistrasiAntrianIgdDatatable extends Controller
                 $query->where('STATUS_DILAYANI', $filterDilayani);
             });
 
-
         return DataTables::of($antrian)
             //hanya judul
             ->editColumn('NO_ANTRI', function ($antrian) use ($request) {
@@ -67,14 +66,14 @@ class RegistrasiAntrianIgdDatatable extends Controller
             })
             ->editColumn('JAM_DILAYANI', function ($antrian) use ($request) {
                 if ($antrian->JAM_DILAYANI == null) {
-                    return '<span class="badge badge-danger">Belum di Layani</span>';
+                    return '<span class="badge badge-danger fw-normal fs-9">Belum di Layani</span>';
                 } else {
                     return date('H:i:s', strtotime($antrian->JAM_DILAYANI));
                 }
             })
             ->editColumn('JAM_SELESAI', function ($antrian) use ($request) {
                 if ($antrian->JAM_SELESAI == null) {
-                    return '<span class="badge badge-danger">Belum Selesai</span>';
+                    return '<span class="badge badge-danger fw-normal fs-9">Belum Selesai</span>';
                 } else {
                     return date('H:i:s', strtotime($antrian->JAM_SELESAI));
                 }

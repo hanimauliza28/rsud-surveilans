@@ -230,7 +230,7 @@
                     console.log(data);
 
                     $('#waktu-modal').modal('show');
-                    $('.modal-title').text('Mulai Layanan IGD');
+                    $('.modal-title').text('Mulai Layanan Dokter IGD');
                     $('#titleTanggal').text('Tanggal Mulai Layanan');
                     $('#titleJam').text('Jam Mulai Layanan');
                     $('#parameterIsian').val('JAM_DILAYANI');
@@ -266,7 +266,7 @@
                 },
                 success: function(data) {
                     $('#waktu-modal').modal('show');
-                    $('.modal-title').text('Selesai Layanan IGD');
+                    $('.modal-title').text('Selesai Layanan Dokter IGD');
                     $('#titleTanggal').text('Tanggal Selesai Layanan');
                     $('#titleJam').text('Jam Selesai Layanan');
                     $('#parameterIsian').val('JAM_SELESAI');
