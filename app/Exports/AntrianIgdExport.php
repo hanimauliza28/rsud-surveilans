@@ -10,7 +10,6 @@ use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-
 class AntrianIgdExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder implements FromView, WithCustomValueBinder,ShouldAutoSize
 {
     /**
@@ -30,7 +29,7 @@ class AntrianIgdExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder 
 
         $batasAtas = $tanggal['batasWaktuMulai'];
         $batasSelesai = $tanggal['batasWaktuSelesai'];
-        $antrian = AntrianIgd::where('GRUP_ANTRI', '03')->whereDate('TGL_ANTRI', '>=', $batasSelesai)->whereDate('TGL_ANTRI', '<=', $batasSelesai)->orderBy('TGL_INPUT', 'ASC')->get();
+        $antrian = AntrianIgd::where(['GRUP_ANTRI' => '03'])->whereDate('TGL_ANTRI', '>=', $batasAtas)->whereDate('TGL_ANTRI', '<=', $batasSelesai)->orderBy('TGL_INPUT', 'ASC')->get();
 
         $data = [
             'tanggal' => $tanggal,

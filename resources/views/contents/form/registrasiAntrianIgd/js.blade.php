@@ -96,7 +96,9 @@
                         searchable: false
                     }, {
                         data: 'NO_ANTRI',
-                        name: 'NO_ANTRI'
+                        name: 'NO_ANTRI',
+                        class: 'text-center center'
+
                     }, {
                         data: 'NAMAPAS',
                         name: 'NAMAPAS',
@@ -132,12 +134,6 @@
                         data: 'LAMA_PELAYANAN',
                         name: 'LAMA_PELAYANAN',
                         class: 'text-center center'
-                    }, {
-                        data: 'action',
-                        name: 'action',
-                        class: 'text-center center',
-                        orderable: false,
-                        searchable: false
                     }
                 ]
             });
@@ -270,9 +266,9 @@
                 },
                 success: function(data) {
                     $('#waktu-modal').modal('show');
-                    $('.modal-title').text('Mulai Layanan IGD');
-                    $('#titleTanggal').text('Tanggal Mulai Layanan');
-                    $('#titleJam').text('Jam Mulai Layanan');
+                    $('.modal-title').text('Selesai Layanan IGD');
+                    $('#titleTanggal').text('Tanggal Selesai Layanan');
+                    $('#titleJam').text('Jam Selesai Layanan');
                     $('#parameterIsian').val('JAM_SELESAI');
                     $('#grupAntriWaktu').val(grupAntri);
                     $('#noAntriWaktu').val(noAntri);

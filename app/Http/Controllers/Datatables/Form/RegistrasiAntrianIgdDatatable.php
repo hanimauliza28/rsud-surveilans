@@ -45,8 +45,10 @@ class RegistrasiAntrianIgdDatatable extends Controller
             ->editColumn('NO_ANTRI', function ($antrian) use ($request) {
                 $tema = $this->helperSurveilans->labelTriage($antrian->TRIAGE);
 
-                return '<label class="badge badge-'.$tema['theme'].' fs-7">'.$antrian->NO_ANTRI.'</label>';
-
+                return view(
+                    'contents.form.registrasiAntrianIgd.noAntri',
+                    \compact('antrian', 'tema')
+                );
             })
             ->editColumn('STATUS_PANGGIL', function ($antrian) use ($request) {
                 return view(
@@ -79,20 +81,11 @@ class RegistrasiAntrianIgdDatatable extends Controller
             })
 
             ->editColumn('NAMAPAS', function ($antrian) use ($request) {
-                if ($antrian->NAMAPAS) {
-                    $namapasien =
-                        $antrian->NAMAPAS .
-                        '(' .
-                        $antrian->NORMPAS .
-                        ') <br>' .
-                        $antrian->NOREGRS;
-                } else {
-                    $namapasien =
-                        '<span class="badge badge-warning">Belum Ada Data</span>';
-                }
-                return $namapasien;
+                return view(
+                    'contents.form.registrasiAntrianIgd.namaPasien',
+                    \compact('antrian')
+                );
             })
-
             ->addColumn('EMERGENCYTIME', function ($antrian) use ($request) {
 
                 if($antrian->ERT > 300)
@@ -108,12 +101,6 @@ class RegistrasiAntrianIgdDatatable extends Controller
                 return '<span class="badge badge-light-info">'.gmdate('H:i:s', $antrian->LAMA_PELAYANAN).'</span>';
             })
 
-            ->addColumn('action', function ($antrian) {
-                return view(
-                    'contents.form.registrasiAntrianIgd.action',
-                    \compact('antrian')
-                );
-            })
             ->rawColumns([
                 'action',
                 'NO_ANTRI',

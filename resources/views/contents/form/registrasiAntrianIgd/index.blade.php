@@ -29,7 +29,6 @@
                         <th>Jam Selesai</th>
                         <th>Emergency Time</th>
                         <th>Lama Pelayanan</th>
-                        <th>Action Triage</th>
                     </tr>
                 </thead>
                 <tbody class="text-gray-600">
