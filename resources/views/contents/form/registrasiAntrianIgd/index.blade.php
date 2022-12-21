@@ -14,7 +14,7 @@
 
     <div class="card">
         <!--begin::Card body-->
-        <div class="card-body pt-2">
+        <div class="card-body pt-5">
             <!--begin::Datatable-->
             <table id="data-table" class="table align-middle table-row-dashed fs-6 gy-1 ">
                 <thead>
