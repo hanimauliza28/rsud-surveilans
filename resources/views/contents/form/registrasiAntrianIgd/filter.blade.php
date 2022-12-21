@@ -190,6 +190,9 @@
                     <a class="nav-link justify-content-center text-active-gray-800 {{ request()->is('registrasi-antrian-igd/export') ? 'active' : '' }}"
                         href="{{ route('registrasi-antrian-igd.export') }}">Export dan Statistik</a>
                 </li>
+                <li class="nav-item" role="presentation">
+                    <a href="{{ asset('assets/media/rsud/modul/Manual Surveilans IGD.pdf') }}" target="_blank" class="nav-link justify-content-center text-active-gray-800">Manual Book</a>
+                </li>
             </ul>
             <!--end::Tab nav-->
         </div>
