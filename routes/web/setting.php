@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\Setting\MenuController;
 use App\Http\Controllers\Web\Setting\UserController;
+use App\Http\Controllers\Web\Setting\PengumumanController;
 use App\Http\Controllers\Web\Setting\GrupUserController;
 
 /*
@@ -46,6 +47,16 @@ Route::middleware(['ceklogin'])->group(function () {
         Route::delete('{id}/destroy', [GrupUserController::class, 'destroy'])->name('grup-user.destroy');
         Route::post('pilihan-bagian', [GrupUserController::class, 'pilihanBagian'])->name('grup-user.pilihan-bagian');
         Route::post('hak-akses', [GrupUserController::class, 'hakAkses'])->name('grup-user.hak-akses');
+    });
+
+    Route::group(['prefix' => 'pengumuman'], function () {
+        Route::get('/', [PengumumanController::class, 'index'])->name('pengumuman.index');
+        Route::post('store', [PengumumanController::class, 'store'])->name('pengumuman.store');
+        Route::get('{id}/view', [PengumumanController::class, 'view'])->name('pengumuman.view');
+        Route::get('{id}/edit', [PengumumanController::class, 'edit'])->name('pengumuman.edit');
+        Route::put('{id}/update', [PengumumanController::class, 'update'])->name('pengumuman.update');
+        Route::delete('{id}/destroy', [PengumumanController::class, 'destroy'])->name('pengumuman.destroy');
+        Route::put('{id}/update-status', [PengumumanController::class, 'updateStatus'])->name('pengumuman.update-status');
     });
 
 });

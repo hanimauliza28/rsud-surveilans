@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\Home;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Helpers\Helpers;
+use App\Models\Pengumuman;
 
 class HomeController extends Controller
 {
@@ -15,7 +16,12 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view('contents.home.index');
+        $pengumuman = Pengumuman::where('status', 'Y')->first();
+        $data = [
+            'pengumuman' => $pengumuman
+        ];
+
+        return view('contents.home.index', $data);
     }
 
     public function query()
