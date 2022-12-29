@@ -57,6 +57,7 @@
                         <th width="75px">No</th>
                         <th width="150px">Tanggal</th>
                         <th>Nama</th>
+                        <th>Deskripsi Singkat</th>
                         <th>Status</th>
                         <th>Action Status</th>
                         <th width="100px">Action</th>

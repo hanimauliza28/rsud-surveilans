@@ -56,6 +56,7 @@ class PengumumanController extends Controller
         $data = [
             'judul' => $request->judul,
             'isi' => $request->isi,
+            'deskripsi_singkat' => $request->deskripsiSingkat,
             'status' => $request->status,
         ];
 
@@ -87,7 +88,14 @@ class PengumumanController extends Controller
      */
     public function show($id)
     {
-        //
+
+        $pengumuman = Pengumuman::where('id', $id)->first();
+
+        $data = [
+            'pengumuman' => $pengumuman
+        ];
+
+        return view('contents.setting.pengumuman.baca', $data);
     }
 
     /**
@@ -101,15 +109,10 @@ class PengumumanController extends Controller
         // Data pengumuman
         $pengumuman = Pengumuman::where('id', $id)->first();
 
-        if($request->status == 'Y')
-        {
-            $nonaktifkan = Pengumuman::where('status', 'Y')->update(['status' => 'N']);
-        }
-
         $pengumuman
             ? ($response = $this->helpers->retunJson(
                 200,
-                'Sukses',
+                'Pengumumann Ditemukan',
                 $pengumuman
             ))
             : ($response = $this->helpers->retunJson(
@@ -135,6 +138,7 @@ class PengumumanController extends Controller
         $data = [
             'judul' => $request->judul,
             'isi' => $request->isi,
+            'deskripsi_singkat' => $request->deskripsiSingkat,
             'status' => $request->status
         ];
 
@@ -204,4 +208,5 @@ class PengumumanController extends Controller
         return $response;
 
     }
+
 }

@@ -137,6 +137,30 @@ class RegistrasiAntrianIgdController extends Controller
                     'Data Antrian Berhasil di Ambil', $data
                 );
 
+            }elseif($request->parameterIsian == 'TGL_INPUT')
+            {
+                $waktuInput = $antrian->TGL_INPUT;
+                if($waktuInput != NULL)
+                {
+                    $tanggal = substr($waktuInput, 0, 10);
+                    $jam = substr($waktuInput, 11, 8);
+                }else{
+                    $tanggal = date('Y-m-d');
+                    $jam = date('H:i:s');
+                }
+
+                $data = [
+                    'antrian' => $antrian,
+                    'tanggal' => $tanggal,
+                    'jam' => $jam,
+                    'antrian' => $antrian
+                ];
+
+                $response = $this->helpers->retunJson(
+                    200,
+                    'Data Antrian Berhasil di Ambil', $data
+                );
+
             }else{
 
                 $jamSelesai = $antrian->JAM_SELESAI;
@@ -171,6 +195,7 @@ class RegistrasiAntrianIgdController extends Controller
         return $response;
 
     }
+
     public function storeWaktu(Request $request)
     {
         $parameter = $request->parameterIsian;
@@ -194,6 +219,7 @@ class RegistrasiAntrianIgdController extends Controller
                     'Jam Dilayani Tidak Boleh Lebih Kecil dari Jam Datang'
                 );
             }
+
             $task = 'Mulai Dilayani';
 
             $date = new Carbon($antrian->TGL_INPUT, 'Asia/Jakarta');
@@ -202,6 +228,18 @@ class RegistrasiAntrianIgdController extends Controller
             $data = [
                 'JAM_DILAYANI' => $waktu,
                 'STATUS_PANGGIL' => 'P',
+                'ERT' => $menit
+            ];
+
+        }elseif($parameter == 'TGL_INPUT'){
+
+            $task = 'Waktu Antrian IGD';
+
+            $date = new Carbon($antrian->TGL_INPUT, 'Asia/Jakarta');
+            $menit = $date->diffInSeconds($waktu);
+
+            $data = [
+                'TGL_INPUT' => $waktu,
                 'ERT' => $menit
             ];
 

@@ -9,7 +9,7 @@ class Pengumuman extends Model
 {
     use HasFactory;
     protected $table = 'pengumuman';
-    protected $fillable = ['id', 'judul', 'status', 'isi'];
+    protected $fillable = ['id', 'judul', 'status', 'deskripsi_singkat', 'isi'];
 
     public function getLabelStatusAttribute()
     {

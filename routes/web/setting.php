@@ -52,7 +52,7 @@ Route::middleware(['ceklogin'])->group(function () {
     Route::group(['prefix' => 'pengumuman'], function () {
         Route::get('/', [PengumumanController::class, 'index'])->name('pengumuman.index');
         Route::post('store', [PengumumanController::class, 'store'])->name('pengumuman.store');
-        Route::get('{id}/view', [PengumumanController::class, 'view'])->name('pengumuman.view');
+        Route::get('{id}/show', [PengumumanController::class, 'show'])->name('pengumuman.show');
         Route::get('{id}/edit', [PengumumanController::class, 'edit'])->name('pengumuman.edit');
         Route::put('{id}/update', [PengumumanController::class, 'update'])->name('pengumuman.update');
         Route::delete('{id}/destroy', [PengumumanController::class, 'destroy'])->name('pengumuman.destroy');

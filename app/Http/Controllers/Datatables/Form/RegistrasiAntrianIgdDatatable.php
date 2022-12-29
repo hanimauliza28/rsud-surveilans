@@ -55,15 +55,20 @@ class RegistrasiAntrianIgdDatatable extends Controller
                     \compact('antrian')
                 );
             })
+
             ->editColumn('TGL_INPUT', function ($antrian) use ($request) {
-                return date('H:i:s', strtotime($antrian->TGL_INPUT));
+                $tanggal = "'".date("Y-m-d", strtotime($antrian->TGL_INPUT))."'";
+                $noAntrian = "'".$antrian->NO_ANTRI."'";
+                return '<span class="" onclick="ubahTglInput('.$noAntrian.','.$tanggal.')">'.date('H:i:s', strtotime($antrian->TGL_INPUT)).'</span>';
             })
+
             ->editColumn('STATUS_DILAYANI', function ($antrian) use ($request) {
                 return view(
                     'contents.form.registrasiAntrianIgd.actionSelesai',
                     \compact('antrian')
                 );
             })
+
             ->editColumn('JAM_DILAYANI', function ($antrian) use ($request) {
                 if ($antrian->JAM_DILAYANI == null) {
                     return '<span class="badge badge-danger fw-normal fs-9">Belum di Layani</span>';
@@ -71,6 +76,7 @@ class RegistrasiAntrianIgdDatatable extends Controller
                     return date('H:i:s', strtotime($antrian->JAM_DILAYANI));
                 }
             })
+
             ->editColumn('JAM_SELESAI', function ($antrian) use ($request) {
                 if ($antrian->JAM_SELESAI == null) {
                     return '<span class="badge badge-danger fw-normal fs-9">Belum Selesai</span>';
@@ -85,6 +91,7 @@ class RegistrasiAntrianIgdDatatable extends Controller
                     \compact('antrian')
                 );
             })
+
             ->addColumn('EMERGENCYTIME', function ($antrian) use ($request) {
 
                 if($antrian->ERT > 300)
@@ -93,8 +100,8 @@ class RegistrasiAntrianIgdDatatable extends Controller
                 }else{
                     return '<span class="badge badge-light-success">'.gmdate('H:i:s', $antrian->ERT).'</span>';
                 }
-            })
 
+            })
 
             ->addColumn('LAMA_PELAYANAN', function ($antrian) use ($request) {
                 return '<span class="badge badge-light-info">'.gmdate('H:i:s', $antrian->LAMA_PELAYANAN).'</span>';
@@ -105,6 +112,7 @@ class RegistrasiAntrianIgdDatatable extends Controller
                 'NO_ANTRI',
                 'STATUS_PANGGIL',
                 'STATUS_DILAYANI',
+                'TGL_INPUT',
                 'JAM_DILAYANI',
                 'JAM_SELESAI',
                 'NAMAPAS',

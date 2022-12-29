@@ -39,6 +39,7 @@ class PengumumanRequest extends FormRequest
     {
         return [
             'judul' => 'required',
+            'deskripsiSingkat' => 'required',
             'isi' => 'required',
             'status' => 'required'
         ];
@@ -54,6 +55,7 @@ class PengumumanRequest extends FormRequest
     {
         return [
             'judul.required' => 'Judul Tidak Boleh Kosong',
+            'deskripsiSingkat.required' => 'Deskripsi Singkat Tidak Boleh Kosong',
             'isi.required' => 'Isi Tidak Boleh Kosong',
             'status.required' => 'Status Tampil Harus di Pilih'
         ];

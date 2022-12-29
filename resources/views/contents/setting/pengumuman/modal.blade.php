@@ -1,5 +1,5 @@
 <div class="modal fade" id="pengumuman-modal" role="dialog" aria-labelledby="Modal" aria-hidden="true">
-    <div class="modal-dialog modal-md" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header py-4">
                 <h3 class="fw-bolder modal-title" id="modal-title">Modal Title</h3>
@@ -27,10 +27,17 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-form-label text-left required fs-6 fw-bold">Isi</label>
-                        <textarea class="form-control" name="isi" placeholder="Isi Pengumuman"></textarea>
+                        <label class="col-form-label text-left required fs-6 fw-bold">Deskripsi Singkat</label>
+                        <textarea class="form-control" name="deskripsiSingkat" placeholder="Deskripsi Singkat Pengumuman"></textarea>
+                        <div class="invalid-feedback" id="deskripsiSingkat"></div>
+                    </div>
+
+                   <div class="form-group">
+                        <label class="col-form-label text-left required fs-5 fw-bold">Isi</label>
+                        <textarea class="form-control" name="isi" id="CKEditorIsi" placeholder="Isi Pengumuman"></textarea>
                         <div class="invalid-feedback" id="isi"></div>
                     </div>
+
 
                     <div class="form-group">
                         <label class="col-form-label text-left required fs-6 fw-bold">Status Tampil</label>

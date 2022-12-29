@@ -31,6 +31,7 @@
             $('.modal-overlay-layer').hide();
             $('.modal-content-layer').show();
         }*/
+
     </script>
 
     {{-- JS Datatable --}}
@@ -64,6 +65,10 @@
                     data: 'judul',
                     name: 'judul'
                 },{
+                    data: 'deskripsi_singkat',
+                    name: 'deskripsi_singkat',
+                    class: 'center text-center'
+                }, {
                     data: 'status',
                     name: 'status',
                     class: 'center text-center'
@@ -121,8 +126,9 @@
                     $('#id').val(id);
                     $('input[name="_method"]').prop('disabled', false);
                     $('input[name="judul"]').val(data.response.judul);
-                    $('textarea[name="isi"]').val(data.response.isi);
+                    $('textarea[name="deskripsiSingkat"]').val(data.response.deskripsi_singkat);
                     $('select[name="status"]').val(data.response.status).change();
+                    CKEditorIsi.setData(data.response.isi);
                 }
             })
         }
@@ -131,10 +137,15 @@
             e.preventDefault();
 
 
+            for (instance in CKEDITOR.instances) {
+                CKEDITOR.instances[instance].updateElement();
+            }
+
             var data = $('#pengumuman-form').serialize();
             var id = $('#id').val();
             var url;
             var textBtn;
+
             if (id === '') {
                 url = route('pengumuman.store');
                 textBtn = 'Simpan';
@@ -304,5 +315,13 @@
                 }
             });
         }
+    </script>
+
+    <script src="http://cdn.ckeditor.com/4.19.0/standard/ckeditor.js"></script>
+
+    <script>
+
+        var CKEditorIsi = CKEDITOR.replace('CKEditorIsi');
+
     </script>
 @endpush

@@ -17,6 +17,7 @@ class CreatePengumumanTable extends Migration
             $table->id();
             $table->string('judul');
             $table->enum('status', ['Y', 'N'])->default('Y');
+            $table->string('deskripsi_singkat');
             $table->text('isi');
             $table->timestamps();
         });

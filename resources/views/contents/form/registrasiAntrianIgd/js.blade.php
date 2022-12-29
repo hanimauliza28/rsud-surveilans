@@ -458,6 +458,43 @@
                 }
             })
         }
+
+        const ubahTglInput = (noAntrian, tglAntri) => {
+            $.ajax({
+                url: "{{ route('registrasi-antrian-igd.edit-waktu') }}",
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    grupAntri: "03",
+                    noAntri: noAntrian,
+                    tglAntri: tglAntri,
+                    parameterIsian: 'TGL_INPUT'
+                },
+                success: function(data) {
+                    $('#waktu-modal').modal('show');
+                    $('.modal-title').text('Waktu Antrian IGD');
+                    $('#titleTanggal').text('Tanggal Antrian IGD');
+                    $('#titleJam').text('Jam Antrian IGD');
+                    $('#parameterIsian').val('TGL_INPUT');
+                    $('#grupAntriWaktu').val('03');
+                    $('#noAntriWaktu').val(noAntrian);
+                    $('#tglAntriWaktu').val(tglAntri);
+
+                    $('#tanggal').val(data.response.tanggal);
+                    $('#jam').val(data.response.jam);
+                },
+                error: function(data) {
+                    Swal.fire({
+                        title: 'Gagal!',
+                        text: 'Gagal Mengambil Data Antrian',
+                        icon: 'error',
+                        padding: '2em',
+                        timer: 3000
+                    })
+                }
+            });
+        }
+
     </script>
 
 @endpush
