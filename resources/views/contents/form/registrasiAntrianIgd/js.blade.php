@@ -103,13 +103,13 @@
                         data: 'NAMAPAS',
                         name: 'NAMAPAS',
                         class: 'text-center center'
+                    },  {
+                        data: 'JENIS',
+                        name: 'JENIS',
+                        class: 'text-center center'
                     }, {
                         data: 'STATUS_PANGGIL',
                         name: 'STATUS_PANGGIL',
-                        class: 'text-center center'
-                    }, {
-                        data: 'STATUS_DILAYANI',
-                        name: 'STATUS_DILAYANI',
                         class: 'text-center center'
                     }, {
                         data: 'TGL_INPUT',

@@ -95,11 +95,11 @@ class SumberDataPelayanan extends Model
         $apiInformasi = new ApiInformasi;
         $response = $apiInformasi->curlApiInformasi($url, $mode, $data);
         if ($response->code == 500) {
-            return null;
+            return $response;
         }
 
         if ($response->code != 200) {
-            return null;
+            return $response;
         }
 
         return $response->response;

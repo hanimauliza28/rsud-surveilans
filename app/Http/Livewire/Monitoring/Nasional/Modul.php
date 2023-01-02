@@ -119,6 +119,7 @@ class Modul extends Component
                 'detailHasilSurvey' => $dataDetail ?? '',
             ];
         } elseif ($page == 'waktu-tunggu-rawat-jalan') {
+
             $waktuTungguRawatJalan = SumberDataPelayanan::waktuTungguRawatJalan(
                 $noReg
             );
@@ -131,10 +132,11 @@ class Modul extends Component
 
             $data = [
                 'indikatorMutu' => $indikatorMutu,
-                'dataPelayanan' => '',
+                'dataPelayanan' => $waktuTungguRawatJalan[0],
                 'hasilSurvey' => $hasilSurvey,
                 'detailHasilSurvey' => $dataDetail ?? '',
             ];
+
         } elseif ($page == 'penundaan-operasi-elektif') {
             $tanggalSurvey = $this->tanggalSurvey ?? date('Y-m-d');
             $hasilSurvey = HasilSurveyImutNasional::where(

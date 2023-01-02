@@ -17,6 +17,7 @@ class RegistrasiAntrianIgdDatatable extends Controller
     {
         $this->helperTime = new HelperTime();
         $this->helperSurveilans = new HelperSurveilans();
+        $this->antrianIgd = new AntrianIgd;
     }
     /**
      * Handle the incoming request.
@@ -30,6 +31,9 @@ class RegistrasiAntrianIgdDatatable extends Controller
         $filterTanggal = date('Y-m-d', strtotime($filterTanggal));
         $filterPanggil = $request->filterPanggil;
         $filterDilayani = $request->filterDilayani;
+
+        //Scrapping Nomor Registrasi di RI atau RJ
+        $scrappingPasien = $this->antrianIgd->scrappingpasien($filterTanggal);
 
         $antrian = AntrianIgd::where('TGL_ANTRI', $filterTanggal)->where('GRUP_ANTRI', '03')
             ->when($filterPanggil, function ($query) use ($filterPanggil) {
@@ -60,13 +64,6 @@ class RegistrasiAntrianIgdDatatable extends Controller
                 $tanggal = "'".date("Y-m-d", strtotime($antrian->TGL_INPUT))."'";
                 $noAntrian = "'".$antrian->NO_ANTRI."'";
                 return '<span class="" onclick="ubahTglInput('.$noAntrian.','.$tanggal.')">'.date('H:i:s', strtotime($antrian->TGL_INPUT)).'</span>';
-            })
-
-            ->editColumn('STATUS_DILAYANI', function ($antrian) use ($request) {
-                return view(
-                    'contents.form.registrasiAntrianIgd.actionSelesai',
-                    \compact('antrian')
-                );
             })
 
             ->editColumn('JAM_DILAYANI', function ($antrian) use ($request) {

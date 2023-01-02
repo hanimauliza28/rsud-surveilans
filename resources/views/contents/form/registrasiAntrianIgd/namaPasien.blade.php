@@ -3,11 +3,16 @@
     ({{ $antrian->NORMPAS }})
     <br>
     {{ $antrian->NOREGRS }}
+{{--
+    @if ($antrian->JENIS != '')
+        ({{ $antrian->JENIS }})
+    @endif --}}
 @else
     <span class="badge badge-warning">Belum Ada Data</span>
 @endif
 
-<button class="btn btn-sm btn-light-primary mt-2" onclick="registrasiNoreg('{{ $antrian->GRUP_ANTRI }}', '{{ $antrian->NO_ANTRI }}', '{{ $antrian->TGL_ANTRI }}')">
+<button class="btn btn-sm btn-light-primary mt-2"
+    onclick="registrasiNoreg('{{ $antrian->GRUP_ANTRI }}', '{{ $antrian->NO_ANTRI }}', '{{ $antrian->TGL_ANTRI }}')">
     <!--begin::Svg Icon | path: icons/duotune/arrows/arr012.svg-->
     <span class="svg-icon svg-icon-3">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">

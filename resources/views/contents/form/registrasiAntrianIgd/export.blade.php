@@ -7,6 +7,7 @@
             <th>No. RM</th>
             <th>Nama Pasien</th>
             <th>No. Registrasi</th>
+            <th>Jenis</th>
             <th>Jam Datang</th>
             <th>Jam Mulai Pelayanan</th>
             <th>Jam Selesai Pelayanan</th>
@@ -28,6 +29,7 @@
             <td>{{ $antrian->NORMPAS }}</td>
             <td>{{ $antrian->NAMAPAS }}</td>
             <td>{{ $antrian->NOREGRS }}</td>
+            <th>{{ $antrian->JENIS }}</th>
             <td>{{ $antrian->TGL_INPUT }}</td>
             <td>{{ $antrian->JAM_DILAYANI }}</td>
             <td>{{ $antrian->JAM_SELESAI }}</td>
