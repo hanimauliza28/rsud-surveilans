@@ -24,9 +24,11 @@ class WaktuTungguRawatJalanController extends Controller
 
     public function store(Request $request)
     {
-        $denumerator = 0;
+        $denumerator = 1;
         $numerator = 0;
         $sub_numerator = 0;
+
+        $tanggalSurvey = $request->tanggalSurvey;
 
         try {
             foreach ($request->dataPasien as $pasien) {
@@ -57,11 +59,11 @@ class WaktuTungguRawatJalanController extends Controller
                     $dataHasil = [
                         'id_object' => $pasienSimpan->id,
                         'jenis_object' => 'App\Models\ObjectPasien',
-                        'tgl_survey' => date('Y-m-d'),
+                        'tgl_survey' => $tanggalSurvey,
                         'indikator_mutu_id' => $indikatorMutuId,
                         'surveyor' => 'Diisi NIP',
-                        'numerator' => 0,
-                        'denumerator' => 0,
+                        'numerator' => 0, //waktuTunggu
+                        'denumerator' => 1,
                         'score' => 0,
                     ];
 
@@ -83,21 +85,17 @@ class WaktuTungguRawatJalanController extends Controller
                         'point' => 1,
                     ];
 
-                    if (
-                        $data['name'] == 'waktuTanggap' &&
-                        $data['value'] <= 300
-                    ) {
-                        $score = 1;
-                    } else {
-                        $score = 0;
+                    if ($data['name'] == 'waktuTunggu') {
+                        $numerator = $data['value'];
                     }
 
-                    if ($score) {
+                    if ($numerator) {
                         $updateHasil = HasilSurveyImutNasional::where(
                             'id',
                             $simpanHasil->id
                         )->update([
-                            'score' => $score,
+                            'numerator' => $numerator,
+                            'score' => 1
                         ]);
                     }
 
@@ -121,10 +119,12 @@ class WaktuTungguRawatJalanController extends Controller
 
     public function update(Request $request, $id)
     {
-        $denumerator = 0;
+        $denumerator = 1;
         $numerator = 0;
         $sub_numerator = 0;
         $hasilSurveyId = $id;
+
+        $tanggalSurvey = $request->tanggalSurvey;
 
         try {
             foreach ($request->dataPasien as $pasien) {
@@ -155,11 +155,11 @@ class WaktuTungguRawatJalanController extends Controller
                     $dataHasil = [
                         'id_object' => $pasienSimpan->id,
                         'jenis_object' => 'App\Models\ObjectPasien',
-                        'tgl_survey' => date('Y-m-d'),
+                        'tgl_survey' => $tanggalSurvey,
                         'indikator_mutu_id' => $indikatorMutuId,
                         'surveyor' => 'Diisi NIP',
                         'numerator' => 0,
-                        'denumerator' => 0,
+                        'denumerator' => 1,
                         'score' => 0,
                     ];
 
@@ -184,21 +184,17 @@ class WaktuTungguRawatJalanController extends Controller
                         'point' => 1,
                     ];
 
-                    if (
-                        $data['name'] == 'waktuTanggap' &&
-                        $data['value'] <= 300
-                    ) {
-                        $score = 1;
-                    } else {
-                        $score = 0;
+                    if ($data['name'] == 'waktuTunggu') {
+                        $numerator = $data['value'];
                     }
 
-                    if ($score) {
+                    if ($numerator) {
                         $updateHasil = HasilSurveyImutNasional::where(
                             'id',
                             $hasilSurveyId
                         )->update([
-                            'score' => $score,
+                            'numerator' => $numerator,
+                            'score' => 1
                         ]);
                     }
 
@@ -208,6 +204,8 @@ class WaktuTungguRawatJalanController extends Controller
                     )
                         ->where('variabel_survey_id', $cariIdVariabel->id)
                         ->update($dataDetailHasil);
+
+
                 }
             }
 

@@ -48,8 +48,8 @@ class AntrianIgd extends Model
     {
         $sql =
             "SELECT  COUNT(*) AS 'jumlahpasien'
-        FROM         ANTRI_NO
-        WHERE AND  NOREGRS LIKE '" .
+            FROM         ANTRI_NO
+            WHERE AND  NOREGRS LIKE '" .
             $prefix_noreg .
             "%' AND ERT <= 300";
 

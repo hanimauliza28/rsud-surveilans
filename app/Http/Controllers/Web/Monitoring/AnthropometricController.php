@@ -72,7 +72,7 @@ class AnthropometricController extends Controller
             'Data Survey Anthropometric Tidak Ditemukan'
         ));
 
-    return $response;
+        return $response;
 
     }
 

@@ -130,11 +130,20 @@ class Modul extends Component
                 }
             }
 
+            if(!isset($waktuTungguRawatJalan->code))
+            {
+                $waktuTunggu = gmdate('H:i:s', $waktuTungguRawatJalan[0]->WAKTU_TUNGGU);
+                $waktuTungguRawatJalan = $waktuTungguRawatJalan[0];
+            }else{
+                $waktuTungguRawatJalan = '';
+            }
+
             $data = [
                 'indikatorMutu' => $indikatorMutu,
-                'dataPelayanan' => $waktuTungguRawatJalan[0],
+                'dataPelayanan' => $waktuTungguRawatJalan,
                 'hasilSurvey' => $hasilSurvey,
                 'detailHasilSurvey' => $dataDetail ?? '',
+                'waktuTunggu' => $waktuTunggu ?? ''
             ];
 
         } elseif ($page == 'penundaan-operasi-elektif') {

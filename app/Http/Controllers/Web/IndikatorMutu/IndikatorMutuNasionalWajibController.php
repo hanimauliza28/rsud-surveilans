@@ -30,10 +30,9 @@ class IndikatorMutuNasionalWajibController extends Controller
      */
     public function __construct()
     {
-        $this->helpers = new Helpers;
-        $this->helperTime = new HelperTime;
-        $this->indikatorMutuNasional = new IndikatorMutuNasional;
-
+        $this->helpers = new Helpers();
+        $this->helperTime = new HelperTime();
+        $this->indikatorMutuNasional = new IndikatorMutuNasional();
     }
 
     /**
@@ -44,7 +43,12 @@ class IndikatorMutuNasionalWajibController extends Controller
     public function index()
     {
         $dataMonth = $this->helperTime->monthNow();
-        $imutNasionalManajemen = IndikatorMutuNasional::where('kategori_indikator_id', 3)->with('frekuensi', 'kategori', 'tipe')->get();
+        $imutNasionalManajemen = IndikatorMutuNasional::where(
+            'kategori_indikator_id',
+            3
+        )
+            ->with('frekuensi', 'kategori', 'tipe')
+            ->get();
         $data = [
             'date' => $dataMonth['date'],
             'dayInMonth' => $dataMonth['dayInMonth'],
@@ -54,7 +58,6 @@ class IndikatorMutuNasionalWajibController extends Controller
         ];
 
         return view('contents.indikatorMutu.nasional.wajib.index', $data);
-
     }
 
     public function search(Request $request)
@@ -63,7 +66,12 @@ class IndikatorMutuNasionalWajibController extends Controller
         $filterBulan = $request->filterBulan;
         $dataMonth = $this->helperTime->monthNow($filterBulan);
 
-        $imut = $this->indikatorMutuNasional->searchPerKategori(3, $filterKeyword, $dataMonth['firstDay'], $dataMonth['lastDay']);
+        $imut = $this->indikatorMutuNasional->searchPerKategori(
+            3,
+            $filterKeyword,
+            $dataMonth['firstDay'],
+            $dataMonth['lastDay']
+        );
 
         $data = [
             'date' => $dataMonth['date'],
@@ -73,11 +81,18 @@ class IndikatorMutuNasionalWajibController extends Controller
             'imut' => $imut,
         ];
 
-        $imut ?
-            $response=$this->helpers->retunJson(200, 'Indikator Mutu Ditemukan', $data) :
-            $response=$this->helpers->retunJson(404, 'Indikator Mutu Tidak Ditemukan');
+        $imut
+            ? ($response = $this->helpers->retunJson(
+                200,
+                'Indikator Mutu Ditemukan',
+                $data
+            ))
+            : ($response = $this->helpers->retunJson(
+                404,
+                'Indikator Mutu Tidak Ditemukan'
+            ));
 
-            return view('contents.indikatorMutu.nasional.wajib.table', $data);
+        return view('contents.indikatorMutu.nasional.wajib.table', $data);
     }
 
     /**
@@ -110,17 +125,22 @@ class IndikatorMutuNasionalWajibController extends Controller
             'faktor_pengali' => $request->faktorPengali,
             'satuan' => $request->satuan,
             'tipe_indikator_id' => $request->tipeIndikator,
-            'frekuensi_id' => $request->frekuensi
+            'frekuensi_id' => $request->frekuensi,
         ];
 
         $saveData = IndikatorMutuNasional::create($data);
 
-        $saveData ?
-            $response=$this->helpers->retunJson(200, 'Data Indikator Mutu Berhasil ditambahkan') :
-            $response=$this->helpers->retunJson(400, 'Data Indikator Mutu Gagal ditambahkan');
+        $saveData
+            ? ($response = $this->helpers->retunJson(
+                200,
+                'Data Indikator Mutu Berhasil ditambahkan'
+            ))
+            : ($response = $this->helpers->retunJson(
+                400,
+                'Data Indikator Mutu Gagal ditambahkan'
+            ));
 
         return $response;
-
     }
 
     /**
@@ -145,12 +165,14 @@ class IndikatorMutuNasionalWajibController extends Controller
         // Data imut
         $imut = IndikatorMutuNasional::where('id', $id)->first();
 
-        $imut ?
-            $response=$this->helpers->retunJson(200, 'Sukses', $imut) :
-            $response=$this->helpers->retunJson(404, 'Indikator Mutu Tidak Ditemukan');
+        $imut
+            ? ($response = $this->helpers->retunJson(200, 'Sukses', $imut))
+            : ($response = $this->helpers->retunJson(
+                404,
+                'Indikator Mutu Tidak Ditemukan'
+            ));
 
         return $response;
-
     }
 
     /**
@@ -163,9 +185,7 @@ class IndikatorMutuNasionalWajibController extends Controller
     public function update(IndikatorMutuNasionalRequest $request, $id)
     {
         // Data
-        $data = $request->except(
-            '_token'
-        );
+        $data = $request->except('_token');
 
         $data = [
             'kategori_indikator_id' => $request->kategoriIndikator,
@@ -179,14 +199,22 @@ class IndikatorMutuNasionalWajibController extends Controller
             'faktor_pengali' => $request->faktorPengali,
             'satuan' => $request->satuan,
             'tipe_indikator_id' => $request->tipeIndikator,
-            'frekuensi_id' => $request->frekuensi
+            'frekuensi_id' => $request->frekuensi,
         ];
 
-        $saveData = IndikatorMutuNasional::where('id', $request->id)->update($data);
+        $saveData = IndikatorMutuNasional::where('id', $request->id)->update(
+            $data
+        );
 
-        $saveData ?
-            $response=$this->helpers->retunJson(200, 'Indikator Mutu Nasional Berhasil diubah') :
-            $response=$this->helpers->retunJson(400, 'Indikator Mutu Nasional Gagal diubah');
+        $saveData
+            ? ($response = $this->helpers->retunJson(
+                200,
+                'Indikator Mutu Nasional Berhasil diubah'
+            ))
+            : ($response = $this->helpers->retunJson(
+                400,
+                'Indikator Mutu Nasional Gagal diubah'
+            ));
 
         return $response;
     }
@@ -203,22 +231,36 @@ class IndikatorMutuNasionalWajibController extends Controller
 
         $delete = $imut->destroy($id);
 
-        $delete ?
-            $response=$this->helpers->retunJson(200, 'Data Indikator Mutu berhasil dihapus') :
-            $response=$this->helpers->retunJson(400, 'Data Indikator Mutu gagal dihapus');
+        $delete
+            ? ($response = $this->helpers->retunJson(
+                200,
+                'Data Indikator Mutu berhasil dihapus'
+            ))
+            : ($response = $this->helpers->retunJson(
+                400,
+                'Data Indikator Mutu gagal dihapus'
+            ));
 
         return $response;
     }
 
-
     public function view($id)
     {
         // Data Indikator Mutu
-        $imut = IndikatorMutuNasional::where('id', $id)->with('frekuensi', 'kategori', 'tipe')->first();
+        $imut = IndikatorMutuNasional::where('id', $id)
+            ->with('frekuensi', 'kategori', 'tipe')
+            ->first();
 
-        $imut ?
-            $response=$this->helpers->retunJson(200, 'Indikator Mutu Ditemukan', $imut) :
-            $response=$this->helpers->retunJson(404, 'Indikator Mutu Tidak Ditemukan');
+        $imut
+            ? ($response = $this->helpers->retunJson(
+                200,
+                'Indikator Mutu Ditemukan',
+                $imut
+            ))
+            : ($response = $this->helpers->retunJson(
+                404,
+                'Indikator Mutu Tidak Ditemukan'
+            ));
 
         return $response;
     }
@@ -226,26 +268,46 @@ class IndikatorMutuNasionalWajibController extends Controller
     public function variabel($id, Request $request)
     {
         $tanggal = $request->tanggal;
-        $variabel['numerator'] = Variabel::where('indikator_mutu_id', $id)->where('jenis', 'nasional')->where('tipe_variabel', 'numerator')->first();
-        $variabel['denumerator'] = Variabel::where('indikator_mutu_id', $id)->where('jenis', 'nasional')->where('tipe_variabel', 'denumerator')->first();
-        $survey = SurveyNasional::where('indikator_mutu_id', $id)->where('tanggal_survey', $tanggal)->first();
+        $variabel['numerator'] = Variabel::where('indikator_mutu_id', $id)
+            ->where('jenis', 'nasional')
+            ->where('tipe_variabel', 'numerator')
+            ->first();
+        $variabel['denumerator'] = Variabel::where('indikator_mutu_id', $id)
+            ->where('jenis', 'nasional')
+            ->where('tipe_variabel', 'denumerator')
+            ->first();
+        $survey = SurveyNasional::where('indikator_mutu_id', $id)
+            ->where('tanggal_survey', $tanggal)
+            ->first();
         $variabel['nilaiNumerator'] = $survey->numerator ?? '';
         $variabel['nilaiDenumerator'] = $survey->denumerator ?? '';
 
-        $variabel ?
-            $response=$this->helpers->retunJson(200, 'Variabel Ditemukan', $variabel) :
-            $response=$this->helpers->retunJson(404, 'Variabel Tidak Ditemukan');
+        $variabel
+            ? ($response = $this->helpers->retunJson(
+                200,
+                'Variabel Ditemukan',
+                $variabel
+            ))
+            : ($response = $this->helpers->retunJson(
+                404,
+                'Variabel Tidak Ditemukan'
+            ));
         return $response;
-   }
+    }
 
     public function storeNilai(Request $request)
     {
-        $tanggal = $request->nilaiTahun.'-'.$request->nilaiBulan.'-'.$request->nilaiHari;
+        $tanggal =
+            $request->nilaiTahun .
+            '-' .
+            $request->nilaiBulan .
+            '-' .
+            $request->nilaiHari;
 
         $saveData = SurveyNasional::updateOrCreate(
             [
                 'indikator_mutu_id' => $request->nilaiImutId,
-                'tanggal_survey' => $tanggal
+                'tanggal_survey' => $tanggal,
             ],
             [
                 'indikator_mutu_id' => $request->nilaiImutId,
@@ -253,18 +315,25 @@ class IndikatorMutuNasionalWajibController extends Controller
                 'numerator' => $request->numerator,
                 'denumerator' => $request->denumerator,
                 'user_id' => 1,
-                'sumber_data' => 'manual'
+                'sumber_data' => 'manual',
             ]
-
         );
 
-        $saveData ?
-            $response=$this->helpers->retunJson(200, 'Nilai Indikator Berhasil Disimpan', $saveData) :
-            $response=$this->helpers->retunJson(404, 'Nilai Indikator Tidak Berhasil Disimpan');
+        $saveData
+            ? ($response = $this->helpers->retunJson(
+                200,
+                'Nilai Indikator Berhasil Disimpan',
+                $saveData
+            ))
+            : ($response = $this->helpers->retunJson(
+                404,
+                'Nilai Indikator Tidak Berhasil Disimpan'
+            ));
         return $response;
     }
 
-    public function datasurvey(){
+    public function datasurvey()
+    {
         return view('contents.indikatorMutu.nasional.wajib.index', $data);
     }
 
@@ -281,21 +350,50 @@ class IndikatorMutuNasionalWajibController extends Controller
 
         $filterTanggal = $request->filterTanggal;
         $indikatorMutuId = $request->indikatorMutuId;
+        $kolomTanggal = $request->kolomTanggal ?? '';
 
         $bulan = date('m', strtotime($filterTanggal));
         $tahun = date('Y', strtotime($filterTanggal));
-        $d = cal_days_in_month(CAL_GREGORIAN,$bulan,$tahun);
+        $d = cal_days_in_month(CAL_GREGORIAN, $bulan, $tahun);
 
-        for($i=1; $i <= $d; $i++){
-            $prenoreg = date('Ymd', strtotime($tahun.'-'.$bulan.'-'.$i));
-            $tanggal = date('Y-m-d', strtotime($tahun.'-'.$bulan.'-'.$i));
+        for ($i = 1; $i <= $d; $i++) {
+            $prenoreg = date(
+                'Ymd',
+                strtotime($tahun . '-' . $bulan . '-' . $i)
+            );
+            $tanggal = date(
+                'Y-m-d',
+                strtotime($tahun . '-' . $bulan . '-' . $i)
+            );
+
+            //check kondisi apakah sama dengan kolom tanggal
+
+            if ($kolomTanggal != '') {
+                if ($kolomTanggal == $tanggal) {
+                    $do = 'do';
+                } else {
+                    $do = 'dont';
+                }
+            } else {
+                $do = 'do';
+            }
 
             //cari indikator mutu
-            $imut = IndikatorMutuNasional::where('id', $indikatorMutuId)->first();
+            $imut = IndikatorMutuNasional::where(
+                'id',
+                $indikatorMutuId
+            )->first();
 
-            if($imut->nama_function == 'kepatuhan-jam-visit-dokter')
-            {
-                $dataHasil = HasilSurveyImutNasional::select(DB::raw("SUM(numerator) as numerator, SUM(denumerator) as denumerator"))->where('indikator_mutu_id', $imut->id)->whereDate('tgl_survey', $tanggal)->first();
+            if ($do == 'do') {
+                if ($imut->nama_function == 'kepatuhan-jam-visit-dokter') {
+                    $dataHasil = HasilSurveyImutNasional::select(
+                        DB::raw(
+                            'SUM(numerator) as numerator, SUM(denumerator) as denumerator'
+                        )
+                    )
+                        ->where('indikator_mutu_id', $imut->id)
+                        ->whereDate('tgl_survey', $tanggal)
+                        ->first();
 
                     $data = [
                         'denumerator' => $dataHasil->denumerator ?? 0,
@@ -303,21 +401,60 @@ class IndikatorMutuNasionalWajibController extends Controller
                         'tanggal_survey' => $tanggal,
                         'indikator_mutu_id' => $indikatorMutuId,
                         'user_id' => session('userLogin')->id,
-                        'sumber_data' => 'surveilans'
+                        'sumber_data' => 'surveilans',
                     ];
 
+                    if (isset($data)) {
+                        $save = SurveyNasional::updateOrCreate(
+                            [
+                                'tanggal_survey' => $tanggal,
+                                'indikator_mutu_id' => $indikatorMutuId,
+                            ],
+                            $data
+                        );
+                    }
+                } elseif ($imut->nama_function == 'waktu-tunggu-rawat-jalan') {
+                    $dataHasil = HasilSurveyImutNasional::select(
+                        DB::raw(
+                            'SUM(numerator) as numerator, SUM(denumerator) as denumerator'
+                        )
+                    )
+                        ->where('indikator_mutu_id', $imut->id)
+                        ->whereDate('tgl_survey', $tanggal)
+                        ->first();
 
-                if(isset($data))
-                {
-                    $save = SurveyNasional::updateOrCreate([
+                    $data = [
+                        'denumerator' => $dataHasil->denumerator ?? 0,
+                        'numerator' => $dataHasil->numerator ?? 0,
                         'tanggal_survey' => $tanggal,
-                        'indikator_mutu_id' => $indikatorMutuId
-                    ],  $data);
-                }
-            }else{
+                        'indikator_mutu_id' => $indikatorMutuId,
+                        'user_id' => session('userLogin')->id,
+                        'sumber_data' => 'surveilans',
+                    ];
 
-                $denumerator = HasilSurveyImutNasional::where('indikator_mutu_id', $imut->id)->whereDate('tgl_survey', $tanggal)->count();
-                $numerator = HasilSurveyImutNasional::where('indikator_mutu_id', $imut->id)->whereDate('tgl_survey', $tanggal)->where('score', '1.00')->count();
+                    if (isset($data)) {
+                        $save = SurveyNasional::updateOrCreate(
+                            [
+                                'tanggal_survey' => $tanggal,
+                                'indikator_mutu_id' => $indikatorMutuId,
+                            ],
+                            $data
+                        );
+                    }
+                } else {
+                    $denumerator = HasilSurveyImutNasional::where(
+                        'indikator_mutu_id',
+                        $imut->id
+                    )
+                        ->whereDate('tgl_survey', $tanggal)
+                        ->count();
+                    $numerator = HasilSurveyImutNasional::where(
+                        'indikator_mutu_id',
+                        $imut->id
+                    )
+                        ->whereDate('tgl_survey', $tanggal)
+                        ->where('score', '1.00')
+                        ->count();
 
                     $data = [
                         'denumerator' => $denumerator,
@@ -325,29 +462,32 @@ class IndikatorMutuNasionalWajibController extends Controller
                         'tanggal_survey' => $tanggal,
                         'indikator_mutu_id' => $indikatorMutuId,
                         'user_id' => session('userLogin')->id,
-                        'sumber_data' => 'surveilans'
+                        'sumber_data' => 'surveilans',
                     ];
 
-
-                if(isset($data))
-                {
-                    $save = SurveyNasional::updateOrCreate([
-                        'tanggal_survey' => $tanggal,
-                        'indikator_mutu_id' => $indikatorMutuId
-                    ],  $data);
+                    if (isset($data)) {
+                        $save = SurveyNasional::updateOrCreate(
+                            [
+                                'tanggal_survey' => $tanggal,
+                                'indikator_mutu_id' => $indikatorMutuId,
+                            ],
+                            $data
+                        );
+                    }
                 }
             }
-
-
-
-
         }
 
-
-        isset($save) ?
-            $response=$this->helpers->retunJson(200, 'Sinkronasi Survey Berhasil', $data) :
-            $response=$this->helpers->retunJson(404, 'Sinkronasi Survey Gagal');
+        isset($save)
+            ? ($response = $this->helpers->retunJson(
+                200,
+                'Sinkronasi Survey Berhasil',
+                $data
+            ))
+            : ($response = $this->helpers->retunJson(
+                404,
+                'Sinkronasi Survey Gagal'
+            ));
         return $response;
     }
-
 }

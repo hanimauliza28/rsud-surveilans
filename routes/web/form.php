@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\Form\RegistrasiAntrianIgdController;
+use App\Http\Controllers\Web\Form\SurveyKepuasanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,5 +28,12 @@ Route::middleware([])->group(function () {
         Route::post('export-excel', [RegistrasiAntrianIgdController::class, 'exportExcel'])->name('registrasi-antrian-igd.export-excel');
         Route::post('statistik', [RegistrasiAntrianIgdController::class, 'statistik'])->name('registrasi-antrian-igd.statistik');
         Route::post('set-triage', [RegistrasiAntrianIgdController::class, 'setTriage'])->name('registrasi-antrian-igd.set-triage');
+    });
+
+
+    Route::group(['prefix' => 'survey-kepuasan'], function () {
+        Route::get('/', [SurveyKepuasanController::class, 'index'])->name('survey-kepuasan.index');
+        Route::post('store', [SurveyKepuasanController::class, 'store'])->name('survey-kepuasan.store');
+        Route::post('edit', [SurveyKepuasanController::class, 'edit'])->name('survey-kepuasan.edit');
     });
 });

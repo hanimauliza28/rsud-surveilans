@@ -23,8 +23,6 @@ class MonitoringPasienRawatJalanController extends Controller
             'dataFilterBagian' => $dataFilterBagian
         ];
 
-        // dd($data);
-
         return view('contents.monitoring.monitoringPasienRawatJalan.index', $data);
     }
 }

@@ -56,8 +56,7 @@
                 </div>
                 <!--end::Body-->
                 <div class="card-footer bg-light-warning py-3">
-                    <div class="fw-bold text-gray-800">Total Waktu Pelayanan
-                        <?= round($jumlahrata->totallamapelayanan) ?></div>
+                    <div class="fw-bold text-gray-800">Total Waktu <br>Pelayanan IGD</div>
                 </div>
             </div>
             <!--end::Statistics Widget 5-->

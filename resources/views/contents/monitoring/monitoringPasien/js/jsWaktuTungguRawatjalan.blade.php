@@ -1,5 +1,5 @@
 {{-- KHUSUS KEPATUHAN IDENTIFIKASI KODE KI --}}
-
+@push('extraScript')
 <script>
     const resetWTRJ = () => {
         $('#waktu-tunggu-rawat-jalan-form').trigger('reset');
@@ -7,15 +7,12 @@
     }
 
     const simpanWTRJ = () => {
-        //var data = {
-         //   'waktuPasienDatang' => $('input[name="waktuPasienDatang"]').val(),
-         //   'waktuPasienDilayani' => $('input[name="waktuPasienDilayani"]').val(),
-         //   'waktuTanggap' => $('input[name="waktuTanggap"]').val()
-        //};
 
         var data = $('#waktu-tunggu-rawat-jalan-form').serializeArray();
         var dataPasien = $('#data-pasien-form').serializeArray();
         var hasilSurveyId = $('#hasilSurveyId').val();
+        var noReg = $('#dataPasienNoreg').val();
+        var filterTanggal = moment($('#filterTanggal').val(), 'DD\MM\YYYY').format("YYYY-MM-DD");
 
         if (hasilSurveyId <= 0) {
             var method = 'POST';
@@ -47,7 +44,8 @@
             data: {
                 _token: '{{ csrf_token() }}',
                 data: data,
-                dataPasien: dataPasien
+                dataPasien: dataPasien,
+                tanggalSurvey : filterTanggal
             },
 
             beforeSend: function(data) {
@@ -67,7 +65,10 @@
                     timer: 3000
                 });
 
-                reloadForm();
+                Livewire.emitTo('monitoring.nasional.modul', 'cariImut', {
+                    filterImut:'waktu-tunggu-rawat-jalan',
+                    noReg: noReg
+                });
             },
 
             error: function(data) {
@@ -96,3 +97,4 @@
 
     }
 </script>
+@endpush

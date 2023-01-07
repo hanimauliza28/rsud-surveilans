@@ -1,5 +1,5 @@
 {{-- KHUSUS KEPATUHAN IDENTIFIKASI KODE KI --}}
-
+@push('extraScript')
 <script>
     const resetERT = () => {
         var dataPasien = $('#data-pasien-form').serializeArray();
@@ -13,11 +13,9 @@
             beforeSend: function(data) {
                 toastr.info("Mengembalikan Isian Sesuai Data Antrian IGD");
             },
-
             success: function(data) {
 
             },
-
             error: function(data) {
                 toastr.danger("Gagal Mengambil Data Antrian IGD");
             }
@@ -115,3 +113,4 @@
         })
     }
 </script>
+@endpush

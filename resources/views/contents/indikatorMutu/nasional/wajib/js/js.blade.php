@@ -243,6 +243,63 @@
 
         }
 
+        const sync = (indikatorMutuId, kolomTanggal) => {
+            var filterTanggal = $('#filterTanggal').val();
+            $.ajax({
+                url : "{{ route('indikator-mutu-nasional-wajib.sync') }}",
+                type : 'POST',
+                data    : {
+                    _token : '{!! csrf_token() !!}',
+                    filterTanggal : filterTanggal,
+                    indikatorMutuId : indikatorMutuId,
+                    kolomTanggal : kolomTanggal
+                },
+                beforeSend : function (data) {
+                    toastr.info("Proses perhitungan data sedang berlangsung, jangan menutup jendela hingga proses selesai");
+                },
+                success : function (data) {
+                    Swal.fire({
+                            title : 'Berhasil',
+                            text : data.message,
+                            icon : 'success',
+                            padding : '2em',
+                            timer : 3000
+                        })
+                    cariDataFilter();
+                },
+                error : function (data) {
+                    if (data.status === 400) {
+                        Swal.fire({
+                            title : 'Gagal!',
+                            text : data.responseJSON.message,
+                            icon : 'error',
+                            padding : '2em',
+                            timer : 3000
+                        })
+                    }
+
+                    if (data.status === 500) {
+                        Swal.fire({
+                            title : 'Gagal!',
+                            text : 'Terjadi Kesalahan pada server, pastikan sudah di isi dengan benar',
+                            icon : 'error',
+                            padding : '2em',
+                            timer : 3000
+                        })
+                    }else{
+                        Swal.fire({
+                            title : 'Gagal!',
+                            text : data.responseJSON.message,
+                            icon : 'error',
+                            padding : '2em',
+                            timer : 3000
+                        })
+                    }
+                }
+            })
+
+        }
+
     </script>
 
 @endpush

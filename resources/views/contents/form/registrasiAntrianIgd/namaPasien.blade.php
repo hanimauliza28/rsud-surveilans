@@ -3,12 +3,13 @@
     ({{ $antrian->NORMPAS }})
     <br>
     {{ $antrian->NOREGRS }}
+    <br>
 {{--
     @if ($antrian->JENIS != '')
         ({{ $antrian->JENIS }})
     @endif --}}
 @else
-    <span class="badge badge-warning">Belum Ada Data</span>
+    <span class="badge badge-warning">Belum Ada Data</span><br>
 @endif
 
 <button class="btn btn-sm btn-light-primary mt-2"

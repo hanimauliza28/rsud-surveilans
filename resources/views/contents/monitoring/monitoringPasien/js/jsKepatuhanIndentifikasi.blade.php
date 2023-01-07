@@ -1,4 +1,5 @@
 {{-- SELECT --}}
+@push('extraScript')
 <script>
     const checkAllItem = (id) => {
         $('.nama' + id).prop('checked', true)
@@ -116,3 +117,4 @@
         })
     }
 </script>
+@endpush

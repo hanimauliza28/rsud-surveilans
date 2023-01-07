@@ -35,6 +35,10 @@ class IndikatorMutuNasionalHasilDatatable extends Controller
         ->whereDate('tgl_survey', $filterTanggal)
         ->with('object');
         return DataTables::of($hasil)
+
+            ->editColumn('numerator', function ($hasil) {
+                return gmdate('H:i:s', $hasil->numerator);
+            })
             ->addColumn('action', function ($hasil) {
                 return view('contents.indikatorMutu.nasional.wajib.actionHasil',\compact('hasil'));
             })

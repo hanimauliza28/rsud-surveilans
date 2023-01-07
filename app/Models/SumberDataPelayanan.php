@@ -64,7 +64,6 @@ class SumberDataPelayanan extends Model
             ];
         }
 
-
         return collect($data);
 
     }
@@ -84,7 +83,6 @@ class SumberDataPelayanan extends Model
 
         // return collect($data);
 
-
         $url = 'waktu-tunggu-pasien-rawat-jalan';
 
         // Mode
@@ -92,8 +90,10 @@ class SumberDataPelayanan extends Model
         $data = [
             'noreg' => $noReg
         ];
+
         $apiInformasi = new ApiInformasi;
         $response = $apiInformasi->curlApiInformasi($url, $mode, $data);
+
         if ($response->code == 500) {
             return $response;
         }

@@ -1,4 +1,6 @@
+@push('extraScript')
 {{-- KHUSUS PENUNDAAN OPERASI ELEKTIF KODE POE --}}
+
 <script>
 
     const cariPasienOperasi = () => {
@@ -79,3 +81,4 @@
         })
     }
 </script>
+@endpush

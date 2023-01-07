@@ -16,7 +16,7 @@
                             <input type="text" name="waktuDatang" id="waktuDatang"
                                 class="form-control form-control-lg form-control-solid"
                                 placeholder="Waktu Pasien Datang"
-                                value="{{ $detailHasilSurvey ? $detailHasilSurvey['waktuDatang'] : $dataPelayanan->MULAI_LAYANAN }}" />
+                                value="{{ $detailHasilSurvey ? $detailHasilSurvey['waktuDatang'] : $dataPelayanan->MULAI_DAFTAR }}" />
                         </div>
                     </div>
 
@@ -30,7 +30,7 @@
                             <input type="text" name="waktuDilayani" id="waktuDilayani"
                                 class="form-control form-control-lg form-control-solid"
                                 placeholder="Waktu Pasien Datang"
-                                value="{{ $detailHasilSurvey ? $detailHasilSurvey['waktuDilayani'] : $dataPelayanan->SELESAI_LAYANAN }}" />
+                                value="{{ $detailHasilSurvey ? $detailHasilSurvey['waktuDilayani'] : $dataPelayanan->MULAI_LAYANAN }}" />
                         </div>
                     </div>
 
@@ -74,7 +74,8 @@
                         <a href="#" class="fw-bolder text-gray-800 text-hover-primary fs-6">Score Survey</a>
                         <span
                             class="text-muted fw-bold d-block">{{ $detailHasilSurvey ? $detailHasilSurvey['waktuTunggu'] : $dataPelayanan->WAKTU_TUNGGU }}
-                            Detik / Pasien</span>
+                            Detik ({{ $waktuTunggu }})
+                            </span>
                     </div>
                     <!--end::Title-->
                     <!--begin::Lable-->

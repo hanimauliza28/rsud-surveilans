@@ -1,4 +1,4 @@
-@push('extraScript')
+    @push('extraScript')
     <script>
         const simpanKjvd = () => {
             var data = $('#kepatuhan-jam-visit-dokter-form').serializeArray();

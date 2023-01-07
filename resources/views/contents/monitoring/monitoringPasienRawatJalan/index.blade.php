@@ -30,6 +30,7 @@
 </div>
 @endsection
 
+@include('contents.monitoring.jsMonitoring')
 @include('contents.monitoring.monitoringPasienRawatJalan.js')
 @include('contents.monitoring.monitoringPasien.js.jsKepatuhanIndentifikasi')
-@include('contents.monitoring.monitoringPasien.js.jsEmergencyResponTime')
+@include('contents.monitoring.monitoringPasien.js.jsWaktuTungguRawatJalan')
